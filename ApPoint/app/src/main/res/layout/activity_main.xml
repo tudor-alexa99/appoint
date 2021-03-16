@@ -15,4 +15,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ellipse_1" />
+
+    <include layout="@layout/toolbar"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
