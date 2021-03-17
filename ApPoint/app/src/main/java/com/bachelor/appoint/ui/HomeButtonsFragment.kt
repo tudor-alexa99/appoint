@@ -47,7 +47,7 @@ class HomeButtonsFragment : Fragment() {
 
         appointmentsButton.setOnClickListener { view -> navigateMyAppointmens(view) }
         businessButton.setOnClickListener { view -> navigateBusiness(view) }
-        appointmentsButton.setOnClickListener { view -> navigateMyAppointmens(view) }
+        reportButton.setOnClickListener { view -> navigateReport(view) }
         return view
     }
 
@@ -83,18 +83,18 @@ class HomeButtonsFragment : Fragment() {
     fun navigateMyAppointmens(view: View) {
         val intent = Intent(activity, MyAppointmentsActivity::class.java)
         activity?.startActivity(intent)
-        activity?.finish()
+//        activity?.finish()
     }
 
     fun navigateBusiness(view: View) {
         val intent = Intent(activity, BusinessActivity::class.java)
         activity?.startActivity(intent)
-        activity?.finish()
+//        activity?.finish()
     }
 
     fun navigateReport(view: View) {
         val intent = Intent(activity, ReportActivity::class.java)
         activity?.startActivity(intent)
-        activity?.finish()
+//        activity?.finish()
     }
 }
