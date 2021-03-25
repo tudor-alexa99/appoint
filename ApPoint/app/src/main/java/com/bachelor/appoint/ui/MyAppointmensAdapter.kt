@@ -4,10 +4,12 @@ import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.bachelor.appoint.data.appointmentsList
 import com.bachelor.appoint.databinding.AppointmentsRowBinding
 import com.bachelor.appoint.model.Appointment
+import com.bachelor.appoint.viewModel.AppointmentsViewModel
 
 class MyAppointmensAdapter(
     private val context: Context,
@@ -23,6 +25,7 @@ class MyAppointmensAdapter(
 
     override fun onBindViewHolder(holder: AppointmentsViewHolder, position: Int) {
         holder.binding.appoitmentCard.setOnClickListener{Log.d("tag", "clicked")}
+
     }
 
     override fun getItemCount(): Int {

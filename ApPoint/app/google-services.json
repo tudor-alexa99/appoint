@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "771507679337",
+    "project_id": "appoint-android",
+    "storage_bucket": "appoint-android.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:771507679337:android:8cfcdd15afe30f9f1d32f8",
+        "android_client_info": {
+          "package_name": "com.bachelor.appoint"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "771507679337-2lfk8oj60jku2d26pg0ij5om4aqfvci0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDLg3Yca-Zq6gjiokQywXUcj9kAX0lbrbE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "771507679337-2lfk8oj60jku2d26pg0ij5om4aqfvci0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
