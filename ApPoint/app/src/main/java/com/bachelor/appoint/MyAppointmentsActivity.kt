@@ -12,6 +12,7 @@ import com.bachelor.appoint.data.appointmentsList
 import com.bachelor.appoint.model.Appointment
 import com.bachelor.appoint.ui.MyAppointmensAdapter
 import com.bachelor.appoint.viewModel.AppointmentsViewModel
+import com.google.firebase.database.DataSnapshot
 
 class MyAppointmentsActivity : AppCompatActivity() {
     private lateinit var appointmensAdapter: MyAppointmensAdapter
@@ -21,10 +22,11 @@ class MyAppointmentsActivity : AppCompatActivity() {
 
         val appointmentsViewModel: AppointmentsViewModel by viewModels()
 //        appointmentsViewModel = ViewModelProvider(this).get(AppointmentsViewModel::class.java)
-        appointmentsViewModel.saveAppointment()
+        appointmentsViewModel.initialiseDbRef()
+//        appointmentsViewModel.saveAppointment()
         setContentView(R.layout.activity_my_appointments)
 
-        appointmensAdapter = MyAppointmensAdapter(this, appointmentsList)
+        appointmensAdapter = MyAppointmensAdapter(this, appointmentsViewModel.getData())
 
         var recyclerView = findViewById<RecyclerView>(R.id.my_appointments_recycler_view)
 

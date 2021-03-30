@@ -7,14 +7,14 @@ val appointmentsList: MutableList<Appointment> = mutableListOf(
     Appointment(
         "App 1",
         "Danny's Barbershop",
-        LocalTime.of(10,30,0),
+        "10:15:00",
         false
     ),
 
     Appointment(
         "app 2",
         "MetroSystems",
-        LocalTime.of(20,0,0),
+        "10:15:00",
         false
     ),
 
