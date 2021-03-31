@@ -40,19 +40,20 @@ class AppointmentsViewModel() : ViewModel() {
 
                 })
         }
-        Log.d("appointments", liveAppointments.value.toString())
+        Log.d("liveAppointments", liveAppointments.toString())
         return liveAppointments
     }
 
     private fun toAppointments(snapshot: DataSnapshot): List<Appointment>? {
-        var appointmentsList = mutableListOf<Appointment>()
+        val appointmentsList = mutableListOf<Appointment>()
         for (ds in snapshot.children) {
+            Log.d("Current DS", ds.child("place").toString())
            appointmentsList.add(
                Appointment(
-                   ds.child("id").toString(),
-                   ds.child("place").toString(),
-                   ds.child("startTime").toString(),
-                   ds.child("completed").toString().toBoolean()
+                   ds.child("id").value.toString(),
+                   ds.child("place").value.toString(),
+                   ds.child("startTime").value.toString(),
+                   ds.child("completed").value.toString().toBoolean()
                )
            )
         }

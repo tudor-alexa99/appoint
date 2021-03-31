@@ -20,7 +20,7 @@
         android:id="@+id/my_appointments_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="350dp"
-        android:layout_margin="@dimen/spacing_normal"
+        android:layout_margin="@dimen/spacing_large"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -28,13 +28,17 @@
         app:layout_constraintVertical_bias="1.0" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/tv_title"
         style="@style/TextAppearance.MaterialComponents.Headline4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:layout_marginBottom="76dp"
+        android:padding="@dimen/spacing_small"
         android:text="@string/my_appointments"
         app:layout_constraintBottom_toTopOf="@+id/my_appointments_recycler_view"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.097" />
 </androidx.constraintlayout.widget.ConstraintLayout>
