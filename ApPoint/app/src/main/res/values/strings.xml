@@ -1,9 +1,17 @@
 <resources>
     <string name="app_name">ApPoint</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="my_appointments">My appointments</string>
     <string name="business">Business</string>
     <string name="Report">Report contact or contamination</string>
     <string name="maps">Show map</string>
+
+    <!--    Login / Register-->
+    <string name="login">Login</string>
+    <string name="register">Register</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+
 </resources>
