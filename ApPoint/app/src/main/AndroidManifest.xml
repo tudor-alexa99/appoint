@@ -9,7 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ApPoint">
-        <activity android:name=".ReportActivity"></activity>
+        <activity
+            android:name=".LoginActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity android:name=".ReportActivity" />
         <activity android:name=".BusinessActivity" />
         <activity android:name=".MyAppointmentsActivity" />
         <activity android:name=".MainActivity">
