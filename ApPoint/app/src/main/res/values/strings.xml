@@ -16,5 +16,7 @@
     <string name="date">Date</string>
     <string name="full_name">Full Name</string>
     <string name="birthday">Birthday</string>
+    <string name="go_to_register">Already have an account? Register</string>
+    <string name="go_to_login">Already have  an account? Login</string>
 
 </resources>
