@@ -3,6 +3,7 @@ package com.bachelor.appoint.data
 import android.util.Log
 import com.bachelor.appoint.RegisterActivity
 import com.bachelor.appoint.model.User
+import com.bachelor.appoint.utils.Constants
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
@@ -15,7 +16,7 @@ class FirestoreClass {
         // Save the newly created user in the database
 
         // Collection = "users"
-        firestoreAdapter.collection("users")
+        firestoreAdapter.collection(Constants.USERS)
             .document(userInfo.id)
             .set(userInfo, SetOptions.merge())
             .addOnSuccessListener {
