@@ -9,8 +9,10 @@ import android.util.Log
 import android.view.WindowInsets
 import android.view.WindowManager
 import android.widget.Toast
+import com.bachelor.appoint.data.FirestoreClass
 import com.bachelor.appoint.databinding.ActivityLoginBinding
 import com.bachelor.appoint.databinding.ActivityRegisterBinding
+import com.bachelor.appoint.model.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import java.util.*
@@ -103,12 +105,16 @@ class RegisterActivity : AppCompatActivity() {
                                 // Firebase registered user
                                 val firebaseUser: FirebaseUser = task.result!!.user!!
 
-                                Toast.makeText(
-                                    this@RegisterActivity,
-                                    "You have registered successfully!",
-                                    Toast.LENGTH_SHORT
-                                ).show()
+                                val user = User(
+                                    firebaseUser.uid,
+                                    fullName,
+                                    email,
+                                    birthday
+                                )
 
+                                FirestoreClass().registerUser(this@RegisterActivity, user)
+
+                                // Start the main activity
                                 val intent =
                                     Intent(this@RegisterActivity, MainActivity::class.java)
                                 intent.flags =
@@ -130,5 +136,13 @@ class RegisterActivity : AppCompatActivity() {
 
         }
 
+    }
+
+    fun userRegistrationSuccess() {
+        Toast.makeText(
+            this@RegisterActivity,
+            "You have registered successfully!",
+            Toast.LENGTH_SHORT
+        ).show()
     }
 }
