@@ -51,6 +51,7 @@ class RegisterActivity : AppCompatActivity() {
         val et_password = binding.etRegisterPassword
 
         binding.btnRegister.setOnClickListener {
+            // Validate fields
             when {
                 // Fullname
                 TextUtils.isEmpty(et_name.text.toString().trim { it <= ' ' }) -> {
