@@ -1,14 +1,14 @@
 <resources>
     <string name="app_name">ApPoint</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
+    <!--    Main  -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="my_appointments">My appointments</string>
     <string name="business">Business</string>
     <string name="Report">Report contact or contamination</string>
     <string name="maps">Show map</string>
 
-    <!--    Login / Register-->
+    <!--    Login / Register -->
     <string name="login">Login</string>
     <string name="register">Register</string>
     <string name="email">Email</string>
@@ -19,7 +19,12 @@
     <string name="go_to_register">Already have an account? Register</string>
     <string name="go_to_login">Already have  an account? Login</string>
 
-    <!--    Business    -->
+    <!--    Business -->
     <string name="add_business_button">Add business button</string>
+    <string name="company_name">Company name</string>
+    <string name="address">Address</string>
+    <string name="phone_number">Phone number</string>
+    <string name="save">Save</string>
+    <string name="type">Business Type</string>
 
 </resources>

@@ -4,20 +4,25 @@ import android.app.Activity
 import android.content.Context
 import android.content.SharedPreferences
 import android.util.Log
+import com.bachelor.appoint.BusinessActivity
 import com.bachelor.appoint.LoginActivity
 import com.bachelor.appoint.RegisterActivity
+import com.bachelor.appoint.model.Business
 import com.bachelor.appoint.model.User
 import com.bachelor.appoint.utils.Constants
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
 import java.net.ContentHandler
+import java.net.Inet4Address
 
 class FirestoreClass {
 
     private val firestoreAdapter = FirebaseFirestore.getInstance()
 
-    fun registerUser(activity: RegisterActivity, userInfo: User){
+//    Login and Register
+
+    fun registerUser(activity: RegisterActivity, userInfo: User) {
         // Save the newly created user in the database
 
         // Collection = "users"
@@ -28,8 +33,8 @@ class FirestoreClass {
 
                 activity.userRegistrationSuccess()
             }
-            .addOnFailureListener {
-                e -> Log.e("Register User Firestore", e.toString())
+            .addOnFailureListener { e ->
+                Log.e("Register User Firestore", e.toString())
             }
     }
 
@@ -39,7 +44,7 @@ class FirestoreClass {
 
         // A variable to assign the currentUserId if it is not null or else it will be blank.
         var currentUserID = ""
-        if(currentUser != null)
+        if (currentUser != null)
             currentUserID = currentUser.uid
         return currentUserID
     }
@@ -78,5 +83,27 @@ class FirestoreClass {
                     }
                 }
             }
+    }
+
+//    Business
+
+    fun addBusiness(activity: BusinessActivity, name: String, address: String, phone: String, type: String) {
+        // Test function for adding a business
+
+//        val mockBusiness = Business("123", "Name")
+
+        val business: Business = Business(getCurrentUserID(), name, address, phone, type)
+        // Collection = "business"
+        firestoreAdapter.collection(Constants.BUSINESSES)
+            .add(business)
+            .addOnSuccessListener { documentReference ->
+                // Add the id
+                    documentReference.update("id", documentReference.id)
+                activity.addBusinessSuccess()
+            }
+            .addOnFailureListener { e ->
+                Log.e("Add Business", e.toString())
+            }
+
     }
 }
