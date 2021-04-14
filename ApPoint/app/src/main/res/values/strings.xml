@@ -19,4 +19,7 @@
     <string name="go_to_register">Already have an account? Register</string>
     <string name="go_to_login">Already have  an account? Login</string>
 
+    <!--    Business    -->
+    <string name="add_business_button">Add business button</string>
+
 </resources>
