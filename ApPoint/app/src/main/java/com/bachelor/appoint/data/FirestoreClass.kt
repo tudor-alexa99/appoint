@@ -10,6 +10,7 @@ import com.bachelor.appoint.RegisterActivity
 import com.bachelor.appoint.model.Business
 import com.bachelor.appoint.model.User
 import com.bachelor.appoint.utils.Constants
+import com.bachelor.appoint.viewModel.BusinessesViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
@@ -19,6 +20,7 @@ import java.net.Inet4Address
 class FirestoreClass {
 
     private val firestoreAdapter = FirebaseFirestore.getInstance()
+    private lateinit var currentUserID: String
 
 //    Login and Register
 
@@ -39,11 +41,14 @@ class FirestoreClass {
     }
 
     fun getCurrentUserID(): String {
+        // Check if it is already saved
+        if (this::currentUserID.isInitialized)
+            return currentUserID
+
         // An Instance of currentUser using FirebaseAuth
         val currentUser = FirebaseAuth.getInstance().currentUser
 
         // A variable to assign the currentUserId if it is not null or else it will be blank.
-        var currentUserID = ""
         if (currentUser != null)
             currentUserID = currentUser.uid
         return currentUserID
@@ -87,23 +92,76 @@ class FirestoreClass {
 
 //    Business
 
-    fun addBusiness(activity: BusinessActivity, name: String, address: String, phone: String, type: String) {
+    fun addBusiness(
+        activity: BusinessActivity,
+        name: String,
+        address: String,
+        phone: String,
+        type: String
+    ) {
         // Test function for adding a business
 
-//        val mockBusiness = Business("123", "Name")
+        val business = Business(getCurrentUserID(), name, address, phone, type)
 
-        val business: Business = Business(getCurrentUserID(), name, address, phone, type)
         // Collection = "business"
         firestoreAdapter.collection(Constants.BUSINESSES)
             .add(business)
             .addOnSuccessListener { documentReference ->
                 // Add the id
-                    documentReference.update("id", documentReference.id)
-                activity.addBusinessSuccess()
+                documentReference.update("id", documentReference.id)
+
+                // Add the business id to the user
+                firestoreAdapter.collection(Constants.USERS)
+                    .document(getCurrentUserID())
+                    .collection(Constants.BUSINESSES)
+                    .document(documentReference.id)
+                    .set(mapOf(documentReference.id to business.name), SetOptions.merge())
+                    .addOnSuccessListener {
+                        activity.addBusinessSuccess()
+                    }
+                    .addOnFailureListener { e ->
+                        Log.e("Add Business", e.toString())
+                    }
             }
-            .addOnFailureListener { e ->
-                Log.e("Add Business", e.toString())
+    }
+
+    fun retrieveBusinesses(activity: Activity) {
+        firestoreAdapter.collection(Constants.BUSINESSES)
+            .whereEqualTo(Constants.ADMIN_ID, getCurrentUserID())
+            .get()
+            .addOnSuccessListener { document ->
+                Log.d(activity.javaClass.simpleName, document.documents.toString())
+                val list: ArrayList<Business> = ArrayList()
+
+                for (d in document.documents) {
+
+                    val business = d.toObject(Business::class.java)!!
+                    list.add(business)
+                }
+
+                when (activity) {
+                    is BusinessActivity -> {
+                        activity.successRetrieveBusinesses(list)
+                    }
+                }
             }
+            .addOnFailureListener {
+                Log.e(activity.javaClass.simpleName, "Error while retrieving the businesses")
+            }
+
+
+        // First, get the id's for the businesses
+//        var businessIDList: MutableList<String>()
+//        firestoreAdapter.collection(Constants.USERS)
+//            .document(getCurrentUserID())
+//            .collection(Constants.BUSINESSES)
+//            .get()
+//            .addOnSuccessListener { querySnapshot ->
+//                querySnapshot.documents.map { doc ->
+//                    doc.data
+//                    businessIDList = doc.data.keys.
+//                }
+//            }
 
     }
 }

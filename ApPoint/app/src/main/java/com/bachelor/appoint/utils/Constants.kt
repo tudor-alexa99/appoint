@@ -5,4 +5,5 @@ object Constants {
     const val BUSINESSES: String = "businesses"
     const val PREFERENCES: String = "MyPreferences"
     const val LOGGED_IN_USERNAME: String = "logged_in_username"
+    const val ADMIN_ID: String = "adminId"
 }

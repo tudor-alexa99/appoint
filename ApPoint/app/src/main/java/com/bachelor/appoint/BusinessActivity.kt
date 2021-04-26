@@ -9,7 +9,9 @@ import androidx.appcompat.app.AlertDialog
 import com.bachelor.appoint.data.FirestoreClass
 import com.bachelor.appoint.databinding.ActivityBusinessBinding
 import com.bachelor.appoint.databinding.FragmentAddBusinessAlertBinding
+import com.bachelor.appoint.model.Business
 import com.bachelor.appoint.ui.AddBusinessAlertFragment
+import com.google.firebase.firestore.ktx.firestoreSettings
 
 class BusinessActivity : AppCompatActivity() {
     private lateinit var binding: ActivityBusinessBinding
@@ -22,6 +24,8 @@ class BusinessActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
+        getBusinessList()
+
         // Add business button
         binding.btnAddBusiness.setOnClickListener {
             print("Button clicked")
@@ -30,6 +34,13 @@ class BusinessActivity : AppCompatActivity() {
         }
 
     }
+
+    override fun onResume() {
+        super.onResume()
+        getBusinessList()
+    }
+
+    // ADD
 
     fun openAlertDialog() {
         val builder = AlertDialog.Builder(this)
@@ -59,4 +70,16 @@ class BusinessActivity : AppCompatActivity() {
         Toast.makeText(applicationContext,
             "Business added!", Toast.LENGTH_LONG).show()
     }
+
+    // READ
+
+    private fun getBusinessList() {
+        FirestoreClass().retrieveBusinesses(this)
+    }
+
+    fun successRetrieveBusinesses(businessList: ArrayList<Business>) {
+        for (i in businessList)
+            Log.i("Business list item", i.name)
+    }
+
 }

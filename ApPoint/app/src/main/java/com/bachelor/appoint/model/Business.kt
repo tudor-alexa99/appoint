@@ -6,5 +6,5 @@ class Business(
     val location: String = "",
     val phoneNumber: String = "",
     val type: String = "",
-    val id: String = "",
+    var id: String = "",
 )
