@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.bachelor.appoint.adapters.BusinessListAdapter
 import com.bachelor.appoint.data.FirestoreClass
 import com.bachelor.appoint.databinding.ActivityBusinessBinding
 import com.bachelor.appoint.databinding.FragmentAddBusinessAlertBinding
@@ -15,6 +17,8 @@ import com.google.firebase.firestore.ktx.firestoreSettings
 
 class BusinessActivity : AppCompatActivity() {
     private lateinit var binding: ActivityBusinessBinding
+    private lateinit var businessAdapter: BusinessListAdapter
+    private lateinit var businessList: ArrayList<Business>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -80,6 +84,16 @@ class BusinessActivity : AppCompatActivity() {
     fun successRetrieveBusinesses(businessList: ArrayList<Business>) {
         for (i in businessList)
             Log.i("Business list item", i.name)
+        this.businessList = businessList
+
+        // Set the recycler view as well
+        businessAdapter = BusinessListAdapter(this, businessList)
+
+        var recyclerView = binding.rvBusiness
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.setHasFixedSize(true)
+        recyclerView.adapter = businessAdapter
+
     }
 
 }

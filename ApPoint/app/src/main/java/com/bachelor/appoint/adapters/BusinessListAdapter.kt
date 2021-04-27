@@ -2,31 +2,45 @@ package com.bachelor.appoint.adapters
 
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.TextureView
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bachelor.appoint.R
+import com.bachelor.appoint.databinding.CardBusinessBinding
 import com.bachelor.appoint.model.Business
 import kotlin.contracts.Returns
 
 open class BusinessListAdapter(
     private val context: Context,
-    private val list: ArrayList<Business>
-) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    private val list: ArrayList<Business>,
+
+    ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    class BusinessViewHolder(val binding: CardBusinessBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        val tv_title: TextView = binding.tvBusinessCardTitle
+        val tv_address: TextView = binding.tvAddress
+        val tv_phone: TextView = binding.tvBusinessPhoneNo
+        val tv_type: TextView = binding.tvBusinessType
+
+        fun bindView(business: Business) {
+            tv_title.text = business.name
+            tv_address.text = business.location
+            tv_phone.text = business.phoneNumber
+            tv_type.text = business.type
+        }
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return BusinessViewHolder(
-            LayoutInflater.from(context).inflate(
-                R.layout.card_business,
-                parent,
-                false
-            )
+            CardBusinessBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         )
-     }
+    }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val model = list[position]
-        if (holder is BusinessViewHolder){
-
+        if (holder is BusinessViewHolder) {
+            holder.bindView(list[position])
         }
     }
 
@@ -34,5 +48,4 @@ open class BusinessListAdapter(
         return list.size
     }
 
-    private class BusinessViewHolder(view: View): RecyclerView.ViewHolder(view)
 }
