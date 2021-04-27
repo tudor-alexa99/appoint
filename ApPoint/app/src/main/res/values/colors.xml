@@ -9,4 +9,19 @@
     <color name="white">#FFFFFFFF</color>
     <color name="teal">#AADCCA</color>
     <color name="light_tomato">#EF9A9A</color>
+
+    <!--    Business  -->
+    <color name="business_dark">#3B354E</color>
+    <color name="business_medium">#B3A5C4</color>
+    <color name="business_light">#DDE4EE</color>
+    <color name="business_background">#F6F4EB</color>
+    <color name="business_accent">#D34A2E</color>
+
+    <!--    Appointments  -->
+    <color name="appointments_dark">#227F83</color>
+    <color name="appointments_medium">#85C7B5</color>
+    <color name="appointments_light">#CBEADE</color>
+    <color name="appointments_background">#F6F4EB</color>
+    <color name="appointments_accent">#7E2559</color>
+
 </resources>

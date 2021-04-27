@@ -6,7 +6,7 @@ import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.bachelor.appoint.ui.MyAppointmensAdapter
+import com.bachelor.appoint.adapters.MyAppointmensAdapter
 import com.bachelor.appoint.viewModel.AppointmentsViewModel
 
 class MyAppointmentsActivity : AppCompatActivity() {
