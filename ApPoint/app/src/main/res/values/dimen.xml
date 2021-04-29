@@ -11,12 +11,16 @@
 
     <dimen name="login_register_title_text_size">35sp</dimen>
 
-    <dimen name="title_textSize">18sp</dimen>
+    <dimen name="title_small_textSize">18sp</dimen>
+    <dimen name="title_medium_textSize">22sp</dimen>
+    <dimen name="title_large_textSize">28sp</dimen>
     <dimen name="et_textSize">16sp</dimen>
     <dimen name="et_padding">16dp</dimen>
     <dimen name="lbl_text_view_textSize">16sp</dimen>
 
     <dimen name="card_padding_start_end">16dp</dimen>
     <dimen name="card_padding_top_bottom">12dp</dimen>
+    <dimen name="card_margin">8dp</dimen>
+    <dimen name="card_inside_padding">3dp</dimen>
 
 </resources>
