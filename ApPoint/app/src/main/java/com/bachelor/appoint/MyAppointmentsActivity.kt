@@ -7,6 +7,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bachelor.appoint.adapters.MyAppointmensAdapter
+import com.bachelor.appoint.model.Appointment
 import com.bachelor.appoint.viewModel.AppointmentsViewModel
 
 class MyAppointmentsActivity : AppCompatActivity() {
@@ -16,9 +17,6 @@ class MyAppointmentsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         val appointmentsViewModel: AppointmentsViewModel by viewModels()
-//        appointmentsViewModel = ViewModelProvider(this).get(AppointmentsViewModel::class.java)
-//        appointmentsViewModel.initialiseDbRef()
-//        appointmentsViewModel.saveAppointment()
         setContentView(R.layout.activity_my_appointments)
 
         appointmentsAdapter = MyAppointmensAdapter(this, mutableListOf())
@@ -27,6 +25,8 @@ class MyAppointmentsActivity : AppCompatActivity() {
             appointmentsAdapter.setAppointments(appointments)
         })
 
+        appointmentsViewModel.addMockAppointment()
+
         appointmentsViewModel.getAppointments()
 
         var recyclerView = findViewById<RecyclerView>(R.id.my_appointments_recycler_view)
@@ -34,10 +34,6 @@ class MyAppointmentsActivity : AppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.setHasFixedSize(true)
         recyclerView.adapter = appointmentsAdapter
-
-//        appointmentsViewModel = ViewModelProvider(this).get(AppointmentsViewModel::class.java)
-//        appointmentsViewModel.getAppointmentsList().observe(this, Observer<List<Appointment>>() {
-//        })
     }
 
     override fun onResume() {
@@ -49,5 +45,9 @@ class MyAppointmentsActivity : AppCompatActivity() {
             appointmentsAdapter.setAppointments(appointments)
         })
 
+    }
+
+    fun successRetrieveAppointemnts(list: ArrayList<Appointment>) {
+        appointmentsAdapter.setAppointments(list)
     }
 }

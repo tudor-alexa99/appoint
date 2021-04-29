@@ -7,15 +7,14 @@ import android.util.Log
 import com.bachelor.appoint.BusinessActivity
 import com.bachelor.appoint.LoginActivity
 import com.bachelor.appoint.RegisterActivity
+import com.bachelor.appoint.model.Appointment
 import com.bachelor.appoint.model.Business
 import com.bachelor.appoint.model.User
 import com.bachelor.appoint.utils.Constants
-import com.bachelor.appoint.viewModel.BusinessesViewModel
+import com.bachelor.appoint.viewModel.AppointmentsViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
-import java.net.ContentHandler
-import java.net.Inet4Address
 
 class FirestoreClass {
 
@@ -90,6 +89,59 @@ class FirestoreClass {
             }
     }
 
+    //    Appointments
+    fun addAppointment(
+        viewModel: AppointmentsViewModel,
+        startTime: String,
+        businessId: String,
+        businessName: String
+    ) {
+
+        // Create the model object
+        val appointment =
+            Appointment("", getCurrentUserID(), businessId, startTime, businessName, false)
+
+        // Collection = appointments
+
+        firestoreAdapter.collection(Constants.APPOINTMENTS)
+            .add(appointment)
+            .addOnSuccessListener { documentReference ->
+                // Add the id field
+                documentReference.update("id", documentReference.id)
+                print("Add appointment with id + ${documentReference.id}")
+            }
+            .addOnFailureListener { e ->
+                Log.e("Add appointment", e.toString())
+            }
+    }
+
+    fun retrieveUserAppointments(viewModel: AppointmentsViewModel) {
+//        Method that retrieves all the appointments of the current user
+
+        firestoreAdapter.collection(Constants.APPOINTMENTS)
+            .whereEqualTo("u_id", getCurrentUserID())
+            .get()
+            .addOnSuccessListener { document ->
+                Log.d(viewModel.javaClass.simpleName, document.documents.toString())
+                val list: ArrayList<Appointment> = ArrayList()
+
+                for (d in document.documents) {
+
+                    val appointment = d.toObject(Appointment::class.java)!!
+                    list.add(appointment)
+                }
+
+                when (viewModel) {
+                    is AppointmentsViewModel -> {
+                        viewModel.successRetrieveAppointments(list)
+                    }
+                }
+            }
+            .addOnFailureListener {
+                Log.e(viewModel.javaClass.simpleName, "Error while retrieving the appointments")
+            }
+
+    }
 //    Business
 
     fun addBusiness(
@@ -148,20 +200,6 @@ class FirestoreClass {
             .addOnFailureListener {
                 Log.e(activity.javaClass.simpleName, "Error while retrieving the businesses")
             }
-
-
-        // First, get the id's for the businesses
-//        var businessIDList: MutableList<String>()
-//        firestoreAdapter.collection(Constants.USERS)
-//            .document(getCurrentUserID())
-//            .collection(Constants.BUSINESSES)
-//            .get()
-//            .addOnSuccessListener { querySnapshot ->
-//                querySnapshot.documents.map { doc ->
-//                    doc.data
-//                    businessIDList = doc.data.keys.
-//                }
-//            }
 
     }
 }

@@ -5,6 +5,8 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.bachelor.appoint.MyAppointmentsActivity
+import com.bachelor.appoint.data.FirestoreClass
 import com.bachelor.appoint.model.Appointment
 import com.google.firebase.database.*
 import com.google.firebase.database.ktx.database
@@ -19,93 +21,106 @@ class AppointmentsViewModel() : ViewModel() {
     var liveAppointments: MutableLiveData<List<Appointment>> = MutableLiveData()
 
     fun getAppointments() : LiveData<List<Appointment>> {
-        if(liveAppointments.value == null) {
-            FirebaseDatabase.getInstance()
-                .getReference("appointments")
-                .addListenerForSingleValueEvent(object : ValueEventListener {
-                    override fun onDataChange(snapshot: DataSnapshot) {
-                        if (snapshot.exists()) {
-                            Log.d("onDataChange", snapshot.toString())
+//        if(liveAppointments.value == null) {
+//            FirebaseDatabase.getInstance()
+//                .getReference("appointments")
+//                .addListenerForSingleValueEvent(object : ValueEventListener {
+//                    override fun onDataChange(snapshot: DataSnapshot) {
+//                        if (snapshot.exists()) {
+//                            Log.d("onDataChange", snapshot.toString())
 //                            liveAppointments.value = toAppointments(snapshot)
-                            liveAppointments.postValue(toAppointments(snapshot))
-                        }
-                    }
-
-
-                    override fun onCancelled(error: DatabaseError) {
-                        Log.e("onCancelled", error.message)
-
-                        TODO("Not yet implemented")
-                    }
-
-                })
+//                            liveAppointments.postValue(toAppointments(snapshot))
+//                        }
+//                    }
+//
+//
+//                    override fun onCancelled(error: DatabaseError) {
+//                        Log.e("onCancelled", error.message)
+//
+//                        TODO("Not yet implemented")
+//                    }
+//
+//                })
+//        }
+        if (liveAppointments.value == null) {
+            FirestoreClass().retrieveUserAppointments(this)
         }
+
         Log.d("liveAppointments", liveAppointments.toString())
         return liveAppointments
     }
 
-    private fun toAppointments(snapshot: DataSnapshot): List<Appointment>? {
-        val appointmentsList = mutableListOf<Appointment>()
-        for (ds in snapshot.children) {
-            Log.d("Current DS", ds.child("place").toString())
-           appointmentsList.add(
-               Appointment(
-                   ds.child("id").value.toString(),
-                   ds.child("place").value.toString(),
-                   ds.child("startTime").value.toString(),
-                   ds.child("completed").value.toString().toBoolean()
-               )
-           )
-        }
-
-        Log.d("toAppointments", appointmentsList.toString())
-        return appointmentsList
+    fun successRetrieveAppointments(list: ArrayList<Appointment>) {
+        liveAppointments.value = list
+        liveAppointments.postValue(list)
     }
 
-    fun initialiseDbRef() {
-        reference = Firebase.database.getReference("appointments")
-        reference.addValueEventListener(appointmentListener)
-        appointmentList = mutableListOf()
+    fun addMockAppointment() {
+        FirestoreClass().addAppointment(this, "11:30", "unSS8p2PAUff9zuuJQIF", "Textila")
     }
 
-    val appointmentListener = object : ValueEventListener {
-        override fun onDataChange(snapshot: DataSnapshot) {
-            Log.d("Snapshot", snapshot.toString())
-            appointmentList.add(
-                Appointment(
-                    snapshot.child("id").toString(),
-                    snapshot.child("place").toString(),
-                    snapshot.child("startTime").toString(),
-                    snapshot.child("completed").toString().toBoolean()
-                )
-            )
-        }
+//    private fun toAppointments(snapshot: DataSnapshot): List<Appointment>? {
+//        val appointmentsList = mutableListOf<Appointment>()
+//        for (ds in snapshot.children) {
+//            Log.d("Current DS", ds.child("place").toString())
+//           appointmentsList.add(
+//               Appointment(
+//                   ds.child("id").value.toString(),
+//                   ds.child("place").value.toString(),
+//                   ds.child("startTime").value.toString(),
+//                   ds.child("completed").value.toString().toBoolean()
+//               )
+//           )
+//        }
+//
+//        Log.d("toAppointments", appointmentsList.toString())
+//        return appointmentsList
+//    }
 
-        override fun onCancelled(error: DatabaseError) {
-            Log.w(TAG, "loadPost:onCancelled", error.toException())
-        }
-    }
+//    fun initialiseDbRef() {
+//        reference = Firebase.database.getReference("appointments")
+//        reference.addValueEventListener(appointmentListener)
+//        appointmentList = mutableListOf()
+//    }
 
+//    val appointmentListener = object : ValueEventListener {
+//        override fun onDataChange(snapshot: DataSnapshot) {
+//            Log.d("Snapshot", snapshot.toString())
+//            appointmentList.add(
+//                Appointment(
+//                    snapshot.child("id").toString(),
+//                    snapshot.child("place").toString(),
+//                    snapshot.child("startTime").toString(),
+//                    snapshot.child("completed").toString().toBoolean()
+//                )
+//            )
+//        }
+//
+//        override fun onCancelled(error: DatabaseError) {
+//            Log.w(TAG, "loadPost:onCancelled", error.toException())
+//        }
+//    }
+//
 
-    fun getData(): MutableList<Appointment> {
-        Log.d("getData", appointmentList.toString())
-        return appointmentList
-    }
+//    fun getData(): MutableList<Appointment> {
+//        Log.d("getData", appointmentList.toString())
+//        return appointmentList
+//    }
 
-    fun saveAppointment() {
-        val appointmentId = reference.push().key
-
-        val testAppointment = Appointment(
-            appointmentId,
-            "MetroSystems",
-            "12:00:00",
-            false
-        )
-
-        if (appointmentId != null) {
-            reference.child(appointmentId).setValue(testAppointment)
-        }
-    }
+//    fun saveAppointment() {
+//        val appointmentId = reference.push().key
+//
+//        val testAppointment = Appointment(
+//            appointmentId,
+//            "MetroSystems",
+//            "12:00:00",
+//            false
+//        )
+//
+//        if (appointmentId != null) {
+//            reference.child(appointmentId).setValue(testAppointment)
+//        }
+//    }
 
 //
 }

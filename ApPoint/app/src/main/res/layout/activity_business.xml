@@ -22,14 +22,17 @@
         android:id="@+id/sv_business"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:maxHeight="720dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        android:foregroundGravity="bottom"
         app:layout_constraintStart_toStartOf="parent">
 
         <LinearLayout
             android:id="@+id/ll_business"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="bottom"
             android:orientation="vertical">
 
             <androidx.recyclerview.widget.RecyclerView

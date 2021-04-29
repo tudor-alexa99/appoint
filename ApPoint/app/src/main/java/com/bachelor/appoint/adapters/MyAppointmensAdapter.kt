@@ -20,7 +20,7 @@ class MyAppointmensAdapter(
         val tv_startTime: TextView = binding.root.findViewById(R.id.tv_startTime)
 
         fun bindView(appointment: Appointment) {
-            tv_place.text = appointment.place
+            tv_place.text = appointment.business
             tv_startTime.text = appointment.startTime
         }
 
