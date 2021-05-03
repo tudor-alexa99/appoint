@@ -1,6 +1,11 @@
 <resources>
     <string name="app_name">ApPoint</string>
 
+    <!--    General-->
+    <string name="confirm">Confirm</string>
+    <string name="cancel">Cancel</string>
+
+
     <!--    Main  -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="my_appointments">My appointments</string>
@@ -28,5 +33,7 @@
     <string name="type">Business Type</string>
     <string name="show_places">Show Places</string>
     <string name="all_places">All available places</string>
+    <string name="about_business">About Business</string>
+    <string name="choose_a_time">Choose a date and a time</string>
 
 </resources>
