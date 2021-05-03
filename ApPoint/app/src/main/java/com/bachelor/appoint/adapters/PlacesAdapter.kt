@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bachelor.appoint.databinding.CardBusinessBinding
+import com.bachelor.appoint.databinding.CardPlaceBinding
 import com.bachelor.appoint.model.Business
 
 class PlacesAdapter(
@@ -13,9 +14,9 @@ class PlacesAdapter(
     private val list: ArrayList<Business>,
 
     ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    class PlacesViewHolder(val binding: CardBusinessBinding) :
+    class PlacesViewHolder(val binding: CardPlaceBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        val tv_title: TextView = binding.tvBusinessCardTitle
+        val tv_title: TextView = binding.tvPlaceCardTitle
         val tv_address: TextView = binding.tvAddress
         val tv_phone: TextView = binding.tvBusinessPhoneNo
         val tv_type: TextView = binding.tvBusinessType
@@ -30,7 +31,7 @@ class PlacesAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return PlacesViewHolder(
-            CardBusinessBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            CardPlaceBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         )
     }
 
