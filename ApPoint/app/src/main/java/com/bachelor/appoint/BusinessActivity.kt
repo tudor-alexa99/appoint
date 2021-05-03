@@ -28,6 +28,7 @@ class BusinessActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
+        // Retrieve the list
         getBusinessList()
 
         // Add business button

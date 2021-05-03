@@ -6,6 +6,7 @@ import android.content.SharedPreferences
 import android.util.Log
 import com.bachelor.appoint.BusinessActivity
 import com.bachelor.appoint.LoginActivity
+import com.bachelor.appoint.PlacesActivity
 import com.bachelor.appoint.RegisterActivity
 import com.bachelor.appoint.model.Appointment
 import com.bachelor.appoint.model.Business
@@ -178,28 +179,56 @@ class FirestoreClass {
     }
 
     fun retrieveBusinesses(activity: Activity) {
-        firestoreAdapter.collection(Constants.BUSINESSES)
-            .whereEqualTo(Constants.ADMIN_ID, getCurrentUserID())
-            .get()
-            .addOnSuccessListener { document ->
-                Log.d(activity.javaClass.simpleName, document.documents.toString())
-                val list: ArrayList<Business> = ArrayList()
+        // Method that retrieves the business list
+        when (activity) {
+            // When called from Business Activity, retrieve only the list for the current user
+            is BusinessActivity -> {
+                firestoreAdapter.collection(Constants.BUSINESSES)
+                    .whereEqualTo(Constants.ADMIN_ID, getCurrentUserID())
+                    .get()
+                    .addOnSuccessListener { document ->
+                        Log.d(activity.javaClass.simpleName, document.documents.toString())
+                        val list: ArrayList<Business> = ArrayList()
 
-                for (d in document.documents) {
+                        for (d in document.documents) {
 
-                    val business = d.toObject(Business::class.java)!!
-                    list.add(business)
-                }
+                            val business = d.toObject(Business::class.java)!!
+                            list.add(business)
+                        }
 
-                when (activity) {
-                    is BusinessActivity -> {
                         activity.successRetrieveBusinesses(list)
                     }
+                    .addOnFailureListener {
+                        Log.e(
+                            activity.javaClass.simpleName,
+                            "Error while retrieving the businesses"
+                        )
+                    }
                 }
+
+            // When called from Places Activity, retrieve all the available places
+            is PlacesActivity -> {
+                firestoreAdapter.collection(Constants.BUSINESSES)
+                    .get()
+                    .addOnSuccessListener { collection ->
+                        val list: ArrayList<Business> = ArrayList()
+
+                        for (d in collection.documents) {
+                            val business = d.toObject(Business::class.java)!!
+                            list.add(business)
+                        }
+
+                        activity.successRetrievePlaces(list)
+                    }
+                    .addOnFailureListener {
+                        Log.e(
+                            activity.javaClass.simpleName,
+                            "Error while retrieving the full business list"
+                        )
+                    }
             }
-            .addOnFailureListener {
-                Log.e(activity.javaClass.simpleName, "Error while retrieving the businesses")
-            }
+        }
+
 
     }
 }

@@ -27,5 +27,6 @@
     <string name="save">Save</string>
     <string name="type">Business Type</string>
     <string name="show_places">Show Places</string>
+    <string name="all_places">All available places</string>
 
 </resources>

@@ -1,5 +1,6 @@
 package com.bachelor.appoint
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -46,6 +47,8 @@ class MyAppointmentsActivity : AppCompatActivity() {
         binding.btnShowPlaces.setOnClickListener {
 //            TODO: Start the new activity here. Show all the available places and create and appointment on click
             Log.d("My Appointments", "Show places button clicked")
+            val intent = Intent(this, PlacesActivity::class.java)
+            startActivity(intent)
         }
     }
 
