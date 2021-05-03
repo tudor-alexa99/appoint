@@ -2,22 +2,30 @@ package com.bachelor.appoint
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bachelor.appoint.adapters.MyAppointmensAdapter
+import com.bachelor.appoint.databinding.ActivityMyAppointmentsBinding
 import com.bachelor.appoint.model.Appointment
 import com.bachelor.appoint.viewModel.AppointmentsViewModel
 
 class MyAppointmentsActivity : AppCompatActivity() {
     private lateinit var appointmentsAdapter: MyAppointmensAdapter
+    private lateinit var binding: ActivityMyAppointmentsBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        // Set the binding
+        binding = ActivityMyAppointmentsBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
+
+        // Create the viewModel nad addapter
         val appointmentsViewModel: AppointmentsViewModel by viewModels()
-        setContentView(R.layout.activity_my_appointments)
 
         appointmentsAdapter = MyAppointmensAdapter(this, mutableListOf())
 
@@ -25,15 +33,20 @@ class MyAppointmentsActivity : AppCompatActivity() {
             appointmentsAdapter.setAppointments(appointments)
         })
 
-        appointmentsViewModel.addMockAppointment()
-
         appointmentsViewModel.getAppointments()
 
-        var recyclerView = findViewById<RecyclerView>(R.id.my_appointments_recycler_view)
+        // Inflate the recycler view
+        var recyclerView = binding.myAppointmentsRecyclerView
 
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.setHasFixedSize(true)
         recyclerView.adapter = appointmentsAdapter
+
+        // Set the action button
+        binding.btnShowPlaces.setOnClickListener {
+//            TODO: Start the new activity here. Show all the available places and create and appointment on click
+            Log.d("My Appointments", "Show places button clicked")
+        }
     }
 
     override fun onResume() {

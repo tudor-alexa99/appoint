@@ -11,6 +11,7 @@
 
     <dimen name="login_register_title_text_size">35sp</dimen>
 
+    <dimen name="title_extra_small_textSize">12sp</dimen>
     <dimen name="title_small_textSize">18sp</dimen>
     <dimen name="title_medium_textSize">22sp</dimen>
     <dimen name="title_large_textSize">28sp</dimen>
