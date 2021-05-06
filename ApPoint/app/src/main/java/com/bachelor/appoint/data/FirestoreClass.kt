@@ -121,27 +121,29 @@ class FirestoreClass {
 
         firestoreAdapter.collection(Constants.APPOINTMENTS)
             .whereEqualTo("u_id", getCurrentUserID())
-            .get()
-            .addOnSuccessListener { document ->
-                Log.d(viewModel.javaClass.simpleName, document.documents.toString())
-                val list: ArrayList<Appointment> = ArrayList()
-
-                for (d in document.documents) {
-
-                    val appointment = d.toObject(Appointment::class.java)!!
-                    list.add(appointment)
+            .addSnapshotListener { snapshot, e ->
+                if (e != null) {
+                    Log.e("Retrieve appointments", e.message.toString())
+                    return@addSnapshotListener
                 }
 
-                when (viewModel) {
-                    is AppointmentsViewModel -> {
-                        viewModel.successRetrieveAppointments(list)
+                if (snapshot != null) {
+                    val list: ArrayList<Appointment> = ArrayList()
+
+                    for (d in snapshot.documents) {
+
+                        val appointment = d.toObject(Appointment::class.java)!!
+                        list.add(appointment)
                     }
+
+                    when (viewModel) {
+                        is AppointmentsViewModel -> {
+                            viewModel.successRetrieveAppointments(list)
+                        }
+                    }
+
                 }
             }
-            .addOnFailureListener {
-                Log.e(viewModel.javaClass.simpleName, "Error while retrieving the appointments")
-            }
-
     }
 //    Business
 
@@ -181,30 +183,31 @@ class FirestoreClass {
     fun retrieveBusinesses(activity: Activity) {
         // Method that retrieves the business list
         when (activity) {
+
             // When called from Business Activity, retrieve only the list for the current user
             is BusinessActivity -> {
                 firestoreAdapter.collection(Constants.BUSINESSES)
                     .whereEqualTo(Constants.ADMIN_ID, getCurrentUserID())
-                    .get()
-                    .addOnSuccessListener { document ->
-                        Log.d(activity.javaClass.simpleName, document.documents.toString())
-                        val list: ArrayList<Business> = ArrayList()
-
-                        for (d in document.documents) {
-
-                            val business = d.toObject(Business::class.java)!!
-                            list.add(business)
+                    .addSnapshotListener { document, e ->
+                        if (e != null) {
+                            Log.e("Retrieve Businesses", e.message.toString())
                         }
 
-                        activity.successRetrieveBusinesses(list)
+                        if (document != null) {
+
+                            Log.d(activity.javaClass.simpleName, document.documents.toString())
+                            val list: ArrayList<Business> = ArrayList()
+
+                            for (d in document.documents) {
+
+                                val business = d.toObject(Business::class.java)!!
+                                list.add(business)
+                            }
+
+                            activity.successRetrieveBusinesses(list)
+                        }
                     }
-                    .addOnFailureListener {
-                        Log.e(
-                            activity.javaClass.simpleName,
-                            "Error while retrieving the businesses"
-                        )
-                    }
-                }
+            }
 
             // When called from Places Activity, retrieve all the available places
             is PlacesActivity -> {
