@@ -93,13 +93,14 @@ class FirestoreClass {
     //    Appointments
     fun addAppointment(
         startTime: String,
+        date: String,
         businessId: String,
         businessName: String
     ) {
 
         // Create the model object
         val appointment =
-            Appointment("", getCurrentUserID(), businessId, businessName, startTime, false)
+            Appointment("", getCurrentUserID(), businessId, businessName, startTime, date, false)
 
         // Collection = appointments
 

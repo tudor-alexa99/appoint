@@ -31,7 +31,8 @@ class PlacesAdapter(
         val parentContext: Context = context
         private lateinit var business: Business
 
-        var date_time = ""
+        var _time = ""
+        var _date = ""
         var day = 0
         var month = 0
         var year = 0
@@ -104,15 +105,15 @@ class PlacesAdapter(
             savedMonth = month
             savedYear = year
 
-            TimePickerDialog(parentContext, this, hour, minute, false).show()
+            TimePickerDialog(parentContext, this, hour, minute, true).show()
         }
 
         override fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int) {
             savedHour = hourOfDay
             savedMinute = minute
-            date_time = "${savedHour}:${savedMinute}"
-            FirestoreClass().addAppointment(date_time, business.id, business.name)
-
+            _date = "${savedDay}/${savedMonth}/${savedYear}"
+            _time = "${savedHour}:${savedMinute}"
+            FirestoreClass().addAppointment(_time, _date, business.id, business.name)
         }
 
     }

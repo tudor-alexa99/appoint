@@ -8,6 +8,7 @@ class Appointment(
     val b_id: String = "",
     val business: String = "",
     var startTime: String = "",
+    var date: String = "",
     var completed: Boolean = false,
     var status: String = "pending",
 )
