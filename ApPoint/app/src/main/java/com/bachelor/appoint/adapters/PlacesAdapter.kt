@@ -2,7 +2,6 @@ package com.bachelor.appoint.adapters
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
-import android.text.format.DateFormat
 import android.widget.DatePicker
 import android.widget.TimePicker
 import android.app.AlertDialog
@@ -15,11 +14,10 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bachelor.appoint.R
+import com.bachelor.appoint.data.FirestoreClass
 import com.bachelor.appoint.databinding.CardPlaceBinding
 import com.bachelor.appoint.model.Business
-import java.time.DayOfWeek
 import kotlin.collections.ArrayList
-import java.util.*
 
 
 class PlacesAdapter(
@@ -31,8 +29,9 @@ class PlacesAdapter(
         RecyclerView.ViewHolder(binding.root), DatePickerDialog.OnDateSetListener,
         TimePickerDialog.OnTimeSetListener {
         val parentContext: Context = context
+        private lateinit var business: Business
 
-        val date_time = ""
+        var date_time = ""
         var day = 0
         var month = 0
         var year = 0
@@ -52,15 +51,17 @@ class PlacesAdapter(
         val btn_card: LinearLayout = binding.cardBusiness
 
         fun bindView(business: Business) {
+            this.business = business
+
             tv_title.text = business.name
             tv_address.text = business.location
             tv_phone.text = business.phoneNumber
             tv_type.text = business.type
 
-            bindCardButton(btn_card, parentContext)
+            bindCardButton(btn_card, parentContext, business)
         }
 
-        private fun bindCardButton(btnCard: LinearLayout, context: Context) {
+        private fun bindCardButton(btnCard: LinearLayout, context: Context, business: Business) {
 
             btnCard.setOnClickListener {
                 val builder = AlertDialog.Builder(context)
@@ -69,10 +70,12 @@ class PlacesAdapter(
                     .setPositiveButton(context.getString(R.string.confirm)) { dialog, id ->
 //                        TODO: AddAppointment
                         Log.i("Places Alert", "Confirm clicked")
-                    }
-                    .setNeutralButton(context.getString(R.string.choose_a_time)) { dialog, id ->
                         pickDate()
+                        Log.d("Date time", "${day}/${month}/${year}  ${hour}:${minute}")
                     }
+//                    .setNeutralButton(context.getString(R.string.choose_a_time)) { dialog, id ->
+//                        pickDate()
+//                    }
                     .setNegativeButton(context.getString(R.string.cancel)) { dialog, id ->
                         dialog.dismiss()
                     }
@@ -107,6 +110,9 @@ class PlacesAdapter(
         override fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int) {
             savedHour = hourOfDay
             savedMinute = minute
+            date_time = "${savedHour}:${savedMinute}"
+            FirestoreClass().addAppointment(date_time, business.id, business.name)
+
         }
 
     }

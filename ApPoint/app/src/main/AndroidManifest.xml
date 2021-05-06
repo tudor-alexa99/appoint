@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ApPoint">
-        <activity android:name=".PlacesActivity"></activity>
+        <activity android:name=".BusinessDetailsActivity"></activity>
+        <activity android:name=".PlacesActivity" />
         <activity
             android:name=".LoginActivity"
             android:screenOrientation="portrait"

@@ -92,7 +92,6 @@ class FirestoreClass {
 
     //    Appointments
     fun addAppointment(
-        viewModel: AppointmentsViewModel,
         startTime: String,
         businessId: String,
         businessName: String

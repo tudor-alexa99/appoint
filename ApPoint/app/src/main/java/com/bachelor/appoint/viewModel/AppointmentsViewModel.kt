@@ -1,17 +1,12 @@
 package com.bachelor.appoint.viewModel
 
-import android.content.ContentValues.TAG
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.bachelor.appoint.MyAppointmentsActivity
 import com.bachelor.appoint.data.FirestoreClass
 import com.bachelor.appoint.model.Appointment
 import com.google.firebase.database.*
-import com.google.firebase.database.ktx.database
-import com.google.firebase.ktx.Firebase
-import java.time.LocalTime
 import java.util.*
 
 class AppointmentsViewModel() : ViewModel() {
@@ -56,7 +51,7 @@ class AppointmentsViewModel() : ViewModel() {
     }
 
     fun addMockAppointment() {
-        FirestoreClass().addAppointment(this, "11:30", "unSS8p2PAUff9zuuJQIF", "Textila")
+        FirestoreClass().addAppointment("11:30", "unSS8p2PAUff9zuuJQIF", "Textila")
     }
 
 //    private fun toAppointments(snapshot: DataSnapshot): List<Appointment>? {
