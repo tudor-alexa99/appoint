@@ -231,7 +231,5 @@ class FirestoreClass {
                     }
             }
         }
-
-
     }
 }

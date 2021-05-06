@@ -2,21 +2,19 @@ package com.bachelor.appoint.adapters
 
 import android.content.Context
 import android.view.LayoutInflater
-import android.view.TextureView
-import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.bachelor.appoint.R
 import com.bachelor.appoint.databinding.CardBusinessBinding
 import com.bachelor.appoint.model.Business
-import kotlin.contracts.Returns
 
 open class BusinessListAdapter(
     private val context: Context,
     private val list: ArrayList<Business>,
 
     ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    private var currentPosition: Int = 0
+
     class BusinessViewHolder(val binding: CardBusinessBinding) :
         RecyclerView.ViewHolder(binding.root) {
         val tv_title: TextView = binding.tvBusinessCardTitle
@@ -44,8 +42,30 @@ open class BusinessListAdapter(
         }
     }
 
+    fun getItemPosition(itemId: String): Int {
+        for (i in 0 until list.size) {
+            if (list.get(i).id.equals(itemId)) {
+                return i
+            }
+        }
+        return -1
+    }
+
     override fun getItemCount(): Int {
         return list.size
+    }
+
+    fun getCurrentPosition(): Int {
+        return currentPosition
+    }
+
+    fun nextPosition() {
+        if (currentPosition < list.size -1)
+            currentPosition += 1
+    }
+    fun previousPosition() {
+        if (currentPosition > 0)
+            currentPosition -= 1
     }
 
 }

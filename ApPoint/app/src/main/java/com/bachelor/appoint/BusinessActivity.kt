@@ -1,19 +1,20 @@
 package com.bachelor.appoint
 
-import android.content.DialogInterface
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.bachelor.appoint.adapters.BusinessListAdapter
 import com.bachelor.appoint.data.FirestoreClass
 import com.bachelor.appoint.databinding.ActivityBusinessBinding
 import com.bachelor.appoint.databinding.FragmentAddBusinessAlertBinding
 import com.bachelor.appoint.model.Business
-import com.bachelor.appoint.ui.AddBusinessAlertFragment
-import com.google.firebase.firestore.ktx.firestoreSettings
+
 
 class BusinessActivity : AppCompatActivity() {
     private lateinit var binding: ActivityBusinessBinding
@@ -38,6 +39,8 @@ class BusinessActivity : AppCompatActivity() {
             openAlertDialog()
         }
 
+        itemTouchHelper.attachToRecyclerView(binding.rvBusiness)
+
     }
 
     override fun onResume() {
@@ -51,7 +54,7 @@ class BusinessActivity : AppCompatActivity() {
         val builder = AlertDialog.Builder(this)
         builder.setTitle("Add new business")
         val alertBinding = FragmentAddBusinessAlertBinding.inflate(layoutInflater)
-        val alertView =  alertBinding.root
+        val alertView = alertBinding.root
         builder.setView(alertView)
 
         builder.setPositiveButton(android.R.string.yes) { dialog, which ->
@@ -64,16 +67,20 @@ class BusinessActivity : AppCompatActivity() {
         }
 
         builder.setNegativeButton(android.R.string.cancel) { dialog, which ->
-            Toast.makeText(applicationContext,
-                android.R.string.cancel, Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                applicationContext,
+                android.R.string.cancel, Toast.LENGTH_SHORT
+            ).show()
         }
 
         builder.show()
     }
 
     fun addBusinessSuccess() {
-        Toast.makeText(applicationContext,
-            "Business added!", Toast.LENGTH_LONG).show()
+        Toast.makeText(
+            applicationContext,
+            "Business added!", Toast.LENGTH_LONG
+        ).show()
     }
 
     // READ
@@ -91,10 +98,57 @@ class BusinessActivity : AppCompatActivity() {
         businessAdapter = BusinessListAdapter(this, businessList)
 
         var recyclerView = binding.rvBusiness
-        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.layoutManager = LinearLayoutManager(
+            this,
+            LinearLayoutManager.HORIZONTAL,
+            false
+        )
         recyclerView.setHasFixedSize(true)
         recyclerView.adapter = businessAdapter
 
     }
+
+    // Used for focusing on the list when scrolling vertically
+    private fun scrollToPosition(direction: Int) {
+        // direction: -1 -> left, 1 -> right
+
+//        val eventId = "someId"
+//        val position: Int = businessAdapter.getItemPosition(eventId)
+//        if (position >= 0) {
+//            binding.rvBusiness.scrollToPosition(position)
+//        }
+
+        if (direction == 1) {
+            businessAdapter.nextPosition()
+            binding.rvBusiness.scrollToPosition(businessAdapter.getCurrentPosition())
+        }
+        if (direction == -1) {
+            businessAdapter.previousPosition()
+            binding.rvBusiness.scrollToPosition(businessAdapter.getCurrentPosition())
+        }
+    }
+
+    var itemTouchHelper = ItemTouchHelper(
+        object : ItemTouchHelper.SimpleCallback(
+            0,
+            ItemTouchHelper.UP or ItemTouchHelper.DOWN,
+        ) {
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: ViewHolder, target: ViewHolder
+            ): Boolean {
+                val fromPos = viewHolder.adapterPosition
+                val toPos = target.adapterPosition
+                // move item in `fromPos` to `toPos` in adapter.
+                return true // true if moved, false otherwise
+            }
+
+            // TODO: Swipe up on the business card to reload the appointments associated with it. An appointments list will reload and you will be able so swipe left or right on it `
+            // TODO: Add 2 fragments. On swipe up, load the business information, on swipe down load the appointments list
+            override fun onSwiped(viewHolder: ViewHolder, direction: Int) {
+                Log.d("Direction", direction.toString())
+                businessAdapter.notifyItemChanged(viewHolder.adapterPosition);
+            }
+        })
 
 }
