@@ -68,4 +68,8 @@ open class BusinessListAdapter(
             currentPosition -= 1
     }
 
+    fun getItem(adapterPosition: Int): Business {
+        return list[adapterPosition]
+    }
+
 }

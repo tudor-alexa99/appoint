@@ -1,5 +1,8 @@
 package com.bachelor.appoint.model
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 class Business(
     val adminId: String = "",
     val name: String = "",
@@ -7,4 +10,4 @@ class Business(
     val phoneNumber: String = "",
     val type: String = "",
     var id: String = "",
-)
+) : Parcelable

@@ -16,6 +16,7 @@ import com.bachelor.appoint.databinding.FragmentAddBusinessAlertBinding
 import com.bachelor.appoint.model.Business
 import com.bachelor.appoint.ui.AppointmentsListFragment
 import com.bachelor.appoint.ui.BusinessInformatioFragment
+import com.bachelor.appoint.utils.Constants
 
 
 class BusinessActivity : AppCompatActivity() {
@@ -151,17 +152,33 @@ class BusinessActivity : AppCompatActivity() {
                 Log.d("Direction", direction.toString())
                 businessAdapter.notifyItemChanged(viewHolder.adapterPosition);
 
-                val infoFragment = BusinessInformatioFragment()
-                val appListFragment = AppointmentsListFragment()
+                // Select the current business from the card that was swiped on
+                var business: Business = businessAdapter.getItem(viewHolder.adapterPosition)
+                Log.d("Swiped business:", business.name)
+
+                // Create a bundle to send the business param to the fragment
+                val bundle = Bundle()
+                bundle.putParcelable(Constants.BUSINESS, business)
+
+                // used for switching between fragment in the same frame
                 val manager = supportFragmentManager
 
+                if (direction == 1) {   // on Swipe UP
+                    // create the new fragment and send the parameters
+                    val infoFragment = BusinessInformatioFragment()
+                    infoFragment.arguments = bundle
 
-                if (direction == 1) {
+                    // initiate the transaction that replaces the fragments
                     val transaction = manager.beginTransaction()
                     transaction.replace(R.id.fr_business_info, infoFragment)
                     transaction.commit()
-                }
-                else if (direction == 2) {
+
+                } else if (direction == 2) {    // on Swipe DOWN
+                    // create the new fragment and send the parameters
+                    val appListFragment = AppointmentsListFragment()
+                    appListFragment.arguments = bundle
+
+                    // initiate the transaction that replaces the fragments
                     val transaction = manager.beginTransaction()
                     transaction.replace(R.id.fr_business_info, appListFragment)
                     transaction.commit()
