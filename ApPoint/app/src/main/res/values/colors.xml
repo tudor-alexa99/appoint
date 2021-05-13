@@ -24,4 +24,8 @@
     <color name="appointments_background">#F6F4EB</color>
     <color name="appointments_accent">#7E2559</color>
 
+    <!--    Statistics  -->
+    <color name="pie_chart_background">#FFCCBC</color>
+    <color name="pie_chart_progress">#FF7043</color>
+
 </resources>

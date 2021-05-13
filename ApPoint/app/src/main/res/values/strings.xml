@@ -35,5 +35,6 @@
     <string name="all_places">All available places</string>
     <string name="about_business">About Business</string>
     <string name="choose_a_time">Choose a date and a time</string>
+    <string name="potential_risk_score">Potential risk score</string>
 
 </resources>

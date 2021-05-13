@@ -24,4 +24,18 @@
     <dimen name="card_margin">8dp</dimen>
     <dimen name="card_inside_padding">3dp</dimen>
 
+    <!--    Statsistics -->
+    <dimen name="stats_radius_large">100dp</dimen>
+    <dimen name="stats_radius_medium">60dp</dimen>
+    <dimen name="stats_radius_small">45dp</dimen>
+
+    <dimen name="stats_thickness_large">30dp</dimen>
+    <dimen name="stats_thickness_medium">22dp</dimen>
+    <dimen name="stats_thickness_small">15dp</dimen>
+
+    <dimen name="pie_chart_layout_size_large">300dp</dimen>
+    <dimen name="pie_chart_layout_size_medium">220dp</dimen>
+    <dimen name="pie_chart_layout_size_small">170dp</dimen>
+
+
 </resources>
