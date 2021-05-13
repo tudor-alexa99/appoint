@@ -14,6 +14,8 @@ import com.bachelor.appoint.data.FirestoreClass
 import com.bachelor.appoint.databinding.ActivityBusinessBinding
 import com.bachelor.appoint.databinding.FragmentAddBusinessAlertBinding
 import com.bachelor.appoint.model.Business
+import com.bachelor.appoint.ui.AppointmentsListFragment
+import com.bachelor.appoint.ui.BusinessInformatioFragment
 
 
 class BusinessActivity : AppCompatActivity() {
@@ -148,6 +150,22 @@ class BusinessActivity : AppCompatActivity() {
             override fun onSwiped(viewHolder: ViewHolder, direction: Int) {
                 Log.d("Direction", direction.toString())
                 businessAdapter.notifyItemChanged(viewHolder.adapterPosition);
+
+                val infoFragment = BusinessInformatioFragment()
+                val appListFragment = AppointmentsListFragment()
+                val manager = supportFragmentManager
+
+
+                if (direction == 1) {
+                    val transaction = manager.beginTransaction()
+                    transaction.replace(R.id.fr_business_info, infoFragment)
+                    transaction.commit()
+                }
+                else if (direction == 2) {
+                    val transaction = manager.beginTransaction()
+                    transaction.replace(R.id.fr_business_info, appListFragment)
+                    transaction.commit()
+                }
             }
         })
 

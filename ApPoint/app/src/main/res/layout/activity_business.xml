@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cl_business"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".BusinessActivity">
@@ -22,11 +23,11 @@
         android:id="@+id/sv_business"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:maxHeight="720dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         android:foregroundGravity="bottom"
-        app:layout_constraintStart_toStartOf="parent">
+        android:maxHeight="720dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ellipse_3">
 
         <LinearLayout
             android:id="@+id/ll_business"
@@ -41,6 +42,12 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal" />
 
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/fr_business_info"
+                android:name="com.bachelor.appoint.ui.BusinessInformatioFragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
         </LinearLayout>
     </ScrollView>
 
@@ -52,9 +59,9 @@
         android:layout_marginBottom="16dp"
         android:clickable="true"
         android:contentDescription="@string/add_business_button"
+        app:backgroundTint="@color/business_accent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:backgroundTint="@color/business_accent"
         app:srcCompat="@android:drawable/ic_menu_add" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
