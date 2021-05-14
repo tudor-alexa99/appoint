@@ -19,37 +19,44 @@
         app:srcCompat="@drawable/ellipse_3" />
 
 
-    <ScrollView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/sv_business"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
         android:foregroundGravity="bottom"
-        android:maxHeight="720dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ellipse_3">
+        app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
-            android:id="@+id/ll_business"
-            android:layout_width="match_parent"
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_business"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:gravity="bottom"
-            android:orientation="vertical">
+            android:clipChildren="false"
+            android:descendantFocusability="afterDescendants"
+            android:foregroundGravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toTopOf="@+id/fr_business_info"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_business"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal" />
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/fr_business_info"
+            android:name="com.bachelor.appoint.ui.BusinessInformatioFragment"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rv_business" />
 
-            <androidx.fragment.app.FragmentContainerView
-                android:id="@+id/fr_business_info"
-                android:name="com.bachelor.appoint.ui.BusinessInformatioFragment"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
 
-        </LinearLayout>
-    </ScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btn_add_business"

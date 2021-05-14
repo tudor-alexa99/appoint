@@ -148,6 +148,7 @@ class BusinessActivity : AppCompatActivity() {
 
             // TODO: Swipe up on the business card to reload the appointments associated with it. An appointments list will reload and you will be able so swipe left or right on it `
             // TODO: Add 2 fragments. On swipe up, load the business information, on swipe down load the appointments list
+
             override fun onSwiped(viewHolder: ViewHolder, direction: Int) {
                 Log.d("Direction", direction.toString())
                 businessAdapter.notifyItemChanged(viewHolder.adapterPosition);
