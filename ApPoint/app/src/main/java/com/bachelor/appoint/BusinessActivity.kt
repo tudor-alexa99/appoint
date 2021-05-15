@@ -1,13 +1,10 @@
 package com.bachelor.appoint
 
-import android.graphics.Paint
 import android.os.Bundle
-import android.transition.Scene
-import android.transition.Slide
-import android.transition.TransitionManager
 import android.util.Log
-import android.view.Gravity
-import android.view.animation.Animation
+import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -25,10 +22,12 @@ import com.bachelor.appoint.ui.BusinessInformatioFragment
 import com.bachelor.appoint.utils.Constants
 
 
-class BusinessActivity : AppCompatActivity() {
+class BusinessActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     private lateinit var binding: ActivityBusinessBinding
     private lateinit var businessAdapter: BusinessListAdapter
     private lateinit var businessList: ArrayList<Business>
+    private lateinit var alertView: View
+    private lateinit var selectedType: String
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -69,13 +68,28 @@ class BusinessActivity : AppCompatActivity() {
         val alertView = alertBinding.root
         builder.setView(alertView)
 
+        // initialise the spinner
+        val spinner = alertBinding.spBusinessTypes
+
+        // Create the adaptor and set its values
+        ArrayAdapter.createFromResource(
+            this,
+            R.array.business_types,
+            android.R.layout.simple_spinner_item
+        ).also { adapter ->
+            // Specify the layout to use when the list of choices appears
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            // Apply the adapter to the spinner
+            spinner.adapter = adapter
+        }
+
+
         builder.setPositiveButton(android.R.string.yes) { dialog, which ->
             val name: String = alertBinding.etBusinessName.text.toString()
             val address: String = alertBinding.etBusinessAddress.text.toString()
             val phoneNumber: String = alertBinding.etPhone.text.toString()
-            val type: String = alertBinding.etType.text.toString()
 
-            FirestoreClass().addBusiness(this, name, address, phoneNumber, type)
+            FirestoreClass().addBusiness(this, name, address, phoneNumber, selectedType)
         }
 
         builder.setNegativeButton(android.R.string.cancel) { dialog, which ->
@@ -201,5 +215,16 @@ class BusinessActivity : AppCompatActivity() {
                 }
             }
         })
+
+
+    override fun onItemSelected(parent: AdapterView<*>, view: View?, pos: Int, id: Long) {
+        // An item was selected. You can retrieve the selected item using
+        // parent.getItemAtPosition(pos)
+        this.selectedType = parent.getItemAtPosition(pos).toString()
+    }
+
+    override fun onNothingSelected(parent: AdapterView<*>) {
+        // Another interface callback
+    }
 
 }

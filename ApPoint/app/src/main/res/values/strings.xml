@@ -36,5 +36,24 @@
     <string name="about_business">About Business</string>
     <string name="choose_a_time">Choose a date and a time</string>
     <string name="potential_risk_score">Potential risk score</string>
+    <string name="estimated_surface">Estimated Surface</string>
+    <string name="seats_number">Seats Number</string>
+    <string name="open_space">Open Space</string>
+
+    <string-array name="business_types">
+        <item>Dining</item>
+        <item>Pool</item>
+        <item>Kids playground</item>
+        <item>Hair Salon</item>
+        <item>Dentist office</item>
+        <item>Bank</item>
+        <item>Insurance company</item>
+        <item>Office</item>
+        <item>Gym</item>
+        <item>Hotel</item>
+        <item>Sports Hall</item>
+        <item>Pub</item>
+        <item>Club</item>
+    </string-array>
 
 </resources>

@@ -9,5 +9,9 @@ class Business(
     val location: String = "",
     val phoneNumber: String = "",
     val type: String = "",
+    val estimatedSurface: Int = 0,
+    val seatsNumber: Int = 0,
+    val openSpace: Boolean = false,
+    val estimatedRisk: Int  = 0,
     var id: String = "",
 ) : Parcelable
