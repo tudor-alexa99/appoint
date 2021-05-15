@@ -3,88 +3,98 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/add_business_layout"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     tools:context=".ui.AddBusinessAlertFragment">>
 
-    <EditText
-        android:id="@+id/et_business_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:ems="10"
-        android:hint="@string/company_name"
-        android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/et_business_address"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
-        android:ems="10"
-        android:hint="@string/address"
-        android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_business_name" />
-
-    <EditText
-        android:id="@+id/et_phone"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
-        android:ems="10"
-        android:hint="@string/phone_number"
-        android:inputType="phone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_business_address" />
-
-    <Spinner
-        android:id="@+id/sp_business_types"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_phone" />
-
-    <EditText
-        android:id="@+id/et_estimated_surface"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
-        android:ems="10"
-        android:hint="@string/estimated_surface"
-        android:inputType="number"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sp_business_types" />
-
-    <EditText
-        android:id="@+id/et_seats_number"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:ems="10"
-        android:hint="@string/seats_number"
-        android:inputType="number"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_estimated_surface" />
-
-    <androidx.appcompat.widget.SwitchCompat
-        android:id="@+id/sw_open_space"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
-        android:layout_marginBottom="16dp"
-        android:text="@string/open_space"
+        android:foregroundGravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_seats_number" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="vertical"
+            android:paddingHorizontal="@dimen/card_padding_start_end"
+            android:paddingVertical="@dimen/card_padding_start_end">
+
+            <EditText
+                android:id="@+id/et_business_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:hint="@string/company_name"
+                android:inputType="textPersonName" />
+
+            <EditText
+                android:id="@+id/et_seats_number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:hint="@string/seats_number"
+                android:inputType="number" />
+
+            <TextView
+                android:id="@+id/tv_business_type_slider"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="36dp"
+                android:text="@string/type" />
+
+            <Spinner
+                android:id="@+id/sp_business_types"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="36dp" />
+
+            <EditText
+                android:id="@+id/et_phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="36dp"
+                android:hint="@string/phone_number"
+                android:inputType="phone" />
+
+            <EditText
+                android:id="@+id/et_estimated_surface"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="36dp"
+                android:hint="@string/estimated_surface"
+                android:inputType="number" />
+
+            <EditText
+                android:id="@+id/et_time_spent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="36dp"
+                android:hint="@string/hh_mm"
+                android:inputType="time" />
+
+            <EditText
+                android:id="@+id/et_business_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="36dp"
+                android:hint="@string/address"
+                android:inputType="textPersonName" />
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/swi_open_space"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="36dp"
+                android:layout_marginBottom="16dp"
+                android:text="@string/open_space" />
+
+        </LinearLayout>
+    </ScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

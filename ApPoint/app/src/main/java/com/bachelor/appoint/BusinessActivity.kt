@@ -2,8 +2,6 @@ package com.bachelor.appoint
 
 import android.os.Bundle
 import android.util.Log
-import android.view.View
-import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -16,18 +14,21 @@ import com.bachelor.appoint.adapters.BusinessListAdapter
 import com.bachelor.appoint.data.FirestoreClass
 import com.bachelor.appoint.databinding.ActivityBusinessBinding
 import com.bachelor.appoint.databinding.FragmentAddBusinessAlertBinding
+import com.bachelor.appoint.helpers.StatisticsHelper
 import com.bachelor.appoint.model.Business
 import com.bachelor.appoint.ui.AppointmentsListFragment
 import com.bachelor.appoint.ui.BusinessInformatioFragment
 import com.bachelor.appoint.utils.Constants
+import java.text.DateFormat
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 
-class BusinessActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
+class BusinessActivity : AppCompatActivity() {
     private lateinit var binding: ActivityBusinessBinding
     private lateinit var businessAdapter: BusinessListAdapter
     private lateinit var businessList: ArrayList<Business>
-    private lateinit var alertView: View
-    private lateinit var selectedType: String
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -88,8 +89,15 @@ class BusinessActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener
             val name: String = alertBinding.etBusinessName.text.toString()
             val address: String = alertBinding.etBusinessAddress.text.toString()
             val phoneNumber: String = alertBinding.etPhone.text.toString()
+            val type: String = spinner.selectedItem.toString()
+            val estimatedSurface: Int = alertBinding.etEstimatedSurface.text.toString().toInt()
+            val maxSeatsNumber: Int = alertBinding.etSeatsNumber.text.toString().toInt()
+            val estimatedTime: String = alertBinding.etTimeSpent.text.toString()
+            val openSpace: Boolean = alertBinding.swiOpenSpace.isChecked
 
-            FirestoreClass().addBusiness(this, name, address, phoneNumber, selectedType)
+            val estimatedRisk = StatisticsHelper().computeEstimatedRisk(type, estimatedSurface, maxSeatsNumber, estimatedTime, openSpace)
+
+//            FirestoreClass().addBusiness(this, name, address, phoneNumber, selectedType)
         }
 
         builder.setNegativeButton(android.R.string.cancel) { dialog, which ->
@@ -169,8 +177,8 @@ class BusinessActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener
                 return true // true if moved, false otherwise
             }
 
-            // TODO: Swipe up on the business card to reload the appointments associated with it. An appointments list will reload and you will be able so swipe left or right on it `
-            // TODO: Add 2 fragments. On swipe up, load the business information, on swipe down load the appointments list
+            // Swipe up on the business card to reload the appointments associated with it. An appointments list will reload and you will be able so swipe left or right on it `
+            // 2 fragments. On swipe up, load the business information, on swipe down load the appointments list
 
             override fun onSwiped(viewHolder: ViewHolder, direction: Int) {
                 Log.d("Direction", direction.toString())
@@ -178,7 +186,6 @@ class BusinessActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener
 
                 // Select the current business from the card that was swiped on
                 var business: Business = businessAdapter.getItem(viewHolder.adapterPosition)
-                Log.d("Swiped business:", business.name)
 
                 // Create a bundle to send the business param to the fragment
                 val bundle = Bundle()
@@ -215,16 +222,4 @@ class BusinessActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener
                 }
             }
         })
-
-
-    override fun onItemSelected(parent: AdapterView<*>, view: View?, pos: Int, id: Long) {
-        // An item was selected. You can retrieve the selected item using
-        // parent.getItemAtPosition(pos)
-        this.selectedType = parent.getItemAtPosition(pos).toString()
-    }
-
-    override fun onNothingSelected(parent: AdapterView<*>) {
-        // Another interface callback
-    }
-
 }

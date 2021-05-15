@@ -13,5 +13,6 @@ class Business(
     val seatsNumber: Int = 0,
     val openSpace: Boolean = false,
     val estimatedRisk: Int  = 0,
+    val averageTimeSpent: String = "",
     var id: String = "",
 ) : Parcelable
