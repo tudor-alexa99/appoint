@@ -1,7 +1,13 @@
 package com.bachelor.appoint
 
+import android.graphics.Paint
 import android.os.Bundle
+import android.transition.Scene
+import android.transition.Slide
+import android.transition.TransitionManager
 import android.util.Log
+import android.view.Gravity
+import android.view.animation.Animation
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -24,12 +30,14 @@ class BusinessActivity : AppCompatActivity() {
     private lateinit var businessAdapter: BusinessListAdapter
     private lateinit var businessList: ArrayList<Business>
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         // Bind the activity to the view
         binding = ActivityBusinessBinding.inflate(layoutInflater)
         val view = binding.root
+
         setContentView(view)
 
         // Retrieve the list
@@ -45,6 +53,7 @@ class BusinessActivity : AppCompatActivity() {
         itemTouchHelper.attachToRecyclerView(binding.rvBusiness)
 
     }
+
 
     override fun onResume() {
         super.onResume()
@@ -170,7 +179,10 @@ class BusinessActivity : AppCompatActivity() {
                     infoFragment.arguments = bundle
 
                     // initiate the transaction that replaces the fragments
-                    val transaction = manager.beginTransaction()
+                    val transaction = manager.beginTransaction().setCustomAnimations(
+                        android.R.animator.fade_in,
+                        android.R.animator.fade_out
+                    )
                     transaction.replace(R.id.fr_business_info, infoFragment)
                     transaction.commit()
 
@@ -180,7 +192,10 @@ class BusinessActivity : AppCompatActivity() {
                     appListFragment.arguments = bundle
 
                     // initiate the transaction that replaces the fragments
-                    val transaction = manager.beginTransaction()
+                    val transaction = manager.beginTransaction().setCustomAnimations(
+                        android.R.animator.fade_in,
+                        android.R.animator.fade_out
+                    )
                     transaction.replace(R.id.fr_business_info, appListFragment)
                     transaction.commit()
                 }
