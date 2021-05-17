@@ -1,5 +1,6 @@
 package com.bachelor.appoint.ui
 
+import android.animation.ObjectAnimator
 import android.opengl.Visibility
 import android.os.Bundle
 import android.util.Log
@@ -69,6 +70,14 @@ class BusinessInformatioFragment : Fragment() {
     private fun setFragmentView(currentBusiness: Business) {
         // set the name
         binding.tvCompanyName.text = currentBusiness.name
+
+        // set the risk progressBar
+        val objectAnimator = ObjectAnimator()
+        business?.let { //binding.statsProgressbar.setProgress(it.estimatedRisk, true)
+            ObjectAnimator.ofInt(binding.statsProgressbar, "progress", it.estimatedRisk)
+                .setDuration(900)
+                .start()
+         }
     }
 
     companion object {

@@ -84,7 +84,7 @@
                             android:layout_height="@dimen/pie_chart_layout_size_small"
                             android:indeterminate="false"
                             android:max="100"
-                            android:progress="75"
+                            android:progress="0"
                             android:progressDrawable="@drawable/stats_progress"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
