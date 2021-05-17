@@ -26,7 +26,8 @@
             android:padding="@dimen/spacing_normal"
             android:text="00:00"
             android:textColor="@color/black"
-            android:textSize="@dimen/title_large_textSize" />
+            android:textAlignment="center"
+            android:textSize="@dimen/title_medium_textSize" />
 
         <TextView
             android:id="@+id/tv_user_name"
@@ -35,9 +36,10 @@
             android:layout_height="match_parent"
             android:gravity="center_horizontal"
             android:padding="@dimen/spacing_normal"
-            android:text="@string/business"
+            android:text="@string/user_name"
             android:textColor="@android:color/black"
             android:layout_weight="2"
+            android:textAlignment="center"
             android:textSize="@dimen/title_medium_textSize" />
 
         <ImageView

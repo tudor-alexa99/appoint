@@ -141,8 +141,6 @@ class BusinessActivity : AppCompatActivity() {
     }
 
     fun successRetrieveBusinesses(businessList: ArrayList<Business>) {
-        for (i in businessList)
-            Log.i("Business list item", i.name)
         this.businessList = businessList
 
         // Set the recycler view as well

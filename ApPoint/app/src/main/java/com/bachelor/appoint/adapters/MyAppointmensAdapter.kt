@@ -18,7 +18,7 @@ class MyAppointmensAdapter(
     ) : RecyclerView.Adapter<MyAppointmensAdapter.AppointmentsViewHolder>() {
     class AppointmentsViewHolder(val binding: CardAppointmentBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        val tv_place: TextView = binding.root.findViewById(R.id.tv_place)
+        val tv_place: TextView = binding.root.findViewById(R.id.tv_user_name)
         val tv_startTime: TextView = binding.root.findViewById(R.id.tv_startTime)
         val iv_status: ImageView = binding.root.findViewById(R.id.iv_status)
 

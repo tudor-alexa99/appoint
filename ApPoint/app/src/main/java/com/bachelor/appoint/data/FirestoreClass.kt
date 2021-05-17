@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.SharedPreferences
 import android.util.Log
+import androidx.fragment.app.Fragment
 import com.bachelor.appoint.BusinessActivity
 import com.bachelor.appoint.LoginActivity
 import com.bachelor.appoint.PlacesActivity
@@ -11,6 +12,7 @@ import com.bachelor.appoint.RegisterActivity
 import com.bachelor.appoint.model.Appointment
 import com.bachelor.appoint.model.Business
 import com.bachelor.appoint.model.User
+import com.bachelor.appoint.ui.AppointmentsListFragment
 import com.bachelor.appoint.utils.Constants
 import com.bachelor.appoint.viewModel.AppointmentsViewModel
 import com.google.firebase.auth.FirebaseAuth
@@ -145,6 +147,38 @@ class FirestoreClass {
                 }
             }
     }
+
+    fun retrieveBusinessAppointments(fragment: Fragment, businessId: String) {
+//        Method that retrieves all the appointments of the current user
+
+        firestoreAdapter.collection(Constants.APPOINTMENTS)
+            .whereEqualTo("b_id", businessId)
+            .addSnapshotListener { snapshot, e ->
+                if (e != null) {
+                    Log.e("Retrieve appointments", e.message.toString())
+                    return@addSnapshotListener
+                }
+
+                if (snapshot != null) {
+                    val list: ArrayList<Appointment> = ArrayList()
+
+                    for (d in snapshot.documents) {
+
+                        val appointment = d.toObject(Appointment::class.java)!!
+                        list.add(appointment)
+                    }
+
+                    when (fragment) {
+                        is AppointmentsListFragment -> {
+                            fragment.successRetrieveAppointments(list)
+                        }
+                    }
+
+                }
+            }
+    }
+
+
 //    Business
 
     fun addBusiness(

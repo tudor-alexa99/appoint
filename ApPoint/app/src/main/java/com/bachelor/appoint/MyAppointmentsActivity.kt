@@ -25,7 +25,7 @@ class MyAppointmentsActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
-        // Create the viewModel nad addapter
+        // Create the viewModel and adapter
         val appointmentsViewModel: AppointmentsViewModel by viewModels()
 
         appointmentsAdapter = MyAppointmensAdapter(this, mutableListOf())
