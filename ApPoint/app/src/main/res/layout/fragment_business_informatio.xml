@@ -27,7 +27,7 @@
                     android:layout_marginStart="64dp"
                     android:layout_marginTop="32dp"
                     android:text="@string/company_name"
-                    android:textSize="@dimen/title_small_textSize"
+                    android:textSize="@dimen/title_medium_textSize"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -46,25 +46,36 @@
                         android:layout_height="0dp"
                         android:layout_marginTop="120dp"
                         android:descendantFocusability="afterDescendants"
-                        app:layout_constraintEnd_toStartOf="@+id/constraintLayout3"
-                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
 
                         <!-- ProgressBar that represents a total of 100% -->
                         <TextView
-                            android:id="@+id/tv_risk_score2"
-                            android:layout_width="169dp"
+                            android:id="@+id/tv_risk_score"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/potential_risk_score"
+                            app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/tv_score"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/score"
+                            android:textSize="@dimen/title_large_textSize"
+                            app:layout_constraintBottom_toBottomOf="@+id/background_progressbar"
+                            app:layout_constraintEnd_toEndOf="@+id/background_progressbar"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/tv_risk_score" />
 
                         <ProgressBar
                             android:id="@+id/background_progressbar"
                             style="?android:attr/progressBarStyleHorizontal"
-                            android:layout_width="@dimen/pie_chart_layout_size_small"
-                            android:layout_height="@dimen/pie_chart_layout_size_small"
+                            android:layout_width="@dimen/pie_chart_layout_size_medium"
+                            android:layout_height="@dimen/pie_chart_layout_size_medium"
                             android:indeterminate="false"
                             android:max="100"
                             android:progress="100"
@@ -80,8 +91,8 @@
                         <ProgressBar
                             android:id="@+id/stats_progressbar"
                             style="?android:attr/progressBarStyleHorizontal"
-                            android:layout_width="@dimen/pie_chart_layout_size_small"
-                            android:layout_height="@dimen/pie_chart_layout_size_small"
+                            android:layout_width="@dimen/pie_chart_layout_size_medium"
+                            android:layout_height="@dimen/pie_chart_layout_size_medium"
                             android:indeterminate="false"
                             android:max="100"
                             android:progress="0"
@@ -97,74 +108,143 @@
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/constraintLayout3"
-                        android:layout_width="wrap_content"
+                    <TextView
+                        android:id="@+id/tv_bi_type"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:descendantFocusability="beforeDescendants"
-                        app:layout_constraintBottom_toBottomOf="@+id/cl_stats_container"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toEndOf="@+id/cl_stats_container"
-                        app:layout_constraintTop_toTopOf="@+id/cl_stats_container" />
-
-                    <Button
-                        android:id="@+id/button2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="431dp"
-                        android:text="Button"
-                        app:layout_constraintEnd_toStartOf="@+id/button3"
+                        android:layout_marginTop="36dp"
+                        android:text="@string/business_type"
+                        android:textAlignment="center"
+                        app:layout_constraintEnd_toStartOf="@+id/tv_bi_seats"
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toBottomOf="@+id/cl_stats_container" />
 
-                    <Button
-                        android:id="@+id/button3"
-                        android:layout_width="wrap_content"
+                    <TextView
+                        android:id="@+id/tv_bi_type_val"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="431dp"
-                        android:text="Button"
+                        android:layout_marginTop="36dp"
+                        android:maxLines="2"
+                        android:text="@string/type"
+                        android:textAlignment="center"
+                        android:textSize="@dimen/title_large_textSize"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toStartOf="@+id/tv_bi_seats_val"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintHorizontal_weight="1"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_bi_type" />
+
+                    <TextView
+                        android:id="@+id/tv_bi_seats"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="36dp"
+                        android:text="@string/seats_number"
+                        android:textAlignment="center"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toEndOf="@+id/button2"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintStart_toEndOf="@+id/tv_bi_type"
+                        app:layout_constraintTop_toBottomOf="@+id/cl_stats_container" />
 
-                    <Button
-                        android:id="@+id/button5"
-                        android:layout_width="wrap_content"
+                    <TextView
+                        android:id="@+id/tv_bi_seats_val"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="120dp"
-                        android:text="Button"
+                        android:layout_marginTop="36dp"
+                        android:text="@string/seats_number"
+                        android:textAlignment="center"
+                        android:textSize="@dimen/title_large_textSize"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintHorizontal_weight="1"
+                        app:layout_constraintStart_toEndOf="@+id/tv_bi_type_val"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_bi_seats" />
+
+                    <TextView
+                        android:id="@+id/tv_bi_user_area"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="36dp"
+                        android:text="@string/available_area_for_each_person"
+                        android:textAlignment="center"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/button2" />
+                        app:layout_constraintTop_toBottomOf="@+id/tv_bi_type_val" />
 
-                    <Button
-                        android:id="@+id/button6"
-                        android:layout_width="wrap_content"
+                    <TextView
+                        android:id="@+id/tv_bi_user_area_val"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="120dp"
-                        android:text="Button"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/button5" />
-
-                    <Button
-                        android:id="@+id/button7"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Button"
+                        android:layout_marginTop="36dp"
+                        android:text="@string/estimated_surface"
+                        android:textAlignment="center"
+                        android:textSize="@dimen/title_large_textSize"
+                        android:textStyle="bold"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/button6" />
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_bi_user_area" />
 
-                    <Button
-                        android:id="@+id/button8"
+                    <TextView
+                        android:id="@+id/tv_bi_avg_time_spent"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="120dp"
-                        android:text="Button"
+                        android:layout_marginTop="36dp"
+                        android:text="@string/average_time_spent"
+                        android:textAlignment="center"
+                        app:layout_constraintBottom_toTopOf="@+id/tv_bi_avg_time_spent_val"
+                        app:layout_constraintEnd_toStartOf="@+id/tv_bi_address"
+                        app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/button7" />
+                        app:layout_constraintTop_toBottomOf="@+id/tv_bi_user_area_val" />
+
+                    <TextView
+                        android:id="@+id/tv_bi_address"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="36dp"
+                        android:text="@string/address"
+                        android:textAlignment="center"
+                        app:layout_constraintBottom_toTopOf="@+id/tv_bi_address_val"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/tv_bi_avg_time_spent"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_bi_user_area_val" />
+
+                    <TextView
+                        android:id="@+id/tv_bi_address_val"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="36dp"
+                        android:layout_marginBottom="16dp"
+                        android:text="@string/address"
+                        android:textAlignment="center"
+                        android:textSize="@dimen/title_large_textSize"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintHorizontal_weight="1"
+                        app:layout_constraintStart_toEndOf="@+id/tv_bi_avg_time_spent_val"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_bi_address" />
+
+                    <TextView
+                        android:id="@+id/tv_bi_avg_time_spent_val"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="36dp"
+                        android:text="@string/average_time_spent"
+                        android:textAlignment="center"
+                        android:textSize="@dimen/title_large_textSize"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toStartOf="@+id/tv_bi_address_val"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintHorizontal_weight="1"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_bi_avg_time_spent" />
+
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>

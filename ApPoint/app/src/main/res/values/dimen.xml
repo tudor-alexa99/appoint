@@ -35,6 +35,7 @@
     <dimen name="stats_thickness_medium">22dp</dimen>
     <dimen name="stats_thickness_small">15dp</dimen>
 
+    <dimen name="pie_chart_layout_size_extra_large">450dp</dimen>
     <dimen name="pie_chart_layout_size_large">300dp</dimen>
     <dimen name="pie_chart_layout_size_medium">220dp</dimen>
     <dimen name="pie_chart_layout_size_small">170dp</dimen>

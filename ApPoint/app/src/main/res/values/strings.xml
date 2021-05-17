@@ -40,6 +40,10 @@
     <string name="seats_number">Seats Number</string>
     <string name="open_space">Open Space</string>
     <string name="hh_mm">hh:mm</string>
+    <string name="score">Score</string>
+    <string name="business_type">Business type</string>
+    <string name="available_area_for_each_person">Available area for each person</string>
+    <string name="average_time_spent">Average Time Spent</string>
 
     <string-array name="business_types">
         <item>Dining</item>
