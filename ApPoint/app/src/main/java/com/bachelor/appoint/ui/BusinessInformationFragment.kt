@@ -74,10 +74,20 @@ class BusinessInformatioFragment : Fragment() {
 
         // set the risk progressBar and animation
         val objectAnimator = ObjectAnimator()
+
         business?.let { //binding.statsProgressbar.setProgress(it.estimatedRisk, true)
-            ObjectAnimator.ofInt(binding.statsProgressbar, "progress", it.estimatedRisk)
-                .setDuration(900)
-                .start()
+            if (business!!.estimatedRisk < 33)
+                ObjectAnimator.ofInt(binding.statsProgressbarLow, "progress", it.estimatedRisk)
+                    .setDuration(400)
+                    .start()
+            else if (business!!.estimatedRisk < 66)
+                ObjectAnimator.ofInt(binding.statsProgressbarMedium, "progress", it.estimatedRisk)
+                    .setDuration(900)
+                    .start()
+            else
+                ObjectAnimator.ofInt(binding.statsProgressbarHigh, "progress", it.estimatedRisk)
+                    .setDuration(1200)
+                    .start()
         }
 
         // set the number inside the pie chart

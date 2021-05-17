@@ -89,14 +89,46 @@
                         <!-- ProgressBar that represents a chart slice, where "android:progress" is the % value of the slice -->
 
                         <ProgressBar
-                            android:id="@+id/stats_progressbar"
+                            android:id="@+id/stats_progressbar_low"
                             style="?android:attr/progressBarStyleHorizontal"
                             android:layout_width="@dimen/pie_chart_layout_size_medium"
                             android:layout_height="@dimen/pie_chart_layout_size_medium"
                             android:indeterminate="false"
                             android:max="100"
                             android:progress="0"
-                            android:progressDrawable="@drawable/stats_progress"
+                            android:progressDrawable="@drawable/stats_progress_low"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="1.0"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="0.0" />
+
+                        <ProgressBar
+                            android:id="@+id/stats_progressbar_medium"
+                            style="?android:attr/progressBarStyleHorizontal"
+                            android:layout_width="@dimen/pie_chart_layout_size_medium"
+                            android:layout_height="@dimen/pie_chart_layout_size_medium"
+                            android:indeterminate="false"
+                            android:max="100"
+                            android:progress="0"
+                            android:progressDrawable="@drawable/stats_progress_medium"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="1.0"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="0.0" />
+
+                        <ProgressBar
+                            android:id="@+id/stats_progressbar_high"
+                            style="?android:attr/progressBarStyleHorizontal"
+                            android:layout_width="@dimen/pie_chart_layout_size_medium"
+                            android:layout_height="@dimen/pie_chart_layout_size_medium"
+                            android:indeterminate="false"
+                            android:max="100"
+                            android:progress="0"
+                            android:progressDrawable="@drawable/stats_progress_high"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintHorizontal_bias="1.0"

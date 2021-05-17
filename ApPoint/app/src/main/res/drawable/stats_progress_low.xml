@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rotate xmlns:android="http://schemas.android.com/apk/res/android"
+    android:fromDegrees="270"
+    android:toDegrees="270">
+    <shape
+        android:innerRadius="@dimen/stats_radius_medium"
+        android:shape="ring"
+        android:thickness="@dimen/stats_thickness_medium"
+        android:useLevel="true">
+        <solid android:color="@color/pie_chart_progress_low" />
+    </shape>
+</rotate>
