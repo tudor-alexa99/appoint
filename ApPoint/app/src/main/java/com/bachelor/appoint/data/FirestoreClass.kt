@@ -152,11 +152,27 @@ class FirestoreClass {
         name: String,
         address: String,
         phone: String,
-        type: String
+        type: String,
+        estimatedSurface: Int,
+        seatsNumber: Int,
+        openSpace: Boolean,
+        risk: Int,
+        averageTimeSpent: String,
     ) {
         // Test function for adding a business
 
-        val business = Business(getCurrentUserID(), name, address, phone, type)
+        val business = Business(
+            getCurrentUserID(),
+            name,
+            address,
+            phone,
+            type,
+            estimatedSurface,
+            seatsNumber,
+            openSpace,
+            risk,
+            averageTimeSpent
+        )
 
         // Collection = "business"
         firestoreAdapter.collection(Constants.BUSINESSES)

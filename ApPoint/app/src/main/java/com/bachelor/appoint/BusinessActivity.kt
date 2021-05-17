@@ -95,9 +95,26 @@ class BusinessActivity : AppCompatActivity() {
             val estimatedTime: String = alertBinding.etTimeSpent.text.toString()
             val openSpace: Boolean = alertBinding.swiOpenSpace.isChecked
 
-            val estimatedRisk = StatisticsHelper().computeEstimatedRisk(type, estimatedSurface, maxSeatsNumber, estimatedTime, openSpace)
+            val estimatedRisk = StatisticsHelper().computeEstimatedRisk(
+                type,
+                estimatedSurface,
+                maxSeatsNumber,
+                estimatedTime,
+                openSpace
+            )
 
-//            FirestoreClass().addBusiness(this, name, address, phoneNumber, selectedType)
+            FirestoreClass().addBusiness(
+                this,
+                name,
+                address,
+                phoneNumber,
+                type,
+                estimatedSurface,
+                maxSeatsNumber,
+                openSpace,
+                estimatedRisk,
+                estimatedTime
+            )
         }
 
         builder.setNegativeButton(android.R.string.cancel) { dialog, which ->

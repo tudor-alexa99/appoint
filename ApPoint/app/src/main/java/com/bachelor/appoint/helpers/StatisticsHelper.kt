@@ -49,7 +49,7 @@ class StatisticsHelper {
         seatsNumber: Int,
         estimatedTime: String,
         openSpace: Boolean
-    ) {
+    ): Int {
         // Returns the estimated risk associated with a business
 
         // Get the predefined value
@@ -69,9 +69,10 @@ class StatisticsHelper {
         val hours = formatTime(estimatedTime)
 
         // Formula will be: risk * ( 2 / userSpace) * (estimatedTime / 0.5) * openSpace %
-        val risk = (key * (2.0 / userSpace) * (hours / 0.5) * openSpaceValue)
+        val risk = (2 * key * (2.0 / userSpace) * (hours / 0.5) * openSpaceValue)
 
         Log.d("Estimated Risk", risk.toString())
+        return risk.toInt()
 
 
     }
