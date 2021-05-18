@@ -21,9 +21,19 @@
 
     <dimen name="card_padding_start_end">16dp</dimen>
     <dimen name="card_padding_top_bottom">12dp</dimen>
+    <dimen name="card_padding_start_end_large">18dp</dimen>
+    <dimen name="card_padding_top_bottom_large">16dp</dimen>
+    <dimen name="card_padding_start_end_small">8dp</dimen>
+    <dimen name="card_padding_top_bottom_small">10dp</dimen>
+
+
     <dimen name="card_margin">8dp</dimen>
     <dimen name="card_margin_top_bottom_large">40dp</dimen>
-    <dimen name="card_margin_start_end_large">15dp</dimen>
+    <dimen name="card_margin_start_end_large">20dp</dimen>
+    <dimen name="card_margin_top_bottom_medium">30dp</dimen>
+    <dimen name="card_margin_start_end_medium">15dp</dimen>
+    <dimen name="card_margin_top_bottom_small">20dp</dimen>
+    <dimen name="card_margin_start_end_small">10dp</dimen>
     <dimen name="card_inside_padding">3dp</dimen>
 
     <!--    Statsistics -->
