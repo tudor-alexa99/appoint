@@ -22,7 +22,7 @@ class BusinessAppointmentsAdapter(
         val iv_status: ImageView = binding.ivStatus
 
         fun bindView(appointment: Appointment) {
-            tv_user_name.text = appointment.u_id // TODO add username
+            tv_user_name.text = appointment.userName// TODO add username
             tv_startTime.text = appointment.startTime
 
             when (appointment.status) {

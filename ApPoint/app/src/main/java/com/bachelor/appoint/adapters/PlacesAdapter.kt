@@ -111,9 +111,14 @@ class PlacesAdapter(
         override fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int) {
             savedHour = hourOfDay
             savedMinute = minute
-            _date = "${savedDay}/${savedMonth}/${savedYear}"
+            _date = "${savedDay}/${savedMonth + 1}/${savedYear}"
             _time = "${savedHour}:${savedMinute}"
-            FirestoreClass().addAppointment(_time, _date, business.id, business.name)
+
+            FirestoreClass().getUserName(this)
+        }
+
+        fun successRetrieveUserName(userName: String) {
+            FirestoreClass().addAppointment(_time, _date, business.id, business.name, userName)
         }
 
     }

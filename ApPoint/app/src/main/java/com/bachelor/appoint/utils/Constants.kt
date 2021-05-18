@@ -1,6 +1,7 @@
 package com.bachelor.appoint.utils
 
 object Constants {
+    const val FULL_NAME: String = "fullName"
     const val APPOINTMENTS: String = "appointments"
     const val USERS: String = "users"
     const val BUSINESSES: String = "businesses"

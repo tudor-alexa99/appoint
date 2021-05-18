@@ -59,16 +59,15 @@ class StatisticsHelper {
         val userSpace: Double = (estimatedSurface.toDouble()/seatsNumber)
 
         // openSpaceValue will be: 0.5 if true, 1 if false
-        val openSpaceValue: Double
-        when (openSpace) {
-            true -> openSpaceValue = 0.5
-            false -> openSpaceValue = 1.0
+        val openSpaceValue: Double = when (openSpace) {
+            true -> 0.5
+            false -> 1.0
         }
 
         // Format estimated time
         val hours = formatTime(estimatedTime)
 
-        // Formula will be: risk * ( 2 / userSpace) * (estimatedTime / 0.5) * openSpace %
+        // Formula will be: 2 * risk * ( 2 / userSpace) * (estimatedTime / 0.5) * openSpace %
         val risk = (2 * key * (2.0 / userSpace) * (hours / 0.5) * openSpaceValue)
 
         Log.d("Estimated Risk", risk.toString())

@@ -9,6 +9,7 @@ import com.bachelor.appoint.BusinessActivity
 import com.bachelor.appoint.LoginActivity
 import com.bachelor.appoint.PlacesActivity
 import com.bachelor.appoint.RegisterActivity
+import com.bachelor.appoint.adapters.PlacesAdapter
 import com.bachelor.appoint.model.Appointment
 import com.bachelor.appoint.model.Business
 import com.bachelor.appoint.model.User
@@ -42,7 +43,7 @@ class FirestoreClass {
             }
     }
 
-    fun getCurrentUserID(): String {
+    private fun getCurrentUserID(): String {
         // Check if it is already saved
         if (this::currentUserID.isInitialized)
             return currentUserID
@@ -97,12 +98,26 @@ class FirestoreClass {
         startTime: String,
         date: String,
         businessId: String,
-        businessName: String
+        businessName: String,
+        userName: String
     ) {
 
+        //Get the user name
+//        getUserName()
+
         // Create the model object
+
         val appointment =
-            Appointment("", getCurrentUserID(), businessId, businessName, startTime, date, false)
+            Appointment(
+                "",
+                getCurrentUserID(),
+                businessId,
+                businessName,
+                startTime,
+                date,
+                false,
+                userName = userName,
+            )
 
         // Collection = appointments
 
@@ -282,4 +297,15 @@ class FirestoreClass {
             }
         }
     }
+
+    fun getUserName(placesViewHolder: PlacesAdapter.PlacesViewHolder) {
+        firestoreAdapter.collection(Constants.USERS)
+            .document(getCurrentUserID())
+            .get()
+            .addOnSuccessListener {
+                val userName = it["fullName"] as String
+                placesViewHolder.successRetrieveUserName(userName)
+            }
+    }
 }
+

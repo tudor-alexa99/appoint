@@ -27,6 +27,6 @@ class AppointmentsViewModel() : ViewModel() {
     }
 
     fun addMockAppointment() {
-        FirestoreClass().addAppointment("11:30","10/10/2020", "unSS8p2PAUff9zuuJQIF", "Textila")
+//        FirestoreClass().addAppointment("11:30","10/10/2020", "unSS8p2PAUff9zuuJQIF", "Textila")
     }
 }

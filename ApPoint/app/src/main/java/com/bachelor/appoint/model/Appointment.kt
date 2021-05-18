@@ -11,4 +11,5 @@ class Appointment(
     var date: String = "",
     var completed: Boolean = false,
     var status: String = "pending",
+    var userName: String = "",
 )

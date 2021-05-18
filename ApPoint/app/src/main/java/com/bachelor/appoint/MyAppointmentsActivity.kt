@@ -9,6 +9,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bachelor.appoint.adapters.MyAppointmensAdapter
+import com.bachelor.appoint.data.FirestoreClass
 import com.bachelor.appoint.databinding.ActivityMyAppointmentsBinding
 import com.bachelor.appoint.model.Appointment
 import com.bachelor.appoint.viewModel.AppointmentsViewModel
@@ -42,6 +43,8 @@ class MyAppointmentsActivity : AppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.setHasFixedSize(true)
         recyclerView.adapter = appointmentsAdapter
+
+//        FirestoreClass().getUserName()
 
         // Set the action button
         binding.btnShowPlaces.setOnClickListener {
