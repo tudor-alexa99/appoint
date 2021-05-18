@@ -47,7 +47,7 @@
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/fr_business_info"
-            android:name="com.bachelor.appoint.ui.BusinessInformatioFragment"
+            android:name="com.bachelor.appoint.ui.EmptyPageBusiness"
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"

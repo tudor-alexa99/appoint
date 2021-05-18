@@ -45,6 +45,8 @@
     <string name="available_area_for_each_person">Available area for each person</string>
     <string name="average_time_spent">Average Time Spent</string>
     <string name="user_name">User Name</string>
+    <string name="swipe_up_for_business_details_n_swipe_down_for_appointments_list">Swipe up for business details.<br /> Swipe down for appointments list</string>
+    <string name="tap_on_this_button_to_create_a_new_entry">Tap on this button to create a new entry</string>
 
     <string-array name="business_types">
         <item>Dining</item>
