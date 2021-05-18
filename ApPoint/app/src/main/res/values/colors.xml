@@ -30,5 +30,6 @@
     <color name="pie_chart_progress_low">#457B9D</color>
     <color name="pie_chart_progress">#FF7043</color>
     <color name="pie_chart_progress_high">#B43E3E</color>
+    <color name="end_color">#9E3E3E</color>
 
 </resources>

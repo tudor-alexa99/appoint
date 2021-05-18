@@ -30,7 +30,7 @@ class MyAppointmensAdapter(
                 iv_status.setImageResource(R.drawable.ic_baseline_hourglass_bottom_24)
             else if (appointment.status == "accepted")
                 iv_status.setImageResource(R.drawable.ic_baseline_check_circle_outline_24)
-            else if(appointment.status == "canceled")
+            else if(appointment.status == "cancelled")
                 iv_status.setImageResource(R.drawable.ic_outline_cancel_24)
         }
 

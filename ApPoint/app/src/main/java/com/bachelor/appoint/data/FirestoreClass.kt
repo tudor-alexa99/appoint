@@ -307,5 +307,18 @@ class FirestoreClass {
                 placesViewHolder.successRetrieveUserName(userName)
             }
     }
+
+    fun denyAppointment(id: String) {
+        // Method that sets the status of the appointment to "canceled"
+        firestoreAdapter.collection(Constants.APPOINTMENTS)
+            .document(id)
+            .update("status", "cancelled")
+    }
+
+    fun acceptAppointment(id: String) {
+        firestoreAdapter.collection(Constants.APPOINTMENTS)
+            .document(id)
+            .update("status", "accepted")
+    }
 }
 

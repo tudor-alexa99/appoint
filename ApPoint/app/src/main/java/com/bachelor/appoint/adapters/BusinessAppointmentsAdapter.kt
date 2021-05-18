@@ -28,7 +28,7 @@ class BusinessAppointmentsAdapter(
             when (appointment.status) {
                 "pending" -> iv_status.setImageResource(R.drawable.ic_baseline_hourglass_bottom_24)
                 "accepted" -> iv_status.setImageResource(R.drawable.ic_baseline_check_circle_outline_24)
-                "canceled" -> iv_status.setImageResource(R.drawable.ic_outline_cancel_24)
+                "cancelled" -> iv_status.setImageResource(R.drawable.ic_outline_cancel_24)
             }
         }
 
@@ -57,6 +57,10 @@ class BusinessAppointmentsAdapter(
     fun setAppointments(list: ArrayList<Appointment>) {
         this.appointments = list
         notifyDataSetChanged()
+    }
+
+    fun getItem(adapterPosition: Int): Appointment {
+        return appointments[adapterPosition]
     }
 
 
