@@ -6,6 +6,7 @@ import android.widget.DatePicker
 import android.widget.TimePicker
 import android.app.AlertDialog
 import android.content.Context
+import android.content.Intent
 import android.icu.util.Calendar
 import android.util.Log
 import android.view.LayoutInflater
@@ -13,6 +14,8 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bachelor.appoint.BusinessDetailsActivity
+import com.bachelor.appoint.PlacesActivity
 import com.bachelor.appoint.R
 import com.bachelor.appoint.data.FirestoreClass
 import com.bachelor.appoint.databinding.CardPlaceBinding
@@ -66,7 +69,7 @@ class PlacesAdapter(
 
             btnCard.setOnClickListener {
                 val builder = AlertDialog.Builder(context)
-                    .setTitle(context.getString(R.string.about_business))
+                    .setTitle(context.getString(R.string.quick_actions))
                     .setCancelable(true)
                     .setPositiveButton(context.getString(R.string.confirm)) { dialog, id ->
 //                        TODO: AddAppointment
@@ -74,13 +77,17 @@ class PlacesAdapter(
                         pickDate()
                         Log.d("Date time", "${day}/${month}/${year}  ${hour}:${minute}")
                     }
-//                    .setNeutralButton(context.getString(R.string.choose_a_time)) { dialog, id ->
-//                        pickDate()
-//                    }
+                    .setNeutralButton(context.getString(R.string.more_info)) { dialog, id ->
+                        val intent = Intent(this.parentContext, BusinessDetailsActivity::class.java)
+                        // Set the parameters for the next activity
+                        intent.putExtra("b_id", business.id)
+                        this.parentContext.startActivity(intent)
+
+                    }
                     .setNegativeButton(context.getString(R.string.cancel)) { dialog, id ->
                         dialog.dismiss()
                     }
-                    .setMessage("Create a reservation for this place!")
+                    .setMessage("Create a reservation for this place or get more details!")
                 val alertDialog = builder.create()
                 alertDialog.show()
             }

@@ -5,10 +5,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.util.Log
 import androidx.fragment.app.Fragment
-import com.bachelor.appoint.BusinessActivity
-import com.bachelor.appoint.LoginActivity
-import com.bachelor.appoint.PlacesActivity
-import com.bachelor.appoint.RegisterActivity
+import com.bachelor.appoint.*
 import com.bachelor.appoint.adapters.PlacesAdapter
 import com.bachelor.appoint.model.Appointment
 import com.bachelor.appoint.model.Business
@@ -245,6 +242,23 @@ class FirestoreClass {
             }
     }
 
+    fun getBusinessDetails(businessID: String, activity: Activity) {
+        firestoreAdapter.collection(Constants.BUSINESSES)
+            .document(businessID)
+            .addSnapshotListener { snapshot, e ->
+                if (e != null) {
+                    Log.e("Get Business Details error", e.message.toString())
+                }
+                if (snapshot != null) {
+                    val business = snapshot.toObject(Business::class.java)!!
+                    when (activity) {
+                        is BusinessDetailsActivity -> activity.successObserveBusiness(business)
+                    }
+                }
+
+            }
+    }
+
     fun retrieveBusinesses(activity: Activity) {
         // Method that retrieves the business list
         when (activity) {
@@ -321,4 +335,3 @@ class FirestoreClass {
             .update("status", "accepted")
     }
 }
-

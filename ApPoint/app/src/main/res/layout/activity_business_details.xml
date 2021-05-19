@@ -6,4 +6,54 @@
     android:layout_height="match_parent"
     tools:context=".BusinessDetailsActivity">
 
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fr_business_details_fullscreen"
+        android:name="com.bachelor.appoint.ui.BusinessInformatioFragment"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" >
+
+    </androidx.fragment.app.FragmentContainerView>
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/btn_make_appointment"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/floating_button_height"
+        android:layout_marginBottom="16dp"
+        android:clickable="true"
+        android:text="@string/make_appointment"
+        android:textAlignment="viewEnd"
+        android:textDirection="locale"
+        android:textSize="@dimen/floating_button_text_size"
+        android:visibility="visible"
+        app:icon="@android:drawable/ic_menu_add"
+        android:backgroundTint="@color/teal"
+        app:iconPadding="0dp"
+        app:iconSize="30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/btn_cancel_appointment"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/floating_button_height"
+        android:layout_marginBottom="16dp"
+        android:clickable="true"
+        android:text="@string/cancel_appointment"
+        android:textAlignment="viewEnd"
+        android:textDirection="locale"
+        android:textSize="@dimen/floating_button_text_size"
+        android:visibility="gone"
+        app:icon="@drawable/ic_outline_cancel_24"
+        android:backgroundTint="@color/pie_chart_progress_high"
+        app:iconPadding="0dp"
+        app:iconSize="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

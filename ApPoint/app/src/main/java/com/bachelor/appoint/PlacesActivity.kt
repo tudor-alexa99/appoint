@@ -33,8 +33,6 @@ class PlacesActivity : AppCompatActivity() {
     }
 
     fun successRetrievePlaces(placesList: java.util.ArrayList<Business>) {
-        for (i in placesList)
-            Log.i("Business list item", i.name)
         this.placesList = placesList
 
         // Set the recycler view as well
