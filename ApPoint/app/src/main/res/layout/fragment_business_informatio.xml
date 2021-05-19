@@ -13,6 +13,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingHorizontal="@dimen/card_padding_start_end_large"
             android:orientation="vertical">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -37,6 +38,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_weight="1"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
@@ -147,9 +149,10 @@
                         android:layout_marginTop="36dp"
                         android:text="@string/business_type"
                         android:textAlignment="center"
+                        app:layout_constraintEnd_toEndOf="@+id/tv_bi_avg_time_spent"
                         app:layout_constraintEnd_toStartOf="@+id/tv_bi_seats"
                         app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintStart_toStartOf="@+id/tv_bi_avg_time_spent"
                         app:layout_constraintTop_toBottomOf="@+id/cl_stats_container" />
 
                     <TextView
@@ -221,67 +224,66 @@
 
                     <TextView
                         android:id="@+id/tv_bi_avg_time_spent"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="36dp"
                         android:text="@string/average_time_spent"
                         android:textAlignment="center"
-                        app:layout_constraintBottom_toTopOf="@+id/tv_bi_avg_time_spent_val"
-                        app:layout_constraintEnd_toStartOf="@+id/tv_bi_address"
+                        app:layout_constraintEnd_toEndOf="@+id/tv_bi_address"
+                        app:layout_constraintEnd_toStartOf="@+id/tv_bi_avg_time_spent_val"
                         app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintHorizontal_weight="1"
+                        app:layout_constraintStart_toStartOf="@+id/tv_bi_address"
                         app:layout_constraintTop_toBottomOf="@+id/tv_bi_user_area_val" />
 
                     <TextView
                         android:id="@+id/tv_bi_address"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="36dp"
-                        android:text="@string/address"
-                        android:textAlignment="center"
-                        app:layout_constraintBottom_toTopOf="@+id/tv_bi_address_val"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toEndOf="@+id/tv_bi_avg_time_spent"
-                        app:layout_constraintTop_toBottomOf="@+id/tv_bi_user_area_val" />
-
-                    <TextView
-                        android:id="@+id/tv_bi_address_val"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="36dp"
-                        android:layout_marginBottom="16dp"
                         android:text="@string/address"
                         android:textAlignment="center"
-                        android:textSize="@dimen/title_large_textSize"
-                        android:textStyle="bold"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/tv_bi_address_val"
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintHorizontal_weight="1"
-                        app:layout_constraintStart_toEndOf="@+id/tv_bi_avg_time_spent_val"
-                        app:layout_constraintTop_toBottomOf="@+id/tv_bi_address" />
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_bi_avg_time_spent_val" />
 
                     <TextView
                         android:id="@+id/tv_bi_avg_time_spent_val"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="36dp"
                         android:text="@string/average_time_spent"
-                        android:textAlignment="center"
+                        android:textAlignment="viewStart"
                         android:textSize="@dimen/title_large_textSize"
                         android:textStyle="bold"
-                        app:layout_constraintEnd_toStartOf="@+id/tv_bi_address_val"
+                        app:layout_constraintBottom_toBottomOf="@+id/tv_bi_avg_time_spent"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintHorizontal_weight="1"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/tv_bi_avg_time_spent" />
+                        app:layout_constraintStart_toEndOf="@+id/tv_bi_avg_time_spent"
+                        app:layout_constraintTop_toTopOf="@+id/tv_bi_avg_time_spent" />
+
+                    <TextView
+                        android:id="@+id/tv_bi_address_val"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/address"
+                        android:textAlignment="viewStart"
+                        android:textSize="@dimen/title_large_textSize"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="@+id/tv_bi_address"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintHorizontal_weight="1"
+                        app:layout_constraintStart_toEndOf="@+id/tv_bi_address"
+                        app:layout_constraintTop_toTopOf="@+id/tv_bi_address" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <Space
                     android:layout_width="0dp"
-                    android:layout_height="110dp"
+                    android:layout_height="200dp"
                     android:layout_marginTop="36dp"
                     android:layout_marginBottom="36dp"
                     app:layout_constraintBottom_toBottomOf="@+id/cl_b_details_body"
