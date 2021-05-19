@@ -17,28 +17,32 @@ class StatisticsHelper {
 
     private val associatedRisk = mapOf<Int, Array<String>>(
         1 to arrayOf(
-            "Clinic",
-            "Dentist"
+            "Dining",
+            "Hiking",
         ),
         2 to arrayOf(
-            "Pool",
-            "Hair Salon"
+            "Picnic",
+            "Pool party",
+            "Beach party",
         ),
         3 to arrayOf(
-            "Dining",
-            "Hotel",
-            "Insurance company",
-            "Office"
+            "Kids playdate",
+            "Salon visit",
+            "Dentist office visit",
         ),
         4 to arrayOf(
-            "Kids playground",
-            "Bank",
-            "Pub",
+            "Outside drinking",
+            "Gym classes",
+            "Indoors party",
+            "Blind date",
+            "Office meeting",
+            "Science conference",
         ),
         5 to arrayOf(
-            "Gym",
-            "Sports Hall",
-            "Club",
+            "Sports Competition",
+            "Pub",
+            "Clubbing",
+            "Festival",
         )
     )
 

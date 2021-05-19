@@ -10,6 +10,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="my_appointments">My appointments</string>
     <string name="event">Event</string>
+    <string name="events">Events</string>
     <string name="Report">Report contact or contamination</string>
     <string name="maps">Show map</string>
 
@@ -26,7 +27,7 @@
 
     <!--    Event -->
     <string name="add_event_button">Add event button</string>
-    <string name="company_name">Company name</string>
+    <string name="event_name">Event name</string>
     <string name="address">Address</string>
     <string name="phone_number">Phone number</string>
     <string name="save">Save</string>
@@ -55,19 +56,23 @@
 
     <string-array name="event_types">
         <item>Dining</item>
-        <item>Pool</item>
-        <item>Kids playground</item>
-        <item>Hair Salon</item>
-        <item>Dentist office</item>
-        <item>Bank</item>
-        <item>Clinic</item>
-        <item>Insurance company</item>
-        <item>Office</item>
-        <item>Gym</item>
-        <item>Hotel</item>
-        <item>Sports Hall</item>
+        <item>Hiking</item>
+        <item>Picnic</item>
+        <item>Pool party</item>
+        <item>Beach party</item>
+        <item>Kids playdate</item>
+        <item>Salon visit</item>
+        <item>Dentist office visit</item>
+        <item>Outside drinking</item>
+        <item>Gym classes</item>
+        <item>Blind date</item>
+        <item>Indoors party</item>
+        <item>Office meeting</item>
+        <item>Science conference</item>
+        <item>Sports Competition</item>
         <item>Pub</item>
-        <item>Club</item>
+        <item>Clubbing</item>
+        <item>Festival</item>
     </string-array>
 
 </resources>

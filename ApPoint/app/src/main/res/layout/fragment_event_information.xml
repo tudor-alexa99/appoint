@@ -27,7 +27,7 @@
                     android:layout_height="0dp"
                     android:layout_marginStart="64dp"
                     android:layout_marginTop="32dp"
-                    android:text="@string/company_name"
+                    android:text="@string/event_name"
                     android:textSize="@dimen/title_medium_textSize"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
