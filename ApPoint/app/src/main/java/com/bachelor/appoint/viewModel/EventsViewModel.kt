@@ -5,11 +5,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.bachelor.appoint.data.FirestoreClass
-import com.bachelor.appoint.model.Business
+import com.bachelor.appoint.model.Event
 
-class BusinessesViewModel(): ViewModel() {
-    var businessesList = mutableListOf<Business>()
-    var liveBusinesses: MutableLiveData<List<Business>> = MutableLiveData()
+class EventsViewModel(): ViewModel() {
+    var businessesList = mutableListOf<Event>()
+    var liveBusinesses: MutableLiveData<List<Event>> = MutableLiveData()
 
 
 //    fun getBusinesses(): LiveData<List<Business>> {

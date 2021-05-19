@@ -28,20 +28,20 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/business_button"
+            android:id="@+id/event_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="32dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="32dp"
-            android:text="@string/business"
+            android:text="@string/event"
             app:layout_constraintBottom_toTopOf="@+id/report_button"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/my_appointments_button"
             android:textColor="@color/black"
-            android:background="@drawable/business_button"/>
+            android:background="@drawable/event_button"/>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/report_button"

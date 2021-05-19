@@ -2,10 +2,10 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/cl_business"
+    android:id="@+id/cl_event"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".BusinessActivity">
+    tools:context=".EventsActivity">
 
 
     <ImageView
@@ -31,7 +31,7 @@
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/sv_business"
+        android:id="@+id/sv_event"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="16dp"
@@ -43,41 +43,41 @@
 
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_business"
+            android:id="@+id/rv_event"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:clipChildren="false"
             android:descendantFocusability="afterDescendants"
             android:foregroundGravity="center"
             android:orientation="horizontal"
-            app:layout_constraintBottom_toTopOf="@+id/fr_business_info"
+            app:layout_constraintBottom_toTopOf="@+id/fr_event_info"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_chainStyle="packed" />
 
         <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/fr_business_info"
-            android:name="com.bachelor.appoint.ui.EmptyPageBusiness"
+            android:id="@+id/fr_event_info"
+            android:name="com.bachelor.appoint.ui.EmptyPageEvent"
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/rv_business" />
+            app:layout_constraintTop_toBottomOf="@+id/rv_event" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/btn_add_business"
+        android:id="@+id/btn_add_event"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:clickable="true"
-        android:contentDescription="@string/add_business_button"
-        app:backgroundTint="@color/business_accent"
+        android:contentDescription="@string/add_event_button"
+        app:backgroundTint="@color/event_accent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@android:drawable/ic_menu_add" />

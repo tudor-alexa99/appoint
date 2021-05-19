@@ -5,39 +5,39 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.bachelor.appoint.databinding.CardBusinessBinding
-import com.bachelor.appoint.model.Business
+import com.bachelor.appoint.databinding.CardEventBinding
+import com.bachelor.appoint.model.Event
 
-open class BusinessListAdapter(
+open class EventsListAdapter(
     private val context: Context,
-    private val list: ArrayList<Business>,
+    private val list: ArrayList<Event>,
 
     ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private var currentPosition: Int = 0
 
-    class BusinessViewHolder(val binding: CardBusinessBinding) :
+    class EventViewHolder(val binding: CardEventBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        val tv_title: TextView = binding.tvBusinessCardTitle
+        val tv_title: TextView = binding.tvEventCardTitle
         val tv_address: TextView = binding.tvAddress
-        val tv_phone: TextView = binding.tvBusinessPhoneNo
-        val tv_type: TextView = binding.tvBusinessType
+        val tv_phone: TextView = binding.tvEventPhoneNo
+        val tv_type: TextView = binding.tvEventType
 
-        fun bindView(business: Business) {
-            tv_title.text = business.name
-            tv_address.text = business.location
-            tv_phone.text = business.phoneNumber
-            tv_type.text = business.type
+        fun bindView(event: Event) {
+            tv_title.text = event.name
+            tv_address.text = event.location
+            tv_phone.text = event.phoneNumber
+            tv_type.text = event.type
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return BusinessViewHolder(
-            CardBusinessBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return EventViewHolder(
+            CardEventBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         )
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        if (holder is BusinessViewHolder) {
+        if (holder is EventViewHolder) {
             holder.bindView(list[position])
         }
     }
@@ -68,7 +68,7 @@ open class BusinessListAdapter(
             currentPosition -= 1
     }
 
-    fun getItem(adapterPosition: Int): Business {
+    fun getItem(adapterPosition: Int): Event {
         return list[adapterPosition]
     }
 

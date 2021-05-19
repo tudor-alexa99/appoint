@@ -5,10 +5,10 @@ import java.text.Format
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 
-// Class that will be used to compute statistics: Business Risk value and contamination chance
+// Class that will be used to compute statistics: Event Risk value and contamination chance
 class StatisticsHelper {
     /* The risk values associated will be denoted from 10 to 90 %
-    * A weighted sum will be computed,based on a certain business's variables such as:
+    * A weighted sum will be computed,based on a certain Event's variables such as:
     * - The area of the place
     * - Being open space or enclosed
     * - The estimated time people spend on average
@@ -50,7 +50,7 @@ class StatisticsHelper {
         estimatedTime: String,
         openSpace: Boolean
     ): Int {
-        // Returns the estimated risk associated with a business
+        // Returns the estimated risk associated with a event
 
         // Get the predefined value
         val key = associatedRisk.filterValues { it.contains(type) }.keys.toList()[0]

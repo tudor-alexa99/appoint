@@ -7,15 +7,15 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bachelor.appoint.R
-import com.bachelor.appoint.databinding.CardBAppointmentBinding
+import com.bachelor.appoint.databinding.CardEAppointmentBinding
 import com.bachelor.appoint.model.Appointment
 import java.util.ArrayList
 
-class BusinessAppointmentsAdapter(
+class EventAppointmentsAdapter(
     private var appointments: MutableList<Appointment>,
 
-    ) : RecyclerView.Adapter<BusinessAppointmentsAdapter.AppointmentsViewHolder>() {
-    class AppointmentsViewHolder(val binding: CardBAppointmentBinding) :
+    ) : RecyclerView.Adapter<EventAppointmentsAdapter.AppointmentsViewHolder>() {
+    class AppointmentsViewHolder(val binding: CardEAppointmentBinding) :
         RecyclerView.ViewHolder(binding.root) {
         val tv_user_name: TextView = binding.tvUserName
         val tv_startTime: TextView = binding.tvStartTime
@@ -37,7 +37,7 @@ class BusinessAppointmentsAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AppointmentsViewHolder {
 
         return AppointmentsViewHolder(
-            CardBAppointmentBinding.inflate(
+            CardEAppointmentBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false

@@ -1,49 +1,47 @@
 package com.bachelor.appoint
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import com.bachelor.appoint.data.FirestoreClass
-import com.bachelor.appoint.databinding.ActivityBusinessDetailsBinding
-import com.bachelor.appoint.databinding.ActivityPlacesBinding
-import com.bachelor.appoint.model.Business
-import com.bachelor.appoint.ui.BusinessInformatioFragment
+import com.bachelor.appoint.databinding.ActivityEventDetailsBinding
+import com.bachelor.appoint.model.Event
+import com.bachelor.appoint.ui.EventInformationFragment
 import com.bachelor.appoint.utils.Constants
 
-class BusinessDetailsActivity : AppCompatActivity() {
-    private lateinit var businessID: String
-    private lateinit var binding: ActivityBusinessDetailsBinding
+class EventDetailsActivity : AppCompatActivity() {
+    private lateinit var eventID: String
+    private lateinit var binding: ActivityEventDetailsBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_business_details)
+        setContentView(R.layout.activity_event_details)
 
-        // Get the business id parameter
-        businessID = intent.getStringExtra("b_id").toString()
+        // Get the event id parameter
+        eventID = intent.getStringExtra("b_id").toString()
 
         // Bind the activity
-        binding = ActivityBusinessDetailsBinding.inflate(layoutInflater)
+        binding = ActivityEventDetailsBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
 
-        // Set the observer for the current business and bind the view
-        FirestoreClass().getBusinessDetails(businessID, this)
+        // Set the observer for the current event and bind the view
+        FirestoreClass().getEventDetails(eventID, this)
 
         // Set the floating action buttons
         setActionButtons()
     }
 
-    fun successObserveBusiness(business: Business) {
-        // Once the business is retrieved, update the layout for the activity
+    fun successObserveEvent(event: Event) {
+        // Once the event is retrieved, update the layout for the activity
 
         // Start the fragment
         val manager = supportFragmentManager
 
         val bundle = Bundle()
-        bundle.putParcelable(Constants.BUSINESS, business)
+        bundle.putParcelable(Constants.EVENT, event)
 
-        val infoFragment = BusinessInformatioFragment()
+        val infoFragment = EventInformationFragment()
         infoFragment.arguments = bundle
 
         // initiate the transaction that replaces the fragments
@@ -51,7 +49,7 @@ class BusinessDetailsActivity : AppCompatActivity() {
             android.R.animator.fade_in,
             android.R.animator.fade_out
         )
-        transaction.replace(R.id.fr_business_details_fullscreen, infoFragment)
+        transaction.replace(R.id.fr_event_details_fullscreen, infoFragment)
         transaction.commit()
 
     }

@@ -1,39 +1,37 @@
 package com.bachelor.appoint.ui
 
-import android.animation.ObjectAnimator
 import android.graphics.Canvas
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.view.menu.MenuView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bachelor.appoint.R
-import com.bachelor.appoint.adapters.BusinessAppointmentsAdapter
+import com.bachelor.appoint.adapters.EventAppointmentsAdapter
 import com.bachelor.appoint.data.FirestoreClass
 import com.bachelor.appoint.databinding.FragmentAppointmentsListBinding
 import com.bachelor.appoint.model.Appointment
-import com.bachelor.appoint.model.Business
+import com.bachelor.appoint.model.Event
 import com.bachelor.appoint.utils.Constants
 import java.util.*
 
 
 class AppointmentsListFragment : Fragment() {
-    private var business: Business? = null
+    private var event: Event? = null
     private lateinit var binding: FragmentAppointmentsListBinding
     private lateinit var appointmentsList: ArrayList<Appointment>
-    private lateinit var appointmentsAdapter: BusinessAppointmentsAdapter
+    private lateinit var appointmentsAdapter: EventAppointmentsAdapter
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            business = it.getParcelable(Constants.BUSINESS)
+            event = it.getParcelable(Constants.EVENT)
         }
         binding = FragmentAppointmentsListBinding.inflate(layoutInflater)
 
@@ -47,10 +45,10 @@ class AppointmentsListFragment : Fragment() {
         val view: View = inflater.inflate(R.layout.fragment_appointments_list, container, false)
         binding = FragmentAppointmentsListBinding.inflate(layoutInflater)
 
-        val recyclerView = view.findViewById<RecyclerView>(R.id.rv_business_appointments)
+        val recyclerView = view.findViewById<RecyclerView>(R.id.rv_event_appointments)
         recyclerView.setHasFixedSize(true)
         recyclerView.layoutManager = LinearLayoutManager(view.context)
-        appointmentsAdapter = BusinessAppointmentsAdapter(mutableListOf())
+        appointmentsAdapter = EventAppointmentsAdapter(mutableListOf())
         recyclerView.adapter = appointmentsAdapter
 
         itemTouchHelper.attachToRecyclerView(recyclerView)
@@ -60,7 +58,7 @@ class AppointmentsListFragment : Fragment() {
     }
 
     private fun getAppointmentsList() {
-        FirestoreClass().retrieveBusinessAppointments(this, business!!.id)
+        FirestoreClass().retrieveEventAppointments(this, event!!.id)
     }
 
     fun successRetrieveAppointments(list: ArrayList<Appointment>) {
@@ -167,10 +165,10 @@ class AppointmentsListFragment : Fragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance(business: Business) =
+        fun newInstance(event: Event) =
             AppointmentsListFragment().apply {
                 arguments = Bundle().apply {
-                    putParcelable(Constants.BUSINESS, business)
+                    putParcelable(Constants.EVENT, event)
                 }
             }
     }

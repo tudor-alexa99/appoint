@@ -5,8 +5,8 @@ import java.io.Serializable
 class Appointment(
     val id: String = "",
     val u_id: String = "",
-    val b_id: String = "",
-    val business: String = "",
+    val e_id: String = "",
+    val event: String = "",
     var startTime: String = "",
     var date: String = "",
     var completed: Boolean = false,

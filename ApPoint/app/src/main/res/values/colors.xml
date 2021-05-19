@@ -11,12 +11,12 @@
     <color name="light_tomato">#EF9A9A</color>
     <color name="retro_baby_blue">#FF59A3D1</color>
 
-    <!--    Business  -->
-    <color name="business_dark">#3B354E</color>
-    <color name="business_medium">#B3A5C4</color>
-    <color name="business_light">#DDE4EE</color>
-    <color name="business_background">#F6F4EB</color>
-    <color name="business_accent">#D34A2E</color>
+    <!--    event  -->
+    <color name="event_dark">#3B354E</color>
+    <color name="event_medium">#B3A5C4</color>
+    <color name="event_light">#DDE4EE</color>
+    <color name="event_background">#F6F4EB</color>
+    <color name="event_accent">#D34A2E</color>
 
     <!--    Appointments  -->
     <color name="appointments_dark">#227F83</color>

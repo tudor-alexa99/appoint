@@ -9,7 +9,7 @@
     <!--    Main  -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="my_appointments">My appointments</string>
-    <string name="business">Business</string>
+    <string name="event">Event</string>
     <string name="Report">Report contact or contamination</string>
     <string name="maps">Show map</string>
 
@@ -24,16 +24,16 @@
     <string name="go_to_register">Already have an account? Register</string>
     <string name="go_to_login">Already have  an account? Login</string>
 
-    <!--    Business -->
-    <string name="add_business_button">Add business button</string>
+    <!--    Event -->
+    <string name="add_event_button">Add event button</string>
     <string name="company_name">Company name</string>
     <string name="address">Address</string>
     <string name="phone_number">Phone number</string>
     <string name="save">Save</string>
-    <string name="type">Business Type</string>
+    <string name="type">Event Type</string>
     <string name="show_places">Show Places</string>
     <string name="all_places">All available places</string>
-    <string name="about_business">About Business</string>
+    <string name="about_event">About Event</string>
     <string name="choose_a_time">Choose a date and a time</string>
     <string name="potential_risk_score">Potential risk score</string>
     <string name="estimated_surface">Estimated Surface</string>
@@ -41,11 +41,11 @@
     <string name="open_space">Open Space</string>
     <string name="hh_mm">hh:mm</string>
     <string name="score">Score</string>
-    <string name="business_type">Business type</string>
+    <string name="event_type">Event type</string>
     <string name="available_area_for_each_person">Available area for each person</string>
     <string name="average_time_spent">Average Time Spent</string>
     <string name="user_name">User Name</string>
-    <string name="swipe_up_for_business_details_n_swipe_down_for_appointments_list">Swipe up for business details.<br /> Swipe down for appointments list</string>
+    <string name="swipe_up_for_event_details_n_swipe_down_for_appointments_list">Swipe up for event details.<br /> Swipe down for appointments list</string>
     <string name="tap_on_this_button_to_create_a_new_entry">Tap on this button to create a new entry</string>
     <string name="quick_actions">Quick Actions</string>
     <string name="more_info">More info</string>
@@ -53,7 +53,7 @@
     <string name="make_appointment">Make Appointment</string>
     <string name="cancel_appointment">Cancel Appointment</string>
 
-    <string-array name="business_types">
+    <string-array name="event_types">
         <item>Dining</item>
         <item>Pool</item>
         <item>Kids playground</item>

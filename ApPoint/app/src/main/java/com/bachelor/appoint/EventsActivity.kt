@@ -11,72 +11,69 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
-import com.bachelor.appoint.adapters.BusinessListAdapter
+import com.bachelor.appoint.adapters.EventsListAdapter
 import com.bachelor.appoint.data.FirestoreClass
-import com.bachelor.appoint.databinding.ActivityBusinessBinding
-import com.bachelor.appoint.databinding.FragmentAddBusinessAlertBinding
+import com.bachelor.appoint.databinding.ActivityEventsBinding
+import com.bachelor.appoint.databinding.FragmentAddEventAlertBinding
 import com.bachelor.appoint.helpers.StatisticsHelper
-import com.bachelor.appoint.model.Business
+import com.bachelor.appoint.model.Event
 import com.bachelor.appoint.ui.AppointmentsListFragment
-import com.bachelor.appoint.ui.BusinessInformatioFragment
+import com.bachelor.appoint.ui.EventInformationFragment
 import com.bachelor.appoint.utils.Constants
-import java.text.DateFormat
-import java.text.SimpleDateFormat
-import java.util.*
 import kotlin.collections.ArrayList
 
 
-class BusinessActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityBusinessBinding
-    private lateinit var businessAdapter: BusinessListAdapter
-    private lateinit var businessList: ArrayList<Business>
+class EventsActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityEventsBinding
+    private lateinit var eventAdapter: EventsListAdapter
+    private lateinit var eventList: ArrayList<Event>
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         // Bind the activity to the view
-        binding = ActivityBusinessBinding.inflate(layoutInflater)
+        binding = ActivityEventsBinding.inflate(layoutInflater)
         val view = binding.root
 
         setContentView(view)
 
         // Retrieve the list
-        getBusinessList()
+        getEventList()
 
-        // Add business button
-        binding.btnAddBusiness.setOnClickListener {
+        // Add event button
+        binding.btnAddEvent.setOnClickListener {
             print("Button clicked")
-            Log.d("Add business button clicked", "Business Activity")
+            Log.d("Add event button clicked", "Event Activity")
             openAlertDialog()
         }
 
-        itemTouchHelper.attachToRecyclerView(binding.rvBusiness)
+        itemTouchHelper.attachToRecyclerView(binding.rvEvent)
 
     }
 
 
     override fun onResume() {
         super.onResume()
-        getBusinessList()
+        getEventList()
     }
 
     // ADD
 
     fun openAlertDialog() {
         val builder = AlertDialog.Builder(this)
-        builder.setTitle("Add new business")
-        val alertBinding = FragmentAddBusinessAlertBinding.inflate(layoutInflater)
+        builder.setTitle("Add new event")
+        val alertBinding = FragmentAddEventAlertBinding.inflate(layoutInflater)
         val alertView = alertBinding.root
         builder.setView(alertView)
 
         // initialise the spinner
-        val spinner = alertBinding.spBusinessTypes
+        val spinner = alertBinding.spEventTypes
 
         // Create the adaptor and set its values
         ArrayAdapter.createFromResource(
             this,
-            R.array.business_types,
+            R.array.event_types,
             android.R.layout.simple_spinner_item
         ).also { adapter ->
             // Specify the layout to use when the list of choices appears
@@ -87,8 +84,8 @@ class BusinessActivity : AppCompatActivity() {
 
 
         builder.setPositiveButton(android.R.string.yes) { dialog, which ->
-            val name: String = alertBinding.etBusinessName.text.toString()
-            val address: String = alertBinding.etBusinessAddress.text.toString()
+            val name: String = alertBinding.etEventName.text.toString()
+            val address: String = alertBinding.etEventAddress.text.toString()
             val phoneNumber: String = alertBinding.etPhone.text.toString()
             val type: String = spinner.selectedItem.toString()
             val estimatedSurface: Int = alertBinding.etEstimatedSurface.text.toString().toInt()
@@ -104,7 +101,7 @@ class BusinessActivity : AppCompatActivity() {
                 openSpace
             )
 
-            FirestoreClass().addBusiness(
+            FirestoreClass().addEvent(
                 this,
                 name,
                 address,
@@ -128,33 +125,33 @@ class BusinessActivity : AppCompatActivity() {
         builder.show()
     }
 
-    fun addBusinessSuccess() {
+    fun addEventSuccess() {
         Toast.makeText(
             applicationContext,
-            "Business added!", Toast.LENGTH_LONG
+            "Event added!", Toast.LENGTH_LONG
         ).show()
     }
 
     // READ
 
-    private fun getBusinessList() {
-        FirestoreClass().retrieveBusinesses(this)
+    private fun getEventList() {
+        FirestoreClass().retrieveEvents(this)
     }
 
-    fun successRetrieveBusinesses(businessList: ArrayList<Business>) {
-        this.businessList = businessList
+    fun successRetrieveEvents(eventList: ArrayList<Event>) {
+        this.eventList = eventList
 
         // Set the recycler view as well
-        businessAdapter = BusinessListAdapter(this, businessList)
+        eventAdapter = EventsListAdapter(this, eventList)
 
-        var recyclerView = binding.rvBusiness
+        var recyclerView = binding.rvEvent
         recyclerView.layoutManager = LinearLayoutManager(
             this,
             LinearLayoutManager.HORIZONTAL,
             false
         )
         recyclerView.setHasFixedSize(true)
-        recyclerView.adapter = businessAdapter
+        recyclerView.adapter = eventAdapter
 
     }
 
@@ -163,18 +160,18 @@ class BusinessActivity : AppCompatActivity() {
         // direction: -1 -> left, 1 -> right
 
 //        val eventId = "someId"
-//        val position: Int = businessAdapter.getItemPosition(eventId)
+//        val position: Int = eventAdapter.getItemPosition(eventId)
 //        if (position >= 0) {
-//            binding.rvBusiness.scrollToPosition(position)
+//            binding.rvEvent.scrollToPosition(position)
 //        }
 
         if (direction == 1) {
-            businessAdapter.nextPosition()
-            binding.rvBusiness.scrollToPosition(businessAdapter.getCurrentPosition())
+            eventAdapter.nextPosition()
+            binding.rvEvent.scrollToPosition(eventAdapter.getCurrentPosition())
         }
         if (direction == -1) {
-            businessAdapter.previousPosition()
-            binding.rvBusiness.scrollToPosition(businessAdapter.getCurrentPosition())
+            eventAdapter.previousPosition()
+            binding.rvEvent.scrollToPosition(eventAdapter.getCurrentPosition())
         }
     }
 
@@ -193,26 +190,26 @@ class BusinessActivity : AppCompatActivity() {
                 return true // true if moved, false otherwise
             }
 
-            // Swipe up on the business card to reload the appointments associated with it. An appointments list will reload and you will be able so swipe left or right on it `
-            // 2 fragments. On swipe up, load the business information, on swipe down load the appointments list
+            // Swipe up on the event card to reload the appointments associated with it. An appointments list will reload and you will be able so swipe left or right on it `
+            // 2 fragments. On swipe up, load the event information, on swipe down load the appointments list
 
             override fun onSwiped(viewHolder: ViewHolder, direction: Int) {
                 Log.d("Direction", direction.toString())
-                businessAdapter.notifyItemChanged(viewHolder.adapterPosition);
+                eventAdapter.notifyItemChanged(viewHolder.adapterPosition);
 
-                // Select the current business from the card that was swiped on
-                var business: Business = businessAdapter.getItem(viewHolder.adapterPosition)
+                // Select the current event from the card that was swiped on
+                var event: Event = eventAdapter.getItem(viewHolder.adapterPosition)
 
-                // Create a bundle to send the business param to the fragment
+                // Create a bundle to send the event param to the fragment
                 val bundle = Bundle()
-                bundle.putParcelable(Constants.BUSINESS, business)
+                bundle.putParcelable(Constants.EVENT, event)
 
                 // used for switching between fragment in the same frame
                 val manager = supportFragmentManager
 
                 if (direction == 1) {   // on Swipe UP
                     // create the new fragment and send the parameters
-                    val infoFragment = BusinessInformatioFragment()
+                    val infoFragment = EventInformationFragment()
                     infoFragment.arguments = bundle
 
                     binding.ellipse3.animate().alpha(0.0f)
@@ -226,7 +223,7 @@ class BusinessActivity : AppCompatActivity() {
                         android.R.animator.fade_in,
                         android.R.animator.fade_out
                     )
-                    transaction.replace(R.id.fr_business_info, infoFragment)
+                    transaction.replace(R.id.fr_event_info, infoFragment)
                     transaction.commit()
 
                 } else if (direction == 2) {    // on Swipe DOWN
@@ -245,7 +242,7 @@ class BusinessActivity : AppCompatActivity() {
                         android.R.animator.fade_in,
                         android.R.animator.fade_out
                     )
-                    transaction.replace(R.id.fr_business_info, appListFragment)
+                    transaction.replace(R.id.fr_event_info, appListFragment)
                     transaction.commit()
                 }
             }

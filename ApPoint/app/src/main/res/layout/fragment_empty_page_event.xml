@@ -5,13 +5,13 @@
     android:id="@+id/frameLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.EmptyPageBusiness" >
+    tools:context=".ui.EmptyPageEvent" >
 
     <TextView
         android:id="@+id/tv_swipe_indication"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="@string/swipe_up_for_business_details_n_swipe_down_for_appointments_list"
+        android:text="@string/swipe_up_for_event_details_n_swipe_down_for_appointments_list"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.4"

@@ -14,25 +14,24 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.bachelor.appoint.BusinessDetailsActivity
-import com.bachelor.appoint.PlacesActivity
+import com.bachelor.appoint.EventDetailsActivity
 import com.bachelor.appoint.R
 import com.bachelor.appoint.data.FirestoreClass
 import com.bachelor.appoint.databinding.CardPlaceBinding
-import com.bachelor.appoint.model.Business
+import com.bachelor.appoint.model.Event
 import kotlin.collections.ArrayList
 
 
 class PlacesAdapter(
     private val context: Context,
-    private val list: ArrayList<Business>,
+    private val list: ArrayList<Event>,
 
     ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     class PlacesViewHolder(context: Context, binding: CardPlaceBinding) :
         RecyclerView.ViewHolder(binding.root), DatePickerDialog.OnDateSetListener,
         TimePickerDialog.OnTimeSetListener {
         val parentContext: Context = context
-        private lateinit var business: Business
+        private lateinit var event: Event
 
         var _time = ""
         var _date = ""
@@ -50,22 +49,22 @@ class PlacesAdapter(
 
         val tv_title: TextView = binding.tvPlaceCardTitle
         val tv_address: TextView = binding.tvAddress
-        val tv_phone: TextView = binding.tvBusinessPhoneNo
-        val tv_type: TextView = binding.tvBusinessType
-        val btn_card: LinearLayout = binding.cardBusiness
+        val tv_phone: TextView = binding.tvEventPhoneNo
+        val tv_type: TextView = binding.tvEventType
+        val btn_card: LinearLayout = binding.cardEvent
 
-        fun bindView(business: Business) {
-            this.business = business
+        fun bindView(event: Event) {
+            this.event = event
 
-            tv_title.text = business.name
-            tv_address.text = business.location
-            tv_phone.text = business.phoneNumber
-            tv_type.text = business.type
+            tv_title.text = event.name
+            tv_address.text = event.location
+            tv_phone.text = event.phoneNumber
+            tv_type.text = event.type
 
-            bindCardButton(btn_card, parentContext, business)
+            bindCardButton(btn_card, parentContext, event)
         }
 
-        private fun bindCardButton(btnCard: LinearLayout, context: Context, business: Business) {
+        private fun bindCardButton(btnCard: LinearLayout, context: Context, event: Event) {
 
             btnCard.setOnClickListener {
                 val builder = AlertDialog.Builder(context)
@@ -78,9 +77,9 @@ class PlacesAdapter(
                         Log.d("Date time", "${day}/${month}/${year}  ${hour}:${minute}")
                     }
                     .setNeutralButton(context.getString(R.string.more_info)) { dialog, id ->
-                        val intent = Intent(this.parentContext, BusinessDetailsActivity::class.java)
+                        val intent = Intent(this.parentContext, EventDetailsActivity::class.java)
                         // Set the parameters for the next activity
-                        intent.putExtra("b_id", business.id)
+                        intent.putExtra("b_id", event.id)
                         this.parentContext.startActivity(intent)
 
                     }
@@ -125,7 +124,7 @@ class PlacesAdapter(
         }
 
         fun successRetrieveUserName(userName: String) {
-            FirestoreClass().addAppointment(_time, _date, business.id, business.name, userName)
+            FirestoreClass().addAppointment(_time, _date, event.id, event.name, userName)
         }
 
     }

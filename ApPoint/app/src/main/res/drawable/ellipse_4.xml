@@ -4,9 +4,9 @@
         <shape android:shape="oval">
             <gradient
                 android:angle="-45"
-                android:endColor="@color/business_accent"
-                android:centerColor="@color/business_medium"
-                android:startColor="@color/business_dark"
+                android:endColor="@color/event_accent"
+                android:centerColor="@color/event_medium"
+                android:startColor="@color/event_dark"
                 android:centerX="0.75"
                 android:type="linear"/>
             <size

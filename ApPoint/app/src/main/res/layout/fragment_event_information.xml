@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.BusinessInformatioFragment">
+    tools:context=".ui.EventInformationFragment">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -17,7 +17,7 @@
             android:orientation="vertical">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/cl_business_details"
+                android:id="@+id/cl_event_details"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
@@ -147,7 +147,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="36dp"
-                        android:text="@string/business_type"
+                        android:text="@string/event_type"
                         android:textAlignment="center"
                         app:layout_constraintEnd_toEndOf="@+id/tv_bi_avg_time_spent"
                         app:layout_constraintEnd_toStartOf="@+id/tv_bi_seats"

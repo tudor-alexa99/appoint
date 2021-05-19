@@ -23,7 +23,7 @@ class MyAppointmensAdapter(
         val iv_status: ImageView = binding.root.findViewById(R.id.iv_status)
 
         fun bindView(appointment: Appointment) {
-            tv_place.text = appointment.business
+            tv_place.text = appointment.event
             tv_startTime.text = appointment.startTime
 
             if (appointment.status == "pending")

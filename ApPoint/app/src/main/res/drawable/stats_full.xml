@@ -7,6 +7,6 @@
         android:shape="ring"
         android:thickness="@dimen/stats_thickness_medium"
         android:useLevel="true">
-        <solid android:color="@color/business_background" />
+        <solid android:color="@color/event_background" />
     </shape>
 </rotate>

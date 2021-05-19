@@ -4,7 +4,7 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-class Business(
+class Event(
     val adminId: String = "",
     val name: String = "",
     val location: String = "",
@@ -14,6 +14,6 @@ class Business(
     val seatsNumber: Int = 0,
     val openSpace: Boolean = false,
     val estimatedRisk: Int = 0,
-    val averageTimeSpent: String = "",
+    val duration: String = "",
     var id: String = "",
 ) : Parcelable

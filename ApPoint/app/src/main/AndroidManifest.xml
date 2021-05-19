@@ -9,14 +9,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ApPoint">
-        <activity android:name=".BusinessDetailsActivity"></activity>
+        <activity android:name=".EventDetailsActivity"></activity>
         <activity android:name=".PlacesActivity" />
         <activity
             android:name=".LoginActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity android:name=".ReportActivity" />
-        <activity android:name=".BusinessActivity" />
+        <activity android:name=".EventsActivity" />
         <activity android:name=".MyAppointmentsActivity" />
         <activity android:name=".RegisterActivity" />
         <activity android:name=".MainActivity">

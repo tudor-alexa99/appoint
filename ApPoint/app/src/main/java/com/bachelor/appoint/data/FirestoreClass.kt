@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import com.bachelor.appoint.*
 import com.bachelor.appoint.adapters.PlacesAdapter
 import com.bachelor.appoint.model.Appointment
-import com.bachelor.appoint.model.Business
+import com.bachelor.appoint.model.Event
 import com.bachelor.appoint.model.User
 import com.bachelor.appoint.ui.AppointmentsListFragment
 import com.bachelor.appoint.utils.Constants
@@ -94,8 +94,8 @@ class FirestoreClass {
     fun addAppointment(
         startTime: String,
         date: String,
-        businessId: String,
-        businessName: String,
+        eventId: String,
+        eventName: String,
         userName: String
     ) {
 
@@ -108,8 +108,8 @@ class FirestoreClass {
             Appointment(
                 "",
                 getCurrentUserID(),
-                businessId,
-                businessName,
+                eventId,
+                eventName,
                 startTime,
                 date,
                 false,
@@ -160,11 +160,11 @@ class FirestoreClass {
             }
     }
 
-    fun retrieveBusinessAppointments(fragment: Fragment, businessId: String) {
+    fun retrieveEventAppointments(fragment: Fragment, eventId: String) {
 //        Method that retrieves all the appointments of the current user
 
         firestoreAdapter.collection(Constants.APPOINTMENTS)
-            .whereEqualTo("b_id", businessId)
+            .whereEqualTo("e_id", eventId)
             .addSnapshotListener { snapshot, e ->
                 if (e != null) {
                     Log.e("Retrieve appointments", e.message.toString())
@@ -191,10 +191,10 @@ class FirestoreClass {
     }
 
 
-//    Business
+//    Events
 
-    fun addBusiness(
-        activity: BusinessActivity,
+    fun addEvent(
+        activity: EventsActivity,
         name: String,
         address: String,
         phone: String,
@@ -203,11 +203,11 @@ class FirestoreClass {
         seatsNumber: Int,
         openSpace: Boolean,
         risk: Int,
-        averageTimeSpent: String,
+        duration: String,
     ) {
-        // Test function for adding a business
+        // Test function for adding an event
 
-        val business = Business(
+        val event = Event(
             getCurrentUserID(),
             name,
             address,
@@ -217,87 +217,87 @@ class FirestoreClass {
             seatsNumber,
             openSpace,
             risk,
-            averageTimeSpent
+            duration
         )
 
-        // Collection = "business"
-        firestoreAdapter.collection(Constants.BUSINESSES)
-            .add(business)
+        // Collection = "events"
+        firestoreAdapter.collection(Constants.EVENTS)
+            .add(event)
             .addOnSuccessListener { documentReference ->
                 // Add the id
                 documentReference.update("id", documentReference.id)
 
-                // Add the business id to the user
+                // Add the event id to the user
                 firestoreAdapter.collection(Constants.USERS)
                     .document(getCurrentUserID())
-                    .collection(Constants.BUSINESSES)
+                    .collection(Constants.EVENTS)
                     .document(documentReference.id)
-                    .set(mapOf(documentReference.id to business.name), SetOptions.merge())
+                    .set(mapOf(documentReference.id to event.name), SetOptions.merge())
                     .addOnSuccessListener {
-                        activity.addBusinessSuccess()
+                        activity.addEventSuccess()
                     }
                     .addOnFailureListener { e ->
-                        Log.e("Add Business", e.toString())
+                        Log.e("Add Event", e.toString())
                     }
             }
     }
 
-    fun getBusinessDetails(businessID: String, activity: Activity) {
-        firestoreAdapter.collection(Constants.BUSINESSES)
-            .document(businessID)
+    fun getEventDetails(eventID: String, activity: Activity) {
+        firestoreAdapter.collection(Constants.EVENTS)
+            .document(eventID)
             .addSnapshotListener { snapshot, e ->
                 if (e != null) {
-                    Log.e("Get Business Details error", e.message.toString())
+                    Log.e("Get Event Details error", e.message.toString())
                 }
                 if (snapshot != null) {
-                    val business = snapshot.toObject(Business::class.java)!!
+                    val event = snapshot.toObject(Event::class.java)!!
                     when (activity) {
-                        is BusinessDetailsActivity -> activity.successObserveBusiness(business)
+                        is EventDetailsActivity -> activity.successObserveEvent(event)
                     }
                 }
 
             }
     }
 
-    fun retrieveBusinesses(activity: Activity) {
-        // Method that retrieves the business list
+    fun retrieveEvents(activity: Activity) {
+        // Method that retrieves the events list
         when (activity) {
 
-            // When called from Business Activity, retrieve only the list for the current user
-            is BusinessActivity -> {
-                firestoreAdapter.collection(Constants.BUSINESSES)
+            // When called from Events Activity, retrieve only the list for the current user
+            is EventsActivity -> {
+                firestoreAdapter.collection(Constants.EVENTS)
                     .whereEqualTo(Constants.ADMIN_ID, getCurrentUserID())
                     .addSnapshotListener { document, e ->
                         if (e != null) {
-                            Log.e("Retrieve Businesses", e.message.toString())
+                            Log.e("Retrieve Events", e.message.toString())
                         }
 
                         if (document != null) {
 
                             Log.d(activity.javaClass.simpleName, document.documents.toString())
-                            val list: ArrayList<Business> = ArrayList()
+                            val list: ArrayList<Event> = ArrayList()
 
                             for (d in document.documents) {
 
-                                val business = d.toObject(Business::class.java)!!
-                                list.add(business)
+                                val event = d.toObject(Event::class.java)!!
+                                list.add(event)
                             }
 
-                            activity.successRetrieveBusinesses(list)
+                            activity.successRetrieveEvents(list)
                         }
                     }
             }
 
             // When called from Places Activity, retrieve all the available places
             is PlacesActivity -> {
-                firestoreAdapter.collection(Constants.BUSINESSES)
+                firestoreAdapter.collection(Constants.EVENTS)
                     .get()
                     .addOnSuccessListener { collection ->
-                        val list: ArrayList<Business> = ArrayList()
+                        val list: ArrayList<Event> = ArrayList()
 
                         for (d in collection.documents) {
-                            val business = d.toObject(Business::class.java)!!
-                            list.add(business)
+                            val event = d.toObject(Event::class.java)!!
+                            list.add(event)
                         }
 
                         activity.successRetrievePlaces(list)
@@ -305,7 +305,7 @@ class FirestoreClass {
                     .addOnFailureListener {
                         Log.e(
                             activity.javaClass.simpleName,
-                            "Error while retrieving the full business list"
+                            "Error while retrieving the full events list"
                         )
                     }
             }

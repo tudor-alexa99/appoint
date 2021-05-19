@@ -8,24 +8,24 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.bachelor.appoint.R
-import com.bachelor.appoint.databinding.FragmentBusinessInformatioBinding
-import com.bachelor.appoint.model.Business
+import com.bachelor.appoint.databinding.FragmentEventInformationBinding
+import com.bachelor.appoint.model.Event
 import com.bachelor.appoint.utils.Constants
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 
-private const val BUSINESS = "business"
+private const val EVENT = "event"
 
 
-class BusinessInformatioFragment : Fragment() {
+class EventInformationFragment : Fragment() {
 
-    private var business: Business? = null
-    private lateinit var binding: FragmentBusinessInformatioBinding
+    private var event: Event? = null
+    private lateinit var binding: FragmentEventInformationBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            business = it.getParcelable(Constants.BUSINESS)
+            event = it.getParcelable(Constants.EVENT)
         }
     }
 
@@ -34,38 +34,38 @@ class BusinessInformatioFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        if (business != null) {
-            Log.d("Inside fragment", business!!.name)
+        if (event != null) {
+            Log.d("Inside fragment", event!!.name)
         }
-        return inflater.inflate(R.layout.fragment_business_informatio, container, false)
+        return inflater.inflate(R.layout.fragment_event_information, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding = FragmentBusinessInformatioBinding.bind(view)
-        if (business != null)
-            setFragmentView(business!!)
+        binding = FragmentEventInformationBinding.bind(view)
+        if (event != null)
+            setFragmentView(event!!)
         else
             setEmptyFragmentView()
     }
 
     private fun setEmptyFragmentView() {
         binding.tvCompanyName.text =
-            "Swipe up for business details, swipe down for appointments list"
+            "Swipe up for event details, swipe down for appointments list"
         binding.clBDetailsBody.visibility = View.GONE
     }
 
-    private fun setFragmentView(currentBusiness: Business) {
+    private fun setFragmentView(currentEvent: Event) {
         // set the name
-        binding.tvCompanyName.text = currentBusiness.name
+        binding.tvCompanyName.text = currentEvent.name
 
         // set the risk progressBar with an animation
-        business?.let { //binding.statsProgressbar.setProgress(it.estimatedRisk, true)
-            if (business!!.estimatedRisk < 33)
+        event?.let { //binding.statsProgressbar.setProgress(it.estimatedRisk, true)
+            if (event!!.estimatedRisk < 33)
                 ObjectAnimator.ofInt(binding.statsProgressbarLow, "progress", it.estimatedRisk)
                     .setDuration(400)
                     .start()
-            else if (business!!.estimatedRisk < 66)
+            else if (event!!.estimatedRisk < 66)
                 ObjectAnimator.ofInt(binding.statsProgressbarMedium, "progress", it.estimatedRisk)
                     .setDuration(900)
                     .start()
@@ -76,25 +76,25 @@ class BusinessInformatioFragment : Fragment() {
         }
 
         // set the number inside the pie chart
-        binding.tvScore.text = business!!.estimatedRisk.toString()
+        binding.tvScore.text = event!!.estimatedRisk.toString()
 
-        // set the business type
-        binding.tvBiTypeVal.text = business!!.type
+        // set the event type
+        binding.tvBiTypeVal.text = event!!.type
 
         // set the seats number
-        binding.tvBiSeatsVal.text = business!!.seatsNumber.toString()
+        binding.tvBiSeatsVal.text = event!!.seatsNumber.toString()
 
         // compute and round the average area for each user
         binding.tvBiUserAreaVal.text =
-            ("%.1f".format((business!!.estimatedSurface.toFloat() / business!!.seatsNumber))) + " m²"
+            ("%.1f".format((event!!.estimatedSurface.toFloat() / event!!.seatsNumber))) + " m²"
 
         // format and set the average time
-        val time = LocalTime.parse(business!!.averageTimeSpent, DateTimeFormatter.ofPattern("H:mm"))
+        val time = LocalTime.parse(event!!.duration, DateTimeFormatter.ofPattern("H:mm"))
         val timeValue = time.hour.toString() + "hr " + time.minute.toString() + "min"
         binding.tvBiAvgTimeSpentVal.text = timeValue
 
         // set the address
-        binding.tvBiAddressVal.text = business!!.location
+        binding.tvBiAddressVal.text = event!!.location
 
     }
 
@@ -105,10 +105,10 @@ class BusinessInformatioFragment : Fragment() {
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
-        fun newInstance(business: Business) =
-            BusinessInformatioFragment().apply {
+        fun newInstance(event: Event) =
+            EventInformationFragment().apply {
                 arguments = Bundle().apply {
-                    putParcelable(BUSINESS, business)
+                    putParcelable(EVENT, event)
                 }
             }
     }

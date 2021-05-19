@@ -6,7 +6,7 @@
     tools:context=".ui.AppointmentsListFragment">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_business_appointments"
+        android:id="@+id/rv_event_appointments"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 </FrameLayout>
