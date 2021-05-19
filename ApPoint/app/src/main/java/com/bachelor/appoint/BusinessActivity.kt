@@ -2,6 +2,7 @@ package com.bachelor.appoint
 
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -214,6 +215,12 @@ class BusinessActivity : AppCompatActivity() {
                     val infoFragment = BusinessInformatioFragment()
                     infoFragment.arguments = bundle
 
+                    binding.ellipse3.animate().alpha(0.0f)
+                    binding.ellipse4.visibility  = View.VISIBLE
+                    binding.ellipse4.animate().alpha(1.0f)
+//                    binding.ellipse3.visibility  = View.GONE
+
+
                     // initiate the transaction that replaces the fragments
                     val transaction = manager.beginTransaction().setCustomAnimations(
                         android.R.animator.fade_in,
@@ -226,6 +233,12 @@ class BusinessActivity : AppCompatActivity() {
                     // create the new fragment and send the parameters
                     val appListFragment = AppointmentsListFragment()
                     appListFragment.arguments = bundle
+
+                    binding.ellipse4.animate().alpha(0.0f)
+//                    binding.ellipse4.visibility  = View.GONE
+                    binding.ellipse3.animate().alpha(1.0f)
+                    binding.ellipse3.visibility  = View.VISIBLE
+
 
                     // initiate the transaction that replaces the fragments
                     val transaction = manager.beginTransaction().setCustomAnimations(

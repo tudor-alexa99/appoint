@@ -64,7 +64,9 @@ class BusinessDetailsActivity : AppCompatActivity() {
             // TODO: Add call for "Create create appointment"
 
             // When clicked, hide it and show the other button
+            makeButton.animate().alpha(0.0f)
             makeButton.visibility = View.GONE
+            cancelButton.animate().alpha(1.0f)
             cancelButton.visibility  = View.VISIBLE
         })
 
@@ -72,7 +74,9 @@ class BusinessDetailsActivity : AppCompatActivity() {
         cancelButton.setOnClickListener(View.OnClickListener {
 
             // When clicked, hide it and show the other button
+            cancelButton.animate().alpha(0.0f)
             cancelButton.visibility  = View.GONE
+            makeButton.animate().alpha(1.0f)
             makeButton.visibility = View.VISIBLE
         })
     }

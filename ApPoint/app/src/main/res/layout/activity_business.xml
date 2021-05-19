@@ -18,6 +18,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ellipse_3" />
 
+    <ImageView
+        android:id="@+id/ellipse_4"
+        android:layout_width="412dp"
+        android:layout_height="382dp"
+        android:layout_marginEnd="100dp"
+        android:layout_marginBottom="444dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:visibility="gone"
+        app:srcCompat="@drawable/ellipse_4" />
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/sv_business"
