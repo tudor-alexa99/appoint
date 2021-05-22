@@ -53,6 +53,7 @@
     <string name="create_appointment">Create Appointment</string>
     <string name="make_appointment">Make Appointment</string>
     <string name="cancel_appointment">Cancel Appointment</string>
+    <string name="date_saved">Date saved</string>
 
     <string-array name="event_types">
         <item>Dining</item>

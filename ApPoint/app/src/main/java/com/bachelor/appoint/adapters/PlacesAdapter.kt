@@ -28,8 +28,7 @@ class PlacesAdapter(
 
     ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     class PlacesViewHolder(context: Context, binding: CardPlaceBinding) :
-        RecyclerView.ViewHolder(binding.root), DatePickerDialog.OnDateSetListener,
-        TimePickerDialog.OnTimeSetListener {
+        RecyclerView.ViewHolder(binding.root) {
         val parentContext: Context = context
         private lateinit var event: Event
 
@@ -67,65 +66,13 @@ class PlacesAdapter(
         private fun bindCardButton(btnCard: LinearLayout, context: Context, event: Event) {
 
             btnCard.setOnClickListener {
-                val builder = AlertDialog.Builder(context)
-                    .setTitle(context.getString(R.string.quick_actions))
-                    .setCancelable(true)
-                    .setPositiveButton(context.getString(R.string.confirm)) { dialog, id ->
-//                        TODO: AddAppointment
-                        Log.i("Places Alert", "Confirm clicked")
-                        pickDate()
-                        Log.d("Date time", "${day}/${month}/${year}  ${hour}:${minute}")
-                    }
-                    .setNeutralButton(context.getString(R.string.more_info)) { dialog, id ->
-                        val intent = Intent(this.parentContext, EventDetailsActivity::class.java)
-                        // Set the parameters for the next activity
-                        intent.putExtra("b_id", event.id)
-                        this.parentContext.startActivity(intent)
-
-                    }
-                    .setNegativeButton(context.getString(R.string.cancel)) { dialog, id ->
-                        dialog.dismiss()
-                    }
-                    .setMessage("Create a reservation for this place or get more details!")
-                val alertDialog = builder.create()
-                alertDialog.show()
+                val intent = Intent(this.parentContext, EventDetailsActivity::class.java)
+                // Set the parameters for the next activity
+                intent.putExtra("event", event)
+                this.parentContext.startActivity(intent)
             }
         }
 
-        private fun pickDate() {
-            pickDateTimeCalendar()
-            DatePickerDialog(parentContext, this, year, month, day).show()
-        }
-
-        private fun pickDateTimeCalendar() {
-            val calendar: Calendar = Calendar.getInstance()
-            day = calendar.get(Calendar.DAY_OF_MONTH)
-            month = calendar.get(Calendar.MONTH)
-            year = calendar.get(Calendar.YEAR)
-            hour = calendar.get(Calendar.HOUR)
-            minute = calendar.get(Calendar.MINUTE)
-        }
-
-        override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
-            savedDay = dayOfMonth
-            savedMonth = month
-            savedYear = year
-
-            TimePickerDialog(parentContext, this, hour, minute, true).show()
-        }
-
-        override fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int) {
-            savedHour = hourOfDay
-            savedMinute = minute
-            _date = "${savedDay}/${savedMonth + 1}/${savedYear}"
-            _time = "${savedHour}:${savedMinute}"
-
-            FirestoreClass().getUserName(this)
-        }
-
-        fun successRetrieveUserName(userName: String) {
-            FirestoreClass().addAppointment(_time, _date, event.id, event.name, userName)
-        }
 
     }
 

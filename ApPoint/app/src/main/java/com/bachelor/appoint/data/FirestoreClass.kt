@@ -6,16 +6,17 @@ import android.content.SharedPreferences
 import android.util.Log
 import androidx.fragment.app.Fragment
 import com.bachelor.appoint.*
-import com.bachelor.appoint.adapters.PlacesAdapter
 import com.bachelor.appoint.model.Appointment
 import com.bachelor.appoint.model.Event
 import com.bachelor.appoint.model.User
 import com.bachelor.appoint.ui.AppointmentsListFragment
 import com.bachelor.appoint.utils.Constants
 import com.bachelor.appoint.viewModel.AppointmentsViewModel
+import com.google.android.gms.common.api.Scope
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
+import kotlinx.coroutines.awaitAll
 
 class FirestoreClass {
 
@@ -100,7 +101,6 @@ class FirestoreClass {
     ) {
 
         //Get the user name
-//        getUserName()
 
         // Create the model object
 
@@ -191,6 +191,55 @@ class FirestoreClass {
     }
 
 
+    fun denyAppointment(id: String) {
+        // Method that sets the status of the appointment to "canceled"
+        firestoreAdapter.collection(Constants.APPOINTMENTS)
+            .document(id)
+            .update("status", "cancelled")
+    }
+
+    fun acceptAppointment(id: String) {
+        firestoreAdapter.collection(Constants.APPOINTMENTS)
+            .document(id)
+            .update("status", "accepted")
+    }
+
+    fun checkForExistingAppointment(eventID: String, activity: Activity) {
+        // Check if the current user has an existing appointment for the given event
+
+        firestoreAdapter.collection(Constants.APPOINTMENTS)
+            .whereEqualTo("e_id", eventID)
+            .whereEqualTo("u_id", getCurrentUserID())
+            .get()
+            .addOnSuccessListener {
+                when (activity) {
+                    is EventDetailsActivity -> {
+                        if (it.documents.size > 0) activity.successCheckForAppointment(true)
+                        else
+                            activity.successCheckForAppointment(false)
+                    }
+                }
+            }
+            .addOnFailureListener {
+                when (activity) {
+                    is EventDetailsActivity -> activity.successCheckForAppointment(false)
+                }
+            }
+    }
+
+    fun deleteAppointment(eventID: String) {
+        // Delete the appointment made by the user for the given event
+        firestoreAdapter.collection(Constants.APPOINTMENTS)
+            .whereEqualTo("e_id", eventID)
+            .whereEqualTo("u_id", getCurrentUserID())
+            .get()
+            .addOnSuccessListener {
+                for (document in it.documents)
+                    document.reference.delete()
+            }
+
+    }
+
 //    Events
 
     fun addEvent(
@@ -204,6 +253,8 @@ class FirestoreClass {
         openSpace: Boolean,
         risk: Int,
         duration: String,
+        date: String,
+        time: String,
     ) {
         // Test function for adding an event
 
@@ -217,7 +268,8 @@ class FirestoreClass {
             seatsNumber,
             openSpace,
             risk,
-            duration
+            duration,
+            date, time
         )
 
         // Collection = "events"
@@ -312,26 +364,16 @@ class FirestoreClass {
         }
     }
 
-    fun getUserName(placesViewHolder: PlacesAdapter.PlacesViewHolder) {
+    fun getUserName(activity: Activity) {
         firestoreAdapter.collection(Constants.USERS)
             .document(getCurrentUserID())
             .get()
             .addOnSuccessListener {
                 val userName = it["fullName"] as String
-                placesViewHolder.successRetrieveUserName(userName)
+                when (activity) {
+                    is EventDetailsActivity -> activity.successRetrieveUserName(userName)
+                }
             }
     }
 
-    fun denyAppointment(id: String) {
-        // Method that sets the status of the appointment to "canceled"
-        firestoreAdapter.collection(Constants.APPOINTMENTS)
-            .document(id)
-            .update("status", "cancelled")
-    }
-
-    fun acceptAppointment(id: String) {
-        firestoreAdapter.collection(Constants.APPOINTMENTS)
-            .document(id)
-            .update("status", "accepted")
-    }
 }

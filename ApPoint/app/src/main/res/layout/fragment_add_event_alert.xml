@@ -10,10 +10,8 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:foregroundGravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -22,14 +20,15 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:orientation="vertical"
-            android:paddingHorizontal="@dimen/card_padding_start_end"
-            android:paddingVertical="@dimen/card_padding_start_end">
+            android:paddingHorizontal="@dimen/card_padding_start_end_large"
+            android:paddingTop="@dimen/card_padding_top_bottom"
+            >
 
             <EditText
                 android:id="@+id/et_event_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="120dp"
                 android:hint="@string/event_name"
                 android:inputType="textPersonName" />
 
@@ -93,6 +92,13 @@
                 android:layout_marginTop="36dp"
                 android:layout_marginBottom="16dp"
                 android:text="@string/open_space" />
+
+            <Button
+                android:id="@+id/bnt_date_time"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/button_height"
+                android:layout_marginTop="36dp"
+                android:text="@string/choose_a_time" />
 
         </LinearLayout>
     </ScrollView>

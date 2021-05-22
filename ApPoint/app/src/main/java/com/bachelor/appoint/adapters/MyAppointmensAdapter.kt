@@ -26,12 +26,11 @@ class MyAppointmensAdapter(
             tv_place.text = appointment.event
             tv_startTime.text = appointment.startTime
 
-            if (appointment.status == "pending")
-                iv_status.setImageResource(R.drawable.ic_baseline_hourglass_bottom_24)
-            else if (appointment.status == "accepted")
-                iv_status.setImageResource(R.drawable.ic_baseline_check_circle_outline_24)
-            else if(appointment.status == "cancelled")
-                iv_status.setImageResource(R.drawable.ic_outline_cancel_24)
+            when (appointment.status) {
+                "waiting" -> iv_status.setImageResource(R.drawable.ic_baseline_hourglass_bottom_24)
+                "accepted" -> iv_status.setImageResource(R.drawable.ic_baseline_check_circle_outline_24)
+                "cancelled" -> iv_status.setImageResource(R.drawable.ic_outline_cancel_24)
+            }
         }
 
     }

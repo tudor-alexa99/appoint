@@ -1,9 +1,14 @@
 package com.bachelor.appoint
 
+import android.app.DatePickerDialog
+import android.app.TimePickerDialog
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.ArrayAdapter
+import android.widget.DatePicker
+import android.widget.TimePicker
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -20,13 +25,29 @@ import com.bachelor.appoint.model.Event
 import com.bachelor.appoint.ui.AppointmentsListFragment
 import com.bachelor.appoint.ui.EventInformationFragment
 import com.bachelor.appoint.utils.Constants
+import java.util.*
 import kotlin.collections.ArrayList
 
 
-class EventsActivity : AppCompatActivity() {
+class EventsActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener,
+    TimePickerDialog.OnTimeSetListener {
     private lateinit var binding: ActivityEventsBinding
     private lateinit var eventAdapter: EventsListAdapter
     private lateinit var eventList: ArrayList<Event>
+
+    var _time = ""
+    var _date = ""
+    var day = 0
+    var month = 0
+    var year = 0
+    var hour = 0
+    var minute = 0
+
+    var savedDay = 0
+    var savedMonth = 0
+    var savedYear = 0
+    var savedHour = 0
+    var savedMinute = 0
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -81,7 +102,10 @@ class EventsActivity : AppCompatActivity() {
             // Apply the adapter to the spinner
             spinner.adapter = adapter
         }
-
+        // Set the timePicker button
+        alertBinding.bntDateTime.setOnClickListener(View.OnClickListener {
+            pickDate()
+        })
 
         builder.setPositiveButton(android.R.string.yes) { dialog, which ->
             val name: String = alertBinding.etEventName.text.toString()
@@ -90,14 +114,14 @@ class EventsActivity : AppCompatActivity() {
             val type: String = spinner.selectedItem.toString()
             val estimatedSurface: Int = alertBinding.etEstimatedSurface.text.toString().toInt()
             val maxSeatsNumber: Int = alertBinding.etSeatsNumber.text.toString().toInt()
-            val estimatedTime: String = alertBinding.etTimeSpent.text.toString()
+            val duration: String = alertBinding.etTimeSpent.text.toString()
             val openSpace: Boolean = alertBinding.swiOpenSpace.isChecked
 
             val estimatedRisk = StatisticsHelper().computeEstimatedRisk(
                 type,
                 estimatedSurface,
                 maxSeatsNumber,
-                estimatedTime,
+                duration,
                 openSpace
             )
 
@@ -111,7 +135,9 @@ class EventsActivity : AppCompatActivity() {
                 maxSeatsNumber,
                 openSpace,
                 estimatedRisk,
-                estimatedTime
+                duration,
+                _date,
+                _time
             )
         }
 
@@ -123,6 +149,41 @@ class EventsActivity : AppCompatActivity() {
         }
 
         builder.show()
+    }
+
+    private fun pickDate() {
+        pickDateTimeCalendar()
+        DatePickerDialog(this, this, year, month, day).show()
+    }
+
+    private fun pickDateTimeCalendar() {
+        val calendar: Calendar = Calendar.getInstance()
+        day = calendar.get(Calendar.DAY_OF_MONTH)
+        month = calendar.get(Calendar.MONTH)
+        year = calendar.get(Calendar.YEAR)
+        hour = calendar.get(Calendar.HOUR)
+        minute = calendar.get(Calendar.MINUTE)
+    }
+
+    override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
+        savedDay = dayOfMonth
+        savedMonth = month
+        savedYear = year
+
+        TimePickerDialog(this, this, hour, minute, true).show()
+    }
+
+    override fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int) {
+        savedHour = hourOfDay
+        savedMinute = minute
+        _date = "${savedDay}/${savedMonth + 1}/${savedYear}"
+        _time = "${savedHour}:${savedMinute}"
+
+        Toast.makeText(
+            applicationContext,
+            "Date ${_date} and time ${_time} saved!", Toast.LENGTH_LONG
+        ).show()
+
     }
 
     fun addEventSuccess() {
@@ -213,7 +274,7 @@ class EventsActivity : AppCompatActivity() {
                     infoFragment.arguments = bundle
 
                     binding.ellipse3.animate().alpha(0.0f)
-                    binding.ellipse4.visibility  = View.VISIBLE
+                    binding.ellipse4.visibility = View.VISIBLE
                     binding.ellipse4.animate().alpha(1.0f)
 //                    binding.ellipse3.visibility  = View.GONE
 
@@ -234,7 +295,7 @@ class EventsActivity : AppCompatActivity() {
                     binding.ellipse4.animate().alpha(0.0f)
 //                    binding.ellipse4.visibility  = View.GONE
                     binding.ellipse3.animate().alpha(1.0f)
-                    binding.ellipse3.visibility  = View.VISIBLE
+                    binding.ellipse3.visibility = View.VISIBLE
 
 
                     // initiate the transaction that replaces the fragments

@@ -2,6 +2,7 @@ package com.bachelor.appoint
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import com.bachelor.appoint.data.FirestoreClass
 import com.bachelor.appoint.databinding.ActivityEventDetailsBinding
@@ -10,15 +11,23 @@ import com.bachelor.appoint.ui.EventInformationFragment
 import com.bachelor.appoint.utils.Constants
 
 class EventDetailsActivity : AppCompatActivity() {
-    private lateinit var eventID: String
+    private lateinit var event: Event
     private lateinit var binding: ActivityEventDetailsBinding
+    private lateinit var userName: String
+    private var existingAppointment: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_event_details)
 
+        // Set the user name
+        FirestoreClass().getUserName(this)
+
         // Get the event id parameter
-        eventID = intent.getStringExtra("b_id").toString()
+        event = intent.getParcelableExtra<Event>("event")!!
+
+        // Check if there is an existing appointment for this event
+        FirestoreClass().checkForExistingAppointment(event.id, this)
 
         // Bind the activity
         binding = ActivityEventDetailsBinding.inflate(layoutInflater)
@@ -26,10 +35,11 @@ class EventDetailsActivity : AppCompatActivity() {
         setContentView(view)
 
         // Set the observer for the current event and bind the view
-        FirestoreClass().getEventDetails(eventID, this)
+        FirestoreClass().getEventDetails(event.id, this)
 
         // Set the floating action buttons
-        setActionButtons()
+//        setActionButtons()
+        // The action buttons will only be set after the check for an appointment is made
     }
 
     fun successObserveEvent(event: Event) {
@@ -54,28 +64,64 @@ class EventDetailsActivity : AppCompatActivity() {
 
     }
 
+    fun successRetrieveUserName(userName: String) {
+        this.userName = userName
+    }
+
     private fun setActionButtons() {
         var makeButton = binding.btnMakeAppointment
         var cancelButton = binding.btnCancelAppointment
 
+        // check if there is an appointment already made:
+        Log.d("Existing appointment", existingAppointment.toString())
+
+        // If true, set the button to cancel, else set it to create
+        when (existingAppointment) {
+            true -> {
+                makeButton.visibility = View.GONE
+                cancelButton.visibility = View.VISIBLE
+            }
+
+            false -> {
+                cancelButton.visibility = View.GONE
+                makeButton.visibility = View.VISIBLE
+
+            }
+
+        }
+
         makeButton.setOnClickListener(View.OnClickListener {
-            // TODO: Add call for "Create create appointment"
+            Log.i("Event", event.date)
+
+            // Create an appointment for the given event
+            FirestoreClass().addAppointment(event.time, event.date, event.id, event.name, userName)
 
             // When clicked, hide it and show the other button
             makeButton.animate().alpha(0.0f)
             makeButton.visibility = View.GONE
             cancelButton.animate().alpha(1.0f)
-            cancelButton.visibility  = View.VISIBLE
+            cancelButton.visibility = View.VISIBLE
         })
 
 
         cancelButton.setOnClickListener(View.OnClickListener {
 
+            // Delete the appointment for the given event
+            FirestoreClass().deleteAppointment(event.id)
+
             // When clicked, hide it and show the other button
             cancelButton.animate().alpha(0.0f)
-            cancelButton.visibility  = View.GONE
+            cancelButton.visibility = View.GONE
             makeButton.animate().alpha(1.0f)
             makeButton.visibility = View.VISIBLE
+
         })
     }
+
+    fun successCheckForAppointment(b: Boolean) {
+        this.existingAppointment = b
+        setActionButtons()
+    }
+
+
 }

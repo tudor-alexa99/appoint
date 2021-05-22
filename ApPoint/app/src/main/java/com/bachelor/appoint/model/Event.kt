@@ -15,5 +15,7 @@ class Event(
     val openSpace: Boolean = false,
     val estimatedRisk: Int = 0,
     val duration: String = "",
+    val date: String = "",
+    val time: String = "",
     var id: String = "",
 ) : Parcelable
