@@ -48,6 +48,7 @@
                         android:layout_height="0dp"
                         android:layout_marginTop="120dp"
                         android:descendantFocusability="afterDescendants"
+                        android:background="@drawable/bg_rounded"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
@@ -214,6 +215,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="36dp"
+                        android:background="@drawable/bg_rounded"
                         android:text="@string/estimated_surface"
                         android:textAlignment="center"
                         android:textSize="@dimen/title_large_textSize"
@@ -257,6 +259,7 @@
                         android:textAlignment="viewStart"
                         android:textSize="@dimen/title_large_textSize"
                         android:textStyle="bold"
+                        android:background="@drawable/bg_rounded"
                         app:layout_constraintBottom_toBottomOf="@+id/tv_bi_avg_time_spent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.5"
@@ -276,6 +279,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintHorizontal_weight="1"
+                        android:background="@drawable/bg_rounded"
                         app:layout_constraintStart_toEndOf="@+id/tv_bi_address"
                         app:layout_constraintTop_toTopOf="@+id/tv_bi_address" />
 

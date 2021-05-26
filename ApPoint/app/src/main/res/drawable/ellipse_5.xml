@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="oval">
+            <gradient
+                android:angle="-45"
+                android:startColor="@color/ellipse_violet"
+                android:endColor="@color/ellipse_blue"
+                android:type="linear"/>
+            <size
+                android:height="120dp"
+                android:width="120dp"/>
+        </shape>
+    </item>
+
+</selector>

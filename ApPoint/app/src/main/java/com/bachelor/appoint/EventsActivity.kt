@@ -273,7 +273,7 @@ class EventsActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener,
                     val infoFragment = EventInformationFragment()
                     infoFragment.arguments = bundle
 
-                    binding.ellipse3.animate().alpha(0.0f)
+                    binding.ellipse5.animate().alpha(0.0f)
                     binding.ellipse4.visibility = View.VISIBLE
                     binding.ellipse4.animate().alpha(1.0f)
 //                    binding.ellipse3.visibility  = View.GONE
@@ -294,8 +294,8 @@ class EventsActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener,
 
                     binding.ellipse4.animate().alpha(0.0f)
 //                    binding.ellipse4.visibility  = View.GONE
-                    binding.ellipse3.animate().alpha(1.0f)
-                    binding.ellipse3.visibility = View.VISIBLE
+                    binding.ellipse5.animate().alpha(1.0f)
+                    binding.ellipse5.visibility = View.VISIBLE
 
 
                     // initiate the transaction that replaces the fragments
