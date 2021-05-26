@@ -56,6 +56,7 @@
     <string name="cancel_appointment">Cancel Appointment</string>
     <string name="date_saved">Date saved</string>
     <string name="personal_risk_score">Personal risk score</string>
+    <string name="upload_vaccination_certificate_picture">Upload vaccination certificate picture</string>
 
     <string-array name="event_types">
         <item>Dining</item>

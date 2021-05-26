@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <gradient
+        android:type="sweep"
+        android:startColor="@color/teal_200"
+        android:centerColor="@color/appointments_dark"
+        android:centerY="0"
+        android:gradientRadius="@dimen/material_emphasis_medium"
+        android:useLevel="false" />
+    <corners android:radius="@dimen/button_background_radius" />
+    <size
+        android:width="330dp"
+        android:height="70dp" />
+</shape>
