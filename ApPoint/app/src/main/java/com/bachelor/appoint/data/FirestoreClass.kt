@@ -3,6 +3,7 @@ package com.bachelor.appoint.data
 import android.app.Activity
 import android.content.Context
 import android.content.SharedPreferences
+import android.net.Uri
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -17,6 +18,8 @@ import com.google.android.gms.common.api.Scope
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 import kotlinx.coroutines.awaitAll
 
 class FirestoreClass {
@@ -384,8 +387,7 @@ class FirestoreClass {
             .whereEqualTo("u_id", getCurrentUserID())
             .whereEqualTo("completed", false)
             .whereEqualTo("status", "accepted")
-            .addSnapshotListener {
-                    document, e ->
+            .addSnapshotListener { document, e ->
                 if (e != null) {
                     Log.e("Retrieve Previous Events Statistics", e.message.toString())
                 }
@@ -401,7 +403,7 @@ class FirestoreClass {
                         list.add(eventAppointment.risk)
                     }
 
-                    when (activity){
+                    when (activity) {
                         is ReportActivity -> {
                             activity.successGetUpcomingEvents(list)
                         }
@@ -418,8 +420,7 @@ class FirestoreClass {
             .whereEqualTo("u_id", getCurrentUserID())
             .whereEqualTo("completed", true)
             .whereEqualTo("status", "accepted")
-            .addSnapshotListener {
-                    document, e ->
+            .addSnapshotListener { document, e ->
                 if (e != null) {
                     Log.e("Retrieve Previous Events Statistics", e.message.toString())
                 }
@@ -435,7 +436,7 @@ class FirestoreClass {
                         list.add(eventAppointment.risk)
                     }
 
-                    when (activity){
+                    when (activity) {
                         is ReportActivity -> {
                             activity.successGetPreviousEvents(list)
                         }
@@ -444,6 +445,35 @@ class FirestoreClass {
             }
     }
 
+    fun uploadImageToCloudStorage(activity: Activity, imageFileUri: Uri?) {
+        val storageReference: StorageReference = FirebaseStorage.getInstance().reference.child(
+            Constants.IMAGE + System.currentTimeMillis() + "." + Constants.getFileExtension(
+                activity,
+                imageFileUri
+            )
+        )
+
+        storageReference.putFile(imageFileUri!!).addOnSuccessListener { taskSnapshot ->
+            // Successful image upload!
+            Log.e(
+                "Firebase Image URL",
+                taskSnapshot.metadata!!.reference!!.downloadUrl.toString()
+            )
+
+            // Get the downloadable URL from the task snapshot
+            taskSnapshot.metadata!!.reference!!.downloadUrl.addOnSuccessListener { uri ->
+                Log.e("Downloadable Image URL", uri.toString())
+                when (activity) {
+                    is PhotoActivity -> {
+                        activity.imageUploadSuccess(uri.toString())
+                    }
+                }
+
+            }
+        }.addOnFailureListener {
+            Log.e("Upload failed", it.message.toString())
+        }
+    }
 
 
 }
