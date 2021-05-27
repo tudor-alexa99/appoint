@@ -49,7 +49,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/appCompatButton"
+                    android:id="@+id/btn_report_contact"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="10dp"
@@ -66,14 +66,14 @@
                     android:textAllCaps="false"
                     android:textSize="@dimen/title_extra_small_textSize"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/appCompatButton2"
+                    app:layout_constraintEnd_toStartOf="@+id/btn_upload_photo"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintHorizontal_chainStyle="spread_inside"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/appCompatButton2"
+                    android:id="@+id/btn_upload_photo"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:background="@drawable/bg_upload_picture_button"
@@ -91,8 +91,8 @@
                     android:drawablePadding="10dp"
                     android:includeFontPadding="true"
                     android:drawableStart="@drawable/ic_baseline_camera_alt_24"
-                    app:layout_constraintStart_toEndOf="@+id/appCompatButton"
-                    app:layout_constraintTop_toTopOf="@+id/appCompatButton" />
+                    app:layout_constraintStart_toEndOf="@+id/btn_report_contact"
+                    app:layout_constraintTop_toTopOf="@+id/btn_report_contact" />
 
                 <com.github.aachartmodel.aainfographics.aachartcreator.AAChartView
                     android:id="@+id/aa_chart_view"
@@ -103,7 +103,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/appCompatButton">
+                    app:layout_constraintTop_toBottomOf="@+id/btn_report_contact">
 
                 </com.github.aachartmodel.aainfographics.aachartcreator.AAChartView>
 

@@ -1,5 +1,6 @@
 package com.bachelor.appoint
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -27,6 +28,16 @@ class ReportActivity : AppCompatActivity() {
         // retrieve the events informtation
         this.getStatistics()
 
+        // set the button actions
+        this.setPhotoButton()
+
+    }
+
+    private fun setPhotoButton() {
+        binding.btnUploadPhoto.setOnClickListener {
+            intent = Intent(this@ReportActivity, PhotoActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun getStatistics() {

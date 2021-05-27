@@ -28,7 +28,7 @@
                 android:id="@+id/et_event_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="120dp"
+                android:layout_marginTop="250dp"
                 android:hint="@string/event_name"
                 android:inputType="textPersonName" />
 

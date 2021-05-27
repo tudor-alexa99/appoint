@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ApPoint">
-        <activity android:name=".EventDetailsActivity"></activity>
+        <activity android:name=".PhotoActivity"></activity>
+        <activity android:name=".EventDetailsActivity" />
         <activity android:name=".PlacesActivity" />
         <activity
             android:name=".LoginActivity"
