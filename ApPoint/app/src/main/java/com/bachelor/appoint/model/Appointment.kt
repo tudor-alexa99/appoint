@@ -12,4 +12,5 @@ class Appointment(
     var completed: Boolean = false,
     var status: String = "pending",
     var userName: String = "",
+    var risk: Int = 0,
 )

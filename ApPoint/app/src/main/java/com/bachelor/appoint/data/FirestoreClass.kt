@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.SharedPreferences
 import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.bachelor.appoint.*
 import com.bachelor.appoint.model.Appointment
@@ -97,7 +98,8 @@ class FirestoreClass {
         date: String,
         eventId: String,
         eventName: String,
-        userName: String
+        userName: String,
+        risk: Int
     ) {
 
         //Get the user name
@@ -114,6 +116,7 @@ class FirestoreClass {
                 date,
                 false,
                 userName = userName,
+                risk = risk
             )
 
         // Collection = appointments
@@ -375,5 +378,72 @@ class FirestoreClass {
                 }
             }
     }
+
+    fun getUpcomingEventsStatistics(activity: AppCompatActivity) {
+        firestoreAdapter.collection(Constants.APPOINTMENTS)
+            .whereEqualTo("u_id", getCurrentUserID())
+            .whereEqualTo("completed", false)
+            .whereEqualTo("status", "accepted")
+            .addSnapshotListener {
+                    document, e ->
+                if (e != null) {
+                    Log.e("Retrieve Previous Events Statistics", e.message.toString())
+                }
+
+                if (document != null) {
+
+                    Log.d(activity.javaClass.simpleName, document.documents.toString())
+                    val list: ArrayList<Int> = ArrayList()
+
+                    for (d in document.documents) {
+
+                        val eventAppointment = d.toObject(Appointment::class.java)!!
+                        list.add(eventAppointment.risk)
+                    }
+
+                    when (activity){
+                        is ReportActivity -> {
+                            activity.successGetUpcomingEvents(list)
+                        }
+                    }
+                }
+            }
+
+    }
+
+    fun getPreviousEventsStatistics(activity: AppCompatActivity) {
+        // retrieve the risk values from the appointments that have been completed and the status is "accepted"
+
+        firestoreAdapter.collection(Constants.APPOINTMENTS)
+            .whereEqualTo("u_id", getCurrentUserID())
+            .whereEqualTo("completed", true)
+            .whereEqualTo("status", "accepted")
+            .addSnapshotListener {
+                    document, e ->
+                if (e != null) {
+                    Log.e("Retrieve Previous Events Statistics", e.message.toString())
+                }
+
+                if (document != null) {
+
+                    Log.d(activity.javaClass.simpleName, document.documents.toString())
+                    val list: ArrayList<Int> = ArrayList()
+
+                    for (d in document.documents) {
+
+                        val eventAppointment = d.toObject(Appointment::class.java)!!
+                        list.add(eventAppointment.risk)
+                    }
+
+                    when (activity){
+                        is ReportActivity -> {
+                            activity.successGetPreviousEvents(list)
+                        }
+                    }
+                }
+            }
+    }
+
+
 
 }
