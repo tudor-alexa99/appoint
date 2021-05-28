@@ -475,10 +475,13 @@ class FirestoreClass {
         }
     }
 
-    fun uploadImageToUserCollection(imageURL: String, activity: Activity) {
+    fun uploadImageToUserCollection(imageURL: String, activity: Activity, doseNumber: Int) {
         firestoreAdapter.collection(Constants.USERS)
             .document(getCurrentUserID())
-            .update("image", imageURL)
+            .update(
+                "image", imageURL,
+                "doseNumber", doseNumber
+            )
             .addOnSuccessListener {
                 when (activity) {
                     is PhotoActivity -> {

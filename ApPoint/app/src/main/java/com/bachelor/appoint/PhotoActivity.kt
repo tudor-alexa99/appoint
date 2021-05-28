@@ -6,6 +6,7 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.core.net.toUri
@@ -91,6 +92,7 @@ class PhotoActivity : AppCompatActivity() {
             Toast.LENGTH_SHORT
         ).show()
 
+
         binding.btnFloatingSave.setOnClickListener {
             if (selectedImageUri != null)
                 FirestoreClass().uploadImageToCloudStorage(this, selectedImageUri)
@@ -116,7 +118,14 @@ class PhotoActivity : AppCompatActivity() {
     fun imageUploadSuccess(imageURL: String) {
         retrievedImageUrl = imageURL
 
-        FirestoreClass().uploadImageToUserCollection(imageURL, this)
+        // Get the selected dose number
+        var doseNumber: Int = 0
+        if (binding.rbDose1.isChecked)
+            doseNumber = 1
+        else if (binding.rbDose2.isChecked)
+            doseNumber = 2
+
+        FirestoreClass().uploadImageToUserCollection(imageURL, this, doseNumber)
         finish()
 
     }

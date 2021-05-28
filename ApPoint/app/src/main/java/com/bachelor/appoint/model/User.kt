@@ -5,6 +5,7 @@ class User (
     val fullName: String = "",
     val email: String = "",
     val birthday: String = "",
-    val image: String = ""
+    val image: String = "",
+    val doseNumber: Int = 0,
 //    val phoneNumber: String = "",
 )
