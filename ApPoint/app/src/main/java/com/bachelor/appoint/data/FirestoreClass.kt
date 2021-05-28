@@ -475,5 +475,45 @@ class FirestoreClass {
         }
     }
 
+    fun uploadImageToUserCollection(imageURL: String, activity: Activity) {
+        firestoreAdapter.collection(Constants.USERS)
+            .document(getCurrentUserID())
+            .update("image", imageURL)
+            .addOnSuccessListener {
+                when (activity) {
+                    is PhotoActivity -> {
+                        activity.imageUpdateUserSuccess()
+                    }
+                }
+            }
+
+    }
+
+    fun retrieveUserImage(userId: String? = null, activity: Activity) {
+        // get the image for the current user
+        if (userId == null) {
+            firestoreAdapter.collection(Constants.USERS)
+                .document(getCurrentUserID())
+                .get()
+                .addOnSuccessListener {
+                    var imageUri: String = it["image"] as String
+                    when (activity) {
+                        is PhotoActivity -> {
+                            if (imageUri != "")
+                                activity.findImageSuccess(imageUri)
+                            else
+                                activity.findImageFailure()
+                        }
+                    }
+                }
+                .addOnFailureListener {
+                    when (activity) {
+                        is PhotoActivity ->
+                            activity.findImageFailure()
+                    }
+                }
+        }
+    }
+
 
 }

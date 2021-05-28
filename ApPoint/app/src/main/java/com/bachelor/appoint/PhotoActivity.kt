@@ -6,7 +6,9 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
+import android.view.View
 import android.widget.Toast
+import androidx.core.net.toUri
 import com.bachelor.appoint.data.FirestoreClass
 import com.bachelor.appoint.databinding.ActivityPhotoBinding
 import com.bachelor.appoint.databinding.ActivityReportBinding
@@ -17,6 +19,7 @@ import java.io.IOException
 class PhotoActivity : AppCompatActivity() {
     private lateinit var binding: ActivityPhotoBinding
     private var selectedImageUri: Uri? = null
+    private lateinit var retrievedImageUrl: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,7 +27,15 @@ class PhotoActivity : AppCompatActivity() {
         binding = ActivityPhotoBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        setImage()
+
         setButtons()
+    }
+
+    private fun setImage() {
+        // look for the image inside firestore. If an image associated to the user exists, display it
+        // else, show the placeholder
+        FirestoreClass().retrieveUserImage(activity = this)
     }
 
     private fun setButtons() {
@@ -58,9 +69,8 @@ class PhotoActivity : AppCompatActivity() {
                     try {
                         selectedImageUri = data.data!!
 
-                        GlideLoader(this).loadUserPicture(selectedImageUri!!, binding.ivPhoto)
-
-                        FirestoreClass().uploadImageToCloudStorage(this, selectedImageUri)
+                        if (selectedImageUri != null)
+                            FirestoreClass().uploadImageToCloudStorage(this, selectedImageUri)
 
                     } catch (e: IOException) {
                         e.printStackTrace()
@@ -81,7 +91,28 @@ class PhotoActivity : AppCompatActivity() {
             "Your image was uploaded successfully",
             Toast.LENGTH_SHORT
         ).show()
+        retrievedImageUrl = imageURL
+        binding.btnFloatingSave.visibility = View.VISIBLE
+        binding.rgDoseNumber.visibility = View.VISIBLE
+        binding.btnFloatingSave.setOnClickListener {
+            FirestoreClass().uploadImageToUserCollection(imageURL, this)
+            finish()
+        }
+    }
 
+    fun imageUpdateUserSuccess() {
+        Toast.makeText(
+            this,
+            "Upload image to user profile was successful",
+            Toast.LENGTH_SHORT
+        ).show()
+    }
 
+    fun findImageSuccess(imageUri: String) {
+        GlideLoader(this).loadUserPicture(imageUri.toUri(), binding.ivPhoto)
+    }
+
+    fun findImageFailure() {
+        binding.ivPhoto.setImageResource(R.drawable.ic_baseline_add_photo_alternate_24)
     }
 }
