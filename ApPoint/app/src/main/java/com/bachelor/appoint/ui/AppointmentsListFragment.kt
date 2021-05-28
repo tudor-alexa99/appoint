@@ -48,10 +48,11 @@ class AppointmentsListFragment : Fragment() {
         val recyclerView = view.findViewById<RecyclerView>(R.id.rv_event_appointments)
         recyclerView.setHasFixedSize(true)
         recyclerView.layoutManager = LinearLayoutManager(view.context)
-        appointmentsAdapter = EventAppointmentsAdapter(mutableListOf())
+        appointmentsAdapter = EventAppointmentsAdapter(mutableListOf(), requireContext())
         recyclerView.adapter = appointmentsAdapter
 
         itemTouchHelper.attachToRecyclerView(recyclerView)
+
 
         getAppointmentsList()
         return view
