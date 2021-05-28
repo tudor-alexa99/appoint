@@ -45,7 +45,7 @@
         android:layout_width="204dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="320dp"
         android:background="@drawable/bg_upload_picture_button"
         android:backgroundTint="@null"
         android:drawableStart="@drawable/ic_baseline_file_upload_24"
@@ -62,9 +62,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/rg_dose_number"
-        app:layout_constraintTop_toBottomOf="@+id/ellipse_5" />
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
+    <uk.co.senab.photoview.PhotoView
         android:id="@+id/iv_photo"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -117,5 +117,11 @@
             android:checked="false"/>
 
     </RadioGroup>
+
+
+
+
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

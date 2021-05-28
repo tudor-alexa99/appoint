@@ -13,6 +13,7 @@ import com.bachelor.appoint.data.FirestoreClass
 import com.bachelor.appoint.databinding.ActivityPhotoBinding
 import com.bachelor.appoint.helpers.GlideLoader
 import com.bachelor.appoint.utils.Constants
+import uk.co.senab.photoview.PhotoViewAttacher
 import java.io.IOException
 
 class PhotoActivity : AppCompatActivity() {
