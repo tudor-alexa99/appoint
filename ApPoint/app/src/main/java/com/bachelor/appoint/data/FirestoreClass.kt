@@ -208,8 +208,7 @@ class FirestoreClass {
                         user,
                         holder as EventAppointmentsAdapter.AppointmentsViewHolder
                     )
-                }
-                else if (holder != null && holder is EventAppointmentsAdapter.AppointmentsViewHolder)
+                } else if (holder != null && holder is EventAppointmentsAdapter.AppointmentsViewHolder)
                     holder.setUserDetails(user)
             }
 
@@ -533,8 +532,20 @@ class FirestoreClass {
                             activity.findImageFailure()
                     }
                 }
+        } else {
+            firestoreAdapter.collection(Constants.USERS)
+                .document(userId)
+                .get()
+                .addOnSuccessListener {
+                    val imageUri: String = it["image"] as String
+                    when (activity) {
+                        is PhotoAppointmentActivity -> {
+                            activity.setUserImage(imageUri)
+                        }
+
+                    }
+                }
+
         }
     }
-
-
 }

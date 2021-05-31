@@ -11,21 +11,21 @@ import android.view.View
 import android.widget.Toast
 import androidx.core.net.toUri
 import com.bachelor.appoint.data.FirestoreClass
-import com.bachelor.appoint.databinding.ActivityPhotoBinding
+import com.bachelor.appoint.databinding.ActivityPhotoUserBinding
 import com.bachelor.appoint.helpers.GlideLoader
 import com.bachelor.appoint.utils.Constants
 import uk.co.senab.photoview.PhotoViewAttacher
 import java.io.IOException
 
 class PhotoActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityPhotoBinding
+    private lateinit var binding: ActivityPhotoUserBinding
     private var selectedImageUri: Uri? = null
     private lateinit var retrievedImageUrl: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = ActivityPhotoBinding.inflate(layoutInflater)
+        binding = ActivityPhotoUserBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         setImage()

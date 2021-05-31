@@ -73,6 +73,7 @@
             android:textSize="@dimen/title_medium_textSize"
             android:layout_gravity="center"
             android:gravity="center"
+            android:textColor="@color/white"
             android:text="0" />
 
         <ImageView

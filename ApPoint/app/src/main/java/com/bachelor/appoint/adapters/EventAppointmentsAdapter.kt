@@ -3,12 +3,14 @@ package com.bachelor.appoint.adapters
 import android.app.AlertDialog
 import android.content.ContentValues.TAG
 import android.content.Context
+import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bachelor.appoint.PhotoAppointmentActivity
 import com.bachelor.appoint.R
 import com.bachelor.appoint.data.FirestoreClass
 import com.bachelor.appoint.databinding.CardEAppointmentBinding
@@ -54,9 +56,18 @@ class EventAppointmentsAdapter(
                     }
                     .setNeutralButton("Details") { _, _ ->
                         Log.d(TAG, "Show user image")
+                        // Launch the fullscreen photo activity
+
+                        val intent = Intent(context, PhotoAppointmentActivity::class.java)
+
+                        intent.putExtra("u_id", appointment.u_id)
+                        intent.putExtra("a_id", appointment.id)
+
+                        context.startActivity(intent)
+
                     }
-                    .setMessage(appointment.userName)
-                    .setTitle("Appointment information")
+                    .setTitle(appointment.userName)
+                    .setMessage("Get more details about the user?")
 
                 builder.show()
 
