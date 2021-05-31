@@ -19,7 +19,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/tv_startTime"
+            android:id="@+id/tv_status"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"

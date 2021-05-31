@@ -29,28 +29,28 @@
             android:layout_weight="1">
 
             <TextView
-                android:id="@+id/tv_startTime"
+                android:id="@+id/tv_status"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="00:00"
+                android:text="@string/status"
                 android:textAlignment="center"
                 android:textColor="@color/black"
-                android:textSize="@dimen/title_medium_textSize"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/tv_date"
+                android:id="@+id/tv_status_value"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="12/12/2021"
+                android:text="Pending"
+                android:textSize="@dimen/title_small_textSize"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 android:textColor="@color/black"
-                app:layout_constraintTop_toBottomOf="@+id/tv_startTime" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_status" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
@@ -65,12 +65,22 @@
             android:textAlignment="center"
             android:textSize="@dimen/title_medium_textSize" />
 
+        <TextView
+            android:id="@+id/tv_dose_number"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:textSize="@dimen/title_medium_textSize"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="0" />
+
         <ImageView
             android:id="@+id/iv_status"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            app:srcCompat="@drawable/ic_baseline_hourglass_bottom_24" />
+            android:layout_weight="0.5"
+            app:srcCompat="@drawable/icons8_syringe_32" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

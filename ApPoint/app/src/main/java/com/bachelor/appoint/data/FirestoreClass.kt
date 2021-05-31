@@ -8,19 +8,18 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.bachelor.appoint.*
+import com.bachelor.appoint.adapters.EventAppointmentsAdapter
 import com.bachelor.appoint.model.Appointment
 import com.bachelor.appoint.model.Event
 import com.bachelor.appoint.model.User
 import com.bachelor.appoint.ui.AppointmentsListFragment
 import com.bachelor.appoint.utils.Constants
 import com.bachelor.appoint.viewModel.AppointmentsViewModel
-import com.google.android.gms.common.api.Scope
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
-import kotlinx.coroutines.awaitAll
 
 class FirestoreClass {
 
@@ -59,13 +58,13 @@ class FirestoreClass {
         return currentUserID
     }
 
-    fun getUserDetails(activity: Activity) {
+    fun getUserDetails(activity: Activity? = null) {
         firestoreAdapter.collection(Constants.USERS)
             .document(getCurrentUserID())
             .get()
             .addOnSuccessListener { document ->
 
-                Log.i(activity.javaClass.simpleName, document.toString())
+                Log.i(activity!!.javaClass.simpleName, document.toString())
 
                 // Here we have received the document snapshot which is converted into the User Data model object
                 val user = document.toObject(User::class.java)!!
@@ -92,6 +91,7 @@ class FirestoreClass {
                         activity.userLoggedInSuccess(user)
                     }
                 }
+
             }
     }
 
@@ -196,6 +196,24 @@ class FirestoreClass {
             }
     }
 
+    fun getUserVaccinationDetails(userID: String, adapter: Any? = null, holder: Any? = null) {
+        firestoreAdapter.collection(Constants.USERS)
+            .document(userID)
+            .get()
+            .addOnSuccessListener {
+                val user = it.toObject(User::class.java)!!
+
+                if (adapter != null && adapter is EventAppointmentsAdapter) {
+                    adapter.successGetUserInfo(
+                        user,
+                        holder as EventAppointmentsAdapter.AppointmentsViewHolder
+                    )
+                }
+                else if (holder != null && holder is EventAppointmentsAdapter.AppointmentsViewHolder)
+                    holder.setUserDetails(user)
+            }
+
+    }
 
     fun denyAppointment(id: String) {
         // Method that sets the status of the appointment to "canceled"

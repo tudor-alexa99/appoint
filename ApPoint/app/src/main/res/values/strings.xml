@@ -60,6 +60,7 @@
     <string name="take_a_new_picture">Take a new picture</string>
     <string name="upload_from_device">Upload from device</string>
     <string name="save_changes">Save changes</string>
+    <string name="status">Status</string>
 
     <string-array name="event_types">
         <item>Dining</item>

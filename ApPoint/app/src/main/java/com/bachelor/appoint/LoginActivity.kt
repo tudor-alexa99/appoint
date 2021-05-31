@@ -8,7 +8,6 @@ import android.text.TextUtils
 import android.util.Log
 import android.view.WindowInsets
 import android.view.WindowManager
-import android.widget.TextView
 import android.widget.Toast
 import com.bachelor.appoint.data.FirestoreClass
 import com.bachelor.appoint.databinding.ActivityLoginBinding
