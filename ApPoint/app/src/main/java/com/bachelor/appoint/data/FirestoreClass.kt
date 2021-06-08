@@ -103,6 +103,7 @@ class FirestoreClass {
         date: String,
         eventId: String,
         eventName: String,
+        eventType: String,
         userName: String,
         risk: Int
     ) {
@@ -117,6 +118,7 @@ class FirestoreClass {
                 getCurrentUserID(),
                 eventId,
                 eventName,
+                eventType,
                 startTime,
                 date,
                 false,
@@ -574,6 +576,26 @@ class FirestoreClass {
                     }
                 }
 
+            }
+    }
+
+    fun retrieveLast48HUserAppointments(activity: Activity) {
+        // retrieves all the event the user attended in the last 48 hours
+
+        firestoreAdapter.collection(Constants.APPOINTMENTS)
+            .whereEqualTo("u_id", getCurrentUserID())
+            .get()
+            .addOnSuccessListener {
+                val list = ArrayList<Appointment>()
+
+                for (d in it.documents) {
+                    val appointment = d.toObject(Appointment::class.java)!!
+                    list.add(appointment)
+                }
+
+                when (activity) {
+                    is ReportActivity -> activity.successLast48HAppointmenttts(list)
+                }
             }
     }
 }

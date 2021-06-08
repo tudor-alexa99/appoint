@@ -7,6 +7,7 @@ class Appointment(
     val u_id: String = "",
     val e_id: String = "",
     val event: String = "",
+    val eventType: String = "",
     var startTime: String = "",
     var date: String = "",
     var completed: Boolean = false,

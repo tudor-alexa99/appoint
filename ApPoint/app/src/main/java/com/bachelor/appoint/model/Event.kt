@@ -18,4 +18,5 @@ class Event(
     val date: String = "",
     val time: String = "",
     var id: String = "",
+    var completed: Boolean = false,
 ) : Parcelable

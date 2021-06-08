@@ -94,7 +94,7 @@ class EventDetailsActivity : AppCompatActivity() {
             Log.i("Event", event.date)
 
             // Create an appointment for the given event
-            FirestoreClass().addAppointment(event.time, event.date, event.id, event.name, userName, event.estimatedRisk)
+            FirestoreClass().addAppointment(event.time, event.date, event.id, event.name,event.type, userName, event.estimatedRisk)
 
             // When clicked, hide it and show the other button
             makeButton.animate().alpha(0.0f)

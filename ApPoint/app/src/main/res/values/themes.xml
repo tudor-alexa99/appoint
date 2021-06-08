@@ -4,7 +4,7 @@
         <!-- Primary brand color. -->
         <item name="colorPrimary">#9A576E</item>
         <item name="colorPrimaryVariant">@color/event_dark</item>
-        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorOnPrimary">@color/appointments_background</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/retro_baby_blue</item>
         <item name="colorSecondaryVariant">@color/teal</item>
