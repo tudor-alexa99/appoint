@@ -1,6 +1,13 @@
 package com.bachelor.appoint.helpers
 
+import android.content.ContentValues.TAG
 import android.util.Log
+import com.bachelor.appoint.data.FirestoreClass
+import com.bachelor.appoint.model.Risk
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import java.text.Format
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
@@ -46,21 +53,28 @@ class StatisticsHelper {
         )
     )
 
+    fun getEstimatedRisk() {
+
+    }
+
 
     fun computeEstimatedRisk(
         type: String,
         estimatedSurface: Int,
         seatsNumber: Int,
         estimatedTime: String,
-        openSpace: Boolean
+        openSpace: Boolean,
+        riskValues: java.util.ArrayList<Risk>
     ): Int {
-        // Returns the estimated risk associated with a event
+
+        val riskValue: Int
 
         // Get the predefined value
-        val key = associatedRisk.filterValues { it.contains(type) }.keys.toList()[0]
+//        val value = associatedRisk.filterValues { it.contains(type) }.keys.toList()[0]
+        val value = riskValues.find { risk -> risk.type == type }?.value
 
         // get the average space for each person. Anything less than 2 square meters will increase the risk.
-        val userSpace: Double = (estimatedSurface.toDouble()/seatsNumber)
+        val userSpace: Double = (estimatedSurface.toDouble() / seatsNumber)
 
         // openSpaceValue will be: 0.5 if true, 1 if false
         val openSpaceValue: Double = when (openSpace) {
@@ -72,12 +86,12 @@ class StatisticsHelper {
         val hours = formatTime(estimatedTime)
 
         // Formula will be: 2 * risk * ( 2 / userSpace) * (estimatedTime / 0.5) * openSpace %
-        val risk = (2 * key * (2.0 / userSpace) * (hours / 0.5) * openSpaceValue)
+        val risk = (2 * value!! * (2.0 / userSpace) * (hours / 0.5) * openSpaceValue)
 
         Log.d("Estimated Risk", risk.toString())
-        return risk.toInt()
+        riskValue = risk.toInt()
 
-
+        return riskValue
     }
 
     fun formatTime(estimatedTime: String): Double {
@@ -85,5 +99,13 @@ class StatisticsHelper {
         val hours: Double = time.hour + (time.minute.toDouble() / 60)
         return hours
     }
+
+//    fun successRetrieveRisks(list: java.util.ArrayList<Risk>) {
+//        this.riskValues = list
+//    }
+//
+//    fun setValues(riskValues: java.util.ArrayList<Risk>) {
+//        this.riskValues = riskValues
+//    }
 
 }

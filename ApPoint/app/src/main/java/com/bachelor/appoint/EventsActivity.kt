@@ -2,7 +2,6 @@ package com.bachelor.appoint
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -22,6 +21,7 @@ import com.bachelor.appoint.databinding.ActivityEventsBinding
 import com.bachelor.appoint.databinding.FragmentAddEventAlertBinding
 import com.bachelor.appoint.helpers.StatisticsHelper
 import com.bachelor.appoint.model.Event
+import com.bachelor.appoint.model.Risk
 import com.bachelor.appoint.ui.AppointmentsListFragment
 import com.bachelor.appoint.ui.EventInformationFragment
 import com.bachelor.appoint.utils.Constants
@@ -62,11 +62,12 @@ class EventsActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener,
         // Retrieve the list
         getEventList()
 
+
         // Add event button
         binding.btnAddEvent.setOnClickListener {
             print("Button clicked")
             Log.d("Add event button clicked", "Event Activity")
-            openAlertDialog()
+            FirestoreClass().retrieveRiskValues(activity = this)
         }
 
         itemTouchHelper.attachToRecyclerView(binding.rvEvent)
@@ -81,12 +82,15 @@ class EventsActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener,
 
     // ADD
 
-    fun openAlertDialog() {
+    fun openAlertDialog(riskValues: ArrayList<Risk>) {
         val builder = AlertDialog.Builder(this)
         builder.setTitle("Add new event")
         val alertBinding = FragmentAddEventAlertBinding.inflate(layoutInflater)
         val alertView = alertBinding.root
         builder.setView(alertView)
+
+        // Set the retrieved risk values to the helper class
+//        StatisticsHelper().setValues(riskValues)
 
         // initialise the spinner
         val spinner = alertBinding.spEventTypes
@@ -122,7 +126,8 @@ class EventsActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener,
                 estimatedSurface,
                 maxSeatsNumber,
                 duration,
-                openSpace
+                openSpace,
+                riskValues
             )
 
             FirestoreClass().addEvent(
@@ -214,26 +219,6 @@ class EventsActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener,
         recyclerView.setHasFixedSize(true)
         recyclerView.adapter = eventAdapter
 
-    }
-
-    // Used for focusing on the list when scrolling vertically
-    private fun scrollToPosition(direction: Int) {
-        // direction: -1 -> left, 1 -> right
-
-//        val eventId = "someId"
-//        val position: Int = eventAdapter.getItemPosition(eventId)
-//        if (position >= 0) {
-//            binding.rvEvent.scrollToPosition(position)
-//        }
-
-        if (direction == 1) {
-            eventAdapter.nextPosition()
-            binding.rvEvent.scrollToPosition(eventAdapter.getCurrentPosition())
-        }
-        if (direction == -1) {
-            eventAdapter.previousPosition()
-            binding.rvEvent.scrollToPosition(eventAdapter.getCurrentPosition())
-        }
     }
 
     var itemTouchHelper = ItemTouchHelper(

@@ -15,6 +15,7 @@ object Constants {
     const val EVENTS: String = "events"
     const val PICK_IMAGE_REQUEST_CODE = 1
     const val IMAGE: String = "image"
+    const val RISKS: String = "risks"
 
     fun getFileExtension(activity: Activity, uri: Uri?): String? {
         return MimeTypeMap.getSingleton()

@@ -1,6 +1,7 @@
 package com.bachelor.appoint.data
 
 import android.app.Activity
+import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.SharedPreferences
 import android.net.Uri
@@ -11,6 +12,7 @@ import com.bachelor.appoint.*
 import com.bachelor.appoint.adapters.EventAppointmentsAdapter
 import com.bachelor.appoint.model.Appointment
 import com.bachelor.appoint.model.Event
+import com.bachelor.appoint.model.Risk
 import com.bachelor.appoint.model.User
 import com.bachelor.appoint.ui.AppointmentsListFragment
 import com.bachelor.appoint.utils.Constants
@@ -547,5 +549,31 @@ class FirestoreClass {
                 }
 
         }
+    }
+
+    fun retrieveRiskValues(activity: Activity?) {
+
+        firestoreAdapter.collection(Constants.RISKS)
+            .addSnapshotListener { document, error ->
+                if (error != null)
+                    Log.e(TAG, error.message.toString())
+
+                val list: ArrayList<Risk> = ArrayList()
+
+                if (document != null) {
+                    for (d in document.documents) {
+
+                        val risk = d.toObject(Risk::class.java)!!
+                        list.add(risk)
+                    }
+                }
+
+                when  (activity) {
+                    is EventsActivity -> {
+                        activity.openAlertDialog(list)
+                    }
+                }
+
+            }
     }
 }
