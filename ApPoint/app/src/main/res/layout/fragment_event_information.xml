@@ -233,7 +233,7 @@
                         android:layout_height="107dp"
                         android:layout_marginTop="36dp"
                         android:background="@drawable/bg_rounded_simple"
-                        android:text="@string/average_time_spent"
+                        android:text="@string/event_duration"
                         android:textAlignment="center"
                         android:gravity="center"
                         app:layout_constraintEnd_toEndOf="@+id/tv_bi_address"

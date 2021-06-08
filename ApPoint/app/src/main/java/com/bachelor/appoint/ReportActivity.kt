@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.appcompat.app.AlertDialog
 import com.bachelor.appoint.data.FirestoreClass
 import com.bachelor.appoint.databinding.ActivityReportBinding
 import com.github.aachartmodel.aainfographics.aachartcreator.AAChartModel
@@ -31,6 +32,18 @@ class ReportActivity : AppCompatActivity() {
         // set the button actions
         this.setPhotoButton()
 
+    }
+
+    private fun setReportButton() {
+        // create an alert dialog that will ask for the user to confirm contamination
+        // when confirmed, all the appointments made within the next 2 weeks will be cancelled
+        // all the types of events that took place in the past 48 hours will have an incremented risk value
+
+        binding.btnReportContact.setOnClickListener {
+            val builder: AlertDialog.Builder
+
+
+        }
     }
 
     private fun setPhotoButton() {

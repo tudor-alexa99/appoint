@@ -37,6 +37,8 @@
     <color name="ellipse_blue">#5E75EC</color>
     <color name="transparent_15">#4D000000</color>
 
+    <color name="transparent_10">#1A000000</color>
+
     <color name="reports_dark">#9E3E3E</color>
     <color name="reports_medium">#C7958C</color>
     <color name="reports_light">#E2D8CA</color>

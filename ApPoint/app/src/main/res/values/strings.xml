@@ -33,7 +33,7 @@
     <string name="phone_number">Phone number</string>
     <string name="save">Save</string>
     <string name="type">Event Type</string>
-    <string name="show_places">Show Places</string>
+    <string name="upcoming_events">Upcoming events</string>
     <string name="all_places">All available places</string>
     <string name="about_event">About Event</string>
     <string name="choose_a_time">Choose a date and a time</string>
@@ -41,13 +41,14 @@
     <string name="estimated_surface">Estimated Surface</string>
     <string name="seats_number">Seats Number</string>
     <string name="open_space">Open Space</string>
-    <string name="hh_mm">hh:mm</string>
+    <string name="hh_mm">Event duration (hh:mm)</string>
     <string name="score">Score</string>
     <string name="event_type">Event type</string>
     <string name="available_area_for_each_person">Available area for each person</string>
     <string name="average_time_spent">Average Time Spent</string>
+    <string name="event_duration">Event duration</string>
     <string name="user_name">User Name</string>
-    <string name="swipe_up_for_event_details_n_swipe_down_for_appointments_list">Swipe up for event details.<br /> Swipe down for appointments list</string>
+    <string name="swipe_up_for_event_details_n_swipe_down_for_appointments_list">Swipe up on the above cards for event details.<br /> Swipe down for appointments list</string>
     <string name="tap_on_this_button_to_create_a_new_entry">Tap on this button to create a new entry</string>
     <string name="quick_actions">Quick Actions</string>
     <string name="more_info">More info</string>
