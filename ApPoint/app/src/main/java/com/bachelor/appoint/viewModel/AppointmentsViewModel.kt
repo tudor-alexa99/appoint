@@ -15,7 +15,7 @@ class AppointmentsViewModel() : ViewModel() {
 
     fun getAppointments() : LiveData<List<Appointment>> {
         if (liveAppointments.value == null) {
-            FirestoreClass().retrieveUserAppointments(this)
+            FirestoreClass().retrieveUserAppointments(this, activity = null)
         }
 
         return liveAppointments

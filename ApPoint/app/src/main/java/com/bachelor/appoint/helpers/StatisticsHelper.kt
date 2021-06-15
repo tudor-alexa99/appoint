@@ -1,16 +1,16 @@
 package com.bachelor.appoint.helpers
 
-import android.content.ContentValues.TAG
+import android.content.ContentValues
 import android.util.Log
-import com.bachelor.appoint.data.FirestoreClass
 import com.bachelor.appoint.model.Risk
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.awaitAll
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
-import java.text.Format
+import java.time.Duration
+import java.time.LocalDate
+import java.time.LocalDateTime
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
+import java.time.format.DateTimeFormatterBuilder
+import java.time.temporal.ChronoField
+import java.util.*
 
 // Class that will be used to compute statistics: Event Risk value and contamination chance
 class StatisticsHelper {
@@ -21,6 +21,8 @@ class StatisticsHelper {
     * - The estimated time people spend on average
     * - The number of people that can be seated, divided by the total surface
     */
+    private lateinit var formatter: DateTimeFormatter
+    private lateinit var currentTimeFormatter: DateTimeFormatter
 
     private val associatedRisk = mapOf<Int, Array<String>>(
         1 to arrayOf(
@@ -53,10 +55,6 @@ class StatisticsHelper {
         )
     )
 
-    fun getEstimatedRisk() {
-
-    }
-
 
     fun computeEstimatedRisk(
         type: String,
@@ -85,8 +83,8 @@ class StatisticsHelper {
         // Format estimated time
         val hours = formatTime(estimatedTime)
 
-        // Formula will be: 2 * risk * ( 2 / userSpace) * (estimatedTime / 0.5) * openSpace %
-        val risk = (2 * value!! * (2.0 / userSpace) * (hours / 0.5) * openSpaceValue)
+        // Formula will be: risk * ( 4 / userSpace) * (estimatedTime / 0.5) * openSpace %
+        val risk = (value!! * (4.0 / userSpace) * (hours / 0.5) * openSpaceValue)
 
         Log.d("Estimated Risk", risk.toString())
         riskValue = risk.toInt()
@@ -94,18 +92,59 @@ class StatisticsHelper {
         return riskValue
     }
 
+    fun initFormatters() {
+
+        val dateTimeBuilder: DateTimeFormatterBuilder = DateTimeFormatterBuilder()
+            .appendPattern("[dd/MM/yyyy H:mm]")
+            .appendPattern("[dd/MM/yyyy H:m]")
+            .appendPattern("[d/MM/yyyy H:mm]")
+            .appendPattern("[d/MM/yyyy H:m]")
+            .appendPattern("[dd/M/yyyy H:mm]")
+            .appendPattern("[dd/M/yyyy H:m]")
+            .appendPattern("[d/M/yyyy H:mm]")
+            .appendPattern("[d/M/yyyy H:m]")
+
+        formatter = dateTimeBuilder.toFormatter()
+        currentTimeFormatter = DateTimeFormatter.ofPattern("[dd/MM/yyyy H:mm]")
+
+//
+//        val time3 = LocalDate.parse("1/12/2021", formatter)
+//
+//        val time2 = LocalDateTime.parse("21/06/2021 10:30", formatter)
+//        val time1 = LocalDateTime.parse("22/06/2021 10:30", formatter)
+//
+//
+//        var diff: Duration = Duration.between(time1, time2)
+//        Log.d("Duration", diff.toHours().toString())
+
+//        Log.d("CurrentTime", LocalDateTime.parse("16/6/2021 10:30", formatter).toString())
+    }
+
+
+    fun getTimeDifference(date: String, time: String): Duration? {
+        // check if the formatters are not initialised
+        if (!this::formatter.isInitialized || !this::currentTimeFormatter.isInitialized) {
+            initFormatters()
+        }
+
+        // merge the time and date
+        val eventTimeString = "$date $time"
+        val eventTime = LocalDateTime.parse(eventTimeString, formatter)
+
+        // get the current time and date
+        val currentDateTime = LocalDateTime.parse(
+            LocalDateTime.now().format(currentTimeFormatter),
+            currentTimeFormatter
+        )
+
+        // return the time difference
+        return Duration.between(currentDateTime, eventTime)
+    }
+
     fun formatTime(estimatedTime: String): Double {
         val time = LocalTime.parse(estimatedTime, DateTimeFormatter.ofPattern("H:mm"))
         val hours: Double = time.hour + (time.minute.toDouble() / 60)
         return hours
     }
-
-//    fun successRetrieveRisks(list: java.util.ArrayList<Risk>) {
-//        this.riskValues = list
-//    }
-//
-//    fun setValues(riskValues: java.util.ArrayList<Risk>) {
-//        this.riskValues = riskValues
-//    }
 
 }

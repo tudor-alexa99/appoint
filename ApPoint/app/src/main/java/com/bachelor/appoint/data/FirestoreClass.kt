@@ -20,6 +20,7 @@ import com.bachelor.appoint.viewModel.AppointmentsViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
+import com.google.firebase.firestore.ktx.getField
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 
@@ -140,7 +141,7 @@ class FirestoreClass {
             }
     }
 
-    fun retrieveUserAppointments(viewModel: AppointmentsViewModel) {
+    fun retrieveUserAppointments(viewModel: AppointmentsViewModel?, activity: Activity?) {
 //        Method that retrieves all the appointments of the current user
 
         firestoreAdapter.collection(Constants.APPOINTMENTS)
@@ -165,6 +166,9 @@ class FirestoreClass {
                             viewModel.successRetrieveAppointments(list)
                         }
                     }
+
+                    if (activity != null && activity is ReportActivity)
+                        activity.successRetrieveUserAppointments(list)
 
                 }
             }
@@ -332,6 +336,7 @@ class FirestoreClass {
                     val event = snapshot.toObject(Event::class.java)!!
                     when (activity) {
                         is EventDetailsActivity -> activity.successObserveEvent(event)
+                        is ReportActivity -> activity.successRetrieveEvent(event)
                     }
                 }
 
@@ -570,7 +575,7 @@ class FirestoreClass {
                     }
                 }
 
-                when  (activity) {
+                when (activity) {
                     is EventsActivity -> {
                         activity.openAlertDialog(list)
                     }
@@ -579,23 +584,19 @@ class FirestoreClass {
             }
     }
 
-    fun retrieveLast48HUserAppointments(activity: Activity) {
-        // retrieves all the event the user attended in the last 48 hours
-
-        firestoreAdapter.collection(Constants.APPOINTMENTS)
-            .whereEqualTo("u_id", getCurrentUserID())
+    fun increaseRisk(type: String, percentage: Double) {
+        val reference = firestoreAdapter.collection(Constants.RISKS)
+            .whereEqualTo("type", type)
             .get()
             .addOnSuccessListener {
-                val list = ArrayList<Appointment>()
+                val document = it.documents[0]
 
-                for (d in it.documents) {
-                    val appointment = d.toObject(Appointment::class.java)!!
-                    list.add(appointment)
-                }
+                val risk = document.toObject(Risk::class.java)
 
-                when (activity) {
-                    is ReportActivity -> activity.successLast48HAppointmenttts(list)
-                }
+                val newRisk = risk!!.value * percentage
+
+                document.reference.update("value", newRisk)
             }
     }
+
 }

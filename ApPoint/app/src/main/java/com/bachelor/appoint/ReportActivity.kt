@@ -8,10 +8,16 @@ import android.util.Log
 import androidx.appcompat.app.AlertDialog
 import com.bachelor.appoint.data.FirestoreClass
 import com.bachelor.appoint.databinding.ActivityReportBinding
+import com.bachelor.appoint.helpers.StatisticsHelper
 import com.bachelor.appoint.model.Appointment
+import com.bachelor.appoint.model.Event
 import com.github.aachartmodel.aainfographics.aachartcreator.AAChartModel
 import com.github.aachartmodel.aainfographics.aachartcreator.AAChartType
 import com.github.aachartmodel.aainfographics.aachartcreator.AASeriesElement
+import java.time.Duration
+import java.time.LocalTime
+import java.time.format.DateTimeFormatter
+import java.time.temporal.TemporalAccessor
 import java.util.ArrayList
 
 class ReportActivity : AppCompatActivity() {
@@ -51,10 +57,9 @@ class ReportActivity : AppCompatActivity() {
 
         builder.setPositiveButton("Confirm") { _, _ ->
             Log.d(TAG, "Confirm clicked")
-
             // First, retrieve all the events the user has attended in the last 48 hours
 
-            FirestoreClass().retrieveLast48HUserAppointments(this)
+            FirestoreClass().retrieveUserAppointments(viewModel = null, activity = this)
         }
 
         builder.setNegativeButton("Cancel") { _, _ ->
@@ -121,10 +126,47 @@ class ReportActivity : AppCompatActivity() {
 
     }
 
-    fun successLast48HAppointmenttts(list: ArrayList<Appointment>) {
+    fun successRetrieveUserAppointments(list: ArrayList<Appointment>) {
         // takes all the appointments of the current user, and checks which ones took place
         // in the last 48 hours. If found, their associated type will have an increase in risk value
 
+        for (app in list) {
+            // get the time difference between now and the time the event took place
+            val difference = StatisticsHelper().getTimeDifference(app.date, app.startTime)
 
+            StatisticsHelper().initFormatters()
+
+            // if the event took place in the last 48 hours, increase the risk value
+            if (difference != null) {
+                if (difference.toHours() in -48..0)
+                    increaseRiskValue(app.e_id)
+                else
+                // if the appointment is made for an upcoming event taking place in the next 14 days, cancel the appointment
+                    if (difference.toDays() in 0..14)
+                        cancelAppointment(app)
+
+            }
+        }
+
+    }
+
+    private fun cancelAppointment(appointment: Appointment) {
+        FirestoreClass().denyAppointment(appointment.id)
+    }
+
+    private fun increaseRiskValue(eventID: String) {
+        // first, get the corresponding event
+        FirestoreClass().getEventDetails(eventID, this)
+    }
+
+    fun successRetrieveEvent(event: Event) {
+        // when an event is successfully retrieved, compute the risk percentage and increase the value
+
+        // for example, if 1 out of 50 people gets contaminated, meaning 2% of the total participants
+        // the associated risk value will be increased to 102%
+        val percentage = ((1.0 / event.seatsNumber) * 100 + 100) / 100
+
+        // set the new value
+        FirestoreClass().increaseRisk(event.type, percentage)
     }
 }
