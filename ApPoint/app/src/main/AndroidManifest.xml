@@ -23,8 +23,8 @@
         <activity android:name=".ReportActivity" />
         <activity android:name=".EventsActivity" />
         <activity android:name=".MyAppointmentsActivity" />
-        <activity android:name=".MainActivity"/>
-        <activity android:name=".RegisterActivity" >
+        <activity android:name=".RegisterActivity" />
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
