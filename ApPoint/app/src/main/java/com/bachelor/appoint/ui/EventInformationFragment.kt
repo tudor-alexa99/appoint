@@ -96,6 +96,12 @@ class EventInformationFragment : Fragment() {
         // set the address
         binding.tvBiAddressVal.text = event!!.location
 
+        // set the time
+        binding.tvEventTime.text = "Time: " + event!!.time
+
+        // set the date
+        binding.tvEventDate.text = "Date: " + event!!.date
+
     }
 
     companion object {
