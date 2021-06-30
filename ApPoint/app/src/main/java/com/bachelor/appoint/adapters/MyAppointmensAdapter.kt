@@ -58,8 +58,10 @@ class MyAppointmensAdapter(
         return appointments.size
     }
 
-    fun setAppointments(appointments: List<Appointment>?) {
-        this.appointments = appointments as MutableList<Appointment>
+    fun setAppointments(_appointments: List<Appointment>?) {
+        this.appointments = mutableListOf()
+        this.appointments = _appointments as MutableList<Appointment>
+        this.appointments.sortBy { it.date }
         notifyDataSetChanged()
     }
 

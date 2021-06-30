@@ -3,6 +3,7 @@ package com.bachelor.appoint
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.os.Bundle
+import android.text.TextUtils
 import android.util.Log
 import android.view.View
 import android.widget.ArrayAdapter
@@ -112,38 +113,98 @@ class EventsActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener,
         })
 
         builder.setPositiveButton(android.R.string.yes) { dialog, which ->
-            val name: String = alertBinding.etEventName.text.toString()
-            val address: String = alertBinding.etEventAddress.text.toString()
-            val phoneNumber: String = alertBinding.etPhone.text.toString()
-            val type: String = spinner.selectedItem.toString()
-            val estimatedSurface: Int = alertBinding.etEstimatedSurface.text.toString().toInt()
-            val maxSeatsNumber: Int = alertBinding.etSeatsNumber.text.toString().toInt()
-            val duration: String = alertBinding.etTimeSpent.text.toString()
-            val openSpace: Boolean = alertBinding.swiOpenSpace.isChecked
 
-            val estimatedRisk = StatisticsHelper().computeEstimatedRisk(
-                type,
-                estimatedSurface,
-                maxSeatsNumber,
-                duration,
-                openSpace,
-                riskValues
-            )
+            when {
+                // Event Name
+                TextUtils.isEmpty(alertBinding.etEventName.text.toString().trim { it <= ' ' }) -> {
+                    Toast.makeText(
+                        this@EventsActivity,
+                        "Please enter the event name",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
 
-            FirestoreClass().addEvent(
-                this,
-                name,
-                address,
-                phoneNumber,
-                type,
-                estimatedSurface,
-                maxSeatsNumber,
-                openSpace,
-                estimatedRisk,
-                duration,
-                _date,
-                _time
-            )
+                // Address
+                TextUtils.isEmpty(alertBinding.etEventAddress.text.toString().trim { it <= ' ' }) -> {
+                    Toast.makeText(
+                        this@EventsActivity,
+                        "Please enter an Address",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+
+                // Phone number
+                TextUtils.isEmpty(alertBinding.etPhone.text.toString().trim { it <= ' ' }) -> {
+                    Toast.makeText(
+                        this@EventsActivity,
+                        "Please enter the phone number",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+
+                // Estimated surface
+                TextUtils.isEmpty(alertBinding.etEstimatedSurface.text.toString().trim { it <= ' ' }) -> {
+                    Toast.makeText(
+                        this@EventsActivity,
+                        "Please enter the estimated surface",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+
+                // Seats number
+                TextUtils.isEmpty(alertBinding.etSeatsNumber.text.toString().trim { it <= ' ' }) -> {
+                    Toast.makeText(
+                        this@EventsActivity,
+                        "Please enter the seats number",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                // Event duration
+                TextUtils.isEmpty(alertBinding.etTimeSpent.text.toString().trim { it <= ' ' }) -> {
+                    Toast.makeText(
+                        this@EventsActivity,
+                        "Please enter the event duration (in `hh:mm` format)",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+
+                else -> {
+
+                    val name: String = alertBinding.etEventName.text.toString()
+                    val address: String = alertBinding.etEventAddress.text.toString()
+                    val phoneNumber: String = alertBinding.etPhone.text.toString()
+                    val type: String = spinner.selectedItem.toString()
+                    val estimatedSurface: Int =
+                        alertBinding.etEstimatedSurface.text.toString().toInt()
+                    val maxSeatsNumber: Int = alertBinding.etSeatsNumber.text.toString().toInt()
+                    val duration: String = alertBinding.etTimeSpent.text.toString()
+                    val openSpace: Boolean = alertBinding.swiOpenSpace.isChecked
+
+                    val estimatedRisk = StatisticsHelper().computeEstimatedRisk(
+                        type,
+                        estimatedSurface,
+                        maxSeatsNumber,
+                        duration,
+                        openSpace,
+                        riskValues
+                    )
+
+                    FirestoreClass().addEvent(
+                        this,
+                        name,
+                        address,
+                        phoneNumber,
+                        type,
+                        estimatedSurface,
+                        maxSeatsNumber,
+                        openSpace,
+                        estimatedRisk,
+                        duration,
+                        _date,
+                        _time
+                    )
+                }
+            }
         }
 
         builder.setNegativeButton(android.R.string.cancel) { dialog, which ->

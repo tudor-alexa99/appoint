@@ -55,16 +55,16 @@ class MyAppointmentsActivity : AppCompatActivity() {
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-
-        val appointmentsViewModel: AppointmentsViewModel by viewModels()
-
-        appointmentsViewModel.getAppointments().observe(this, Observer { appointments ->
-            appointmentsAdapter.setAppointments(appointments)
-        })
-
-    }
+//    override fun onResume() {
+//        super.onResume()
+//
+//        val appointmentsViewModel: AppointmentsViewModel by viewModels()
+//
+//        appointmentsViewModel.getAppointments().observe(this, Observer { appointments ->
+//            appointmentsAdapter.setAppointments(appointments)
+//        })
+//
+//    }
 
     fun successRetrieveAppointemnts(list: ArrayList<Appointment>) {
         appointmentsAdapter.setAppointments(list)

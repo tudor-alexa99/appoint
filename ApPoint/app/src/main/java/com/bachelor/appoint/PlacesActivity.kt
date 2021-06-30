@@ -32,6 +32,13 @@ class PlacesActivity : AppCompatActivity() {
     }
 
     fun successRetrievePlaces(placesList: java.util.ArrayList<Event>) {
+        // filter such that only the upcoming events show up
+        placesList.filter { !it.completed }
+
+        //sort by date
+        placesList.sortBy { it.date }
+
+        // set the value
         this.placesList = placesList
 
         // Set the recycler view as well

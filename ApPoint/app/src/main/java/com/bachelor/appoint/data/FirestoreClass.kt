@@ -233,6 +233,9 @@ class FirestoreClass {
         firestoreAdapter.collection(Constants.APPOINTMENTS)
             .document(id)
             .update("status", "accepted")
+            .addOnFailureListener {
+
+            }
     }
 
     fun checkForExistingAppointment(eventID: String, activity: Activity) {
@@ -309,19 +312,10 @@ class FirestoreClass {
             .addOnSuccessListener { documentReference ->
                 // Add the id
                 documentReference.update("id", documentReference.id)
-
-                // Add the event id to the user
-                firestoreAdapter.collection(Constants.USERS)
-                    .document(getCurrentUserID())
-                    .collection(Constants.EVENTS)
-                    .document(documentReference.id)
-                    .set(mapOf(documentReference.id to event.name), SetOptions.merge())
-                    .addOnSuccessListener {
-                        activity.addEventSuccess()
-                    }
-                    .addOnFailureListener { e ->
-                        Log.e("Add Event", e.toString())
-                    }
+                activity.addEventSuccess()
+            }
+            .addOnFailureListener { e ->
+                Log.e("Add Event", e.toString())
             }
     }
 
@@ -422,12 +416,19 @@ class FirestoreClass {
 
                     Log.d(activity.javaClass.simpleName, document.documents.toString())
                     val list: ArrayList<Int> = ArrayList()
+                    val appList: ArrayList<Appointment> = ArrayList()
 
                     for (d in document.documents) {
-
                         val eventAppointment = d.toObject(Appointment::class.java)!!
-                        list.add(eventAppointment.risk)
+
+                        appList.add(eventAppointment)
                     }
+
+                    // sort ascending by date
+                    appList.sortBy { it.date }
+
+                    for (appointment in appList)
+                        list.add(appointment.risk)
 
                     when (activity) {
                         is ReportActivity -> {
@@ -455,12 +456,22 @@ class FirestoreClass {
 
                     Log.d(activity.javaClass.simpleName, document.documents.toString())
                     val list: ArrayList<Int> = ArrayList()
+                    val appList: ArrayList<Appointment> = ArrayList()
 
                     for (d in document.documents) {
 
                         val eventAppointment = d.toObject(Appointment::class.java)!!
-                        list.add(eventAppointment.risk)
+
+                        // sort the list descending according to date
+
+                        appList.add(eventAppointment)
                     }
+
+                    // sort descending by date
+                    appList.sortByDescending { it.date }
+
+                    for (appointment in appList)
+                        list.add(appointment.risk)
 
                     when (activity) {
                         is ReportActivity -> {
