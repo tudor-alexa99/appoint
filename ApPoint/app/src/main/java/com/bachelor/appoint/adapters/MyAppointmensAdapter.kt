@@ -49,6 +49,7 @@ class MyAppointmensAdapter(
         )
     }
 
+
     override fun onBindViewHolder(holder: AppointmentsViewHolder, position: Int) {
         holder.binding.appointmentCard.setOnClickListener { Log.d("tag", "clicked") }
         holder.bindView(appointments[position])
