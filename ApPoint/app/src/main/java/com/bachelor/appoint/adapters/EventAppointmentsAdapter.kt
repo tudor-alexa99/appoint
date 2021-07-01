@@ -35,11 +35,6 @@ class EventAppointmentsAdapter(
             tv_startTime.text = appointment.startTime
             binding.tvStatusValue.text = appointment.status
 
-//            when (appointment.status) {
-//                "pending" -> iv_status.setImageResource(R.drawable.ic_baseline_hourglass_bottom_24)
-//                "accepted" -> iv_status.setImageResource(R.drawable.ic_baseline_check_circle_outline_24)
-//                "cancelled" -> iv_status.setImageResource(R.drawable.ic_outline_cancel_24)
-//            }
 
             FirestoreClass().getUserVaccinationDetails(appointment.u_id, holder = this)
 
@@ -71,8 +66,6 @@ class EventAppointmentsAdapter(
 
                 builder.show()
 
-
-//                FirestoreClass().getUserDetails(adaper = this)
             }
         }
 
@@ -114,5 +107,4 @@ class EventAppointmentsAdapter(
     fun successGetUserInfo(user: User, holder: AppointmentsViewHolder) {
         holder.setUserDetails(user)
     }
-
 }

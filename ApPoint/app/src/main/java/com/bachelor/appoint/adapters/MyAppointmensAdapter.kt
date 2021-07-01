@@ -64,5 +64,4 @@ class MyAppointmensAdapter(
         this.appointments.sortBy { it.date }
         notifyDataSetChanged()
     }
-
 }

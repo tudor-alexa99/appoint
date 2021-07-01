@@ -609,5 +609,4 @@ class FirestoreClass {
                 document.reference.update("value", newRisk)
             }
     }
-
 }

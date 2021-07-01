@@ -48,23 +48,12 @@ class MyAppointmentsActivity : AppCompatActivity() {
 
         // Set the action button
         binding.btnShowPlaces.setOnClickListener {
-//            TODO: Start the new activity here. Show all the available places and create and appointment on click
             Log.d("My Appointments", "Show places button clicked")
             val intent = Intent(this, PlacesActivity::class.java)
             startActivity(intent)
         }
     }
 
-//    override fun onResume() {
-//        super.onResume()
-//
-//        val appointmentsViewModel: AppointmentsViewModel by viewModels()
-//
-//        appointmentsViewModel.getAppointments().observe(this, Observer { appointments ->
-//            appointmentsAdapter.setAppointments(appointments)
-//        })
-//
-//    }
 
     fun successRetrieveAppointemnts(list: ArrayList<Appointment>) {
         appointmentsAdapter.setAppointments(list)

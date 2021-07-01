@@ -56,7 +56,5 @@ class PhotoAppointmentActivity : AppCompatActivity() {
 
         // set the user image
         GlideLoader(this).loadUserPicture(imageURL.toUri(), binding.ivPhoto)
-
-//        binding.ivPhoto.setImageURI(imageURL.toUri())
     }
 }

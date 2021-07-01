@@ -10,11 +10,4 @@ import com.bachelor.appoint.model.Event
 class EventsViewModel(): ViewModel() {
     var businessesList = mutableListOf<Event>()
     var liveBusinesses: MutableLiveData<List<Event>> = MutableLiveData()
-
-
-//    fun getBusinesses(): LiveData<List<Business>> {
-//        if(liveBusinesses.value == null) {
-//            FirestoreClass().retrieveBusinesses()
-//        }
-//    }
 }

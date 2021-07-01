@@ -106,18 +106,6 @@ class StatisticsHelper {
 
         formatter = dateTimeBuilder.toFormatter()
         currentTimeFormatter = DateTimeFormatter.ofPattern("[dd/MM/yyyy H:mm]")
-
-//
-//        val time3 = LocalDate.parse("1/12/2021", formatter)
-//
-//        val time2 = LocalDateTime.parse("21/06/2021 10:30", formatter)
-//        val time1 = LocalDateTime.parse("22/06/2021 10:30", formatter)
-//
-//
-//        var diff: Duration = Duration.between(time1, time2)
-//        Log.d("Duration", diff.toHours().toString())
-
-//        Log.d("CurrentTime", LocalDateTime.parse("16/6/2021 10:30", formatter).toString())
     }
 
 
@@ -146,5 +134,4 @@ class StatisticsHelper {
         val hours: Double = time.hour + (time.minute.toDouble() / 60)
         return hours
     }
-
 }

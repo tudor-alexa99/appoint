@@ -122,6 +122,4 @@ class EventDetailsActivity : AppCompatActivity() {
         this.existingAppointment = b
         setActionButtons()
     }
-
-
 }

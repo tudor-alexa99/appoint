@@ -269,7 +269,7 @@ class EventsActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener,
         this.eventList = eventList
 
         // Set the recycler view as well
-        eventAdapter = EventsListAdapter(this, eventList)
+        eventAdapter = EventsListAdapter(eventList)
 
         var recyclerView = binding.rvEvent
         recyclerView.layoutManager = LinearLayoutManager(

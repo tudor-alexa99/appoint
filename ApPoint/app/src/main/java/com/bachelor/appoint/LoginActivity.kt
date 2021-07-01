@@ -50,7 +50,6 @@ class LoginActivity : AppCompatActivity() {
 
         binding.btnLogin.setOnClickListener {
             when {
-//                TODO: Move validations to a separate Base class
                 TextUtils.isEmpty(et_email.text.toString().trim { it <= ' ' }) -> {
                     Toast.makeText(
                         this@LoginActivity,
